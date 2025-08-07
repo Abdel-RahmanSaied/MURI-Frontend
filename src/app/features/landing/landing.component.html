@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class=" sizes customelements history pointerevents postmessage webgl websockets cssanimations csscolumns csscolumns-width csscolumns-span csscolumns-fill csscolumns-gap csscolumns-rule csscolumns-rulecolor csscolumns-rulestyle csscolumns-rulewidth csscolumns-breakbefore csscolumns-breakafter csscolumns-breakinside flexbox picture srcset webworkers"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+
+<body data-new-gr-c-s-check-loaded="14.1094.0" data-gr-ext-installed="">    
+
+    <!--====== PRELOADER PART START ======-->
+
+    <div class="loader-wrap" style="display: none;">
+        <div class="preloader"><div class="preloader-close">Preloader Close</div></div>
+        <div class="layer layer-one"><span class="overlay" style="left: 100%; transform: translate3d(0px, 0px, 0px);"></span></div>
+        <div class="layer layer-two"><span class="overlay" style="left: 100%; transform: translate3d(0px, 0px, 0px);"></span></div>        
+        <div class="layer layer-three"><span class="overlay" style="left: 100%; transform: translate3d(0px, 0px, 0px);"></span></div>        
+    </div>
+
+    <!--====== PRELOADER PART ENDS ======-->
+
+    <!--====== OFFCANVAS MENU PART START ======-->
+
+<div class="off_canvars_overlay" 
+     [class.active]="isMobileMenuOpen" 
+     (click)="onOverlayClick($event)">
+</div>
+    
+<div class="off_canvars_overlay" 
+     [class.active]="isMobileMenuOpen" 
+     (click)="onOverlayClick($event)">
+</div>
+    <div class="offcanvas_menu">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+<div class="offcanvas_menu_wrapper" [class.active]="isMobileMenuOpen">
+    <div class="canvas_close" (click)="closeMobileMenu()">
+                            <a href="javascript:void(0)"><i class="muri-close"></i></a>  
+                        </div>
+                        <div class="offcanvas-brand text-center mb-40">
+                            <img src="../../../assets/image/logo.png" alt="" class="logo">
+                        </div>
+                        <div id="menu" class="text-right">
+                            <ul class="offcanvas_main_menu">
+                                <li class="menu-item-has-children active top">
+                                    <a class="" href="index.html"> الرئيسية</a>
+                                </li>
+                                <li class="menu-item-has-children active">
+                                    <a href="index.html#service">حول موري</a>
+                                </li>
+                                <li class="menu-item-has-children active">
+                                    <a href="index.html#features">الميزات</a>
+                                </li>
+                                <li class="menu-item-has-children active">
+                                    <a href="index.html#questions">الأسئلة الشائعة</a>
+                                </li>
+                                <li class="menu-item-has-children active">
+                                    <a href="muriapp.html">من نحن؟</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="d-flex pt-12">
+                            <!-- <a class="main-btn" href="https://docs.google.com/forms/d/e/1FAIpQLSe2h9cl8TtC0XQktI9YQQZjnwAqFRutmUx_RCF3Sc0dw14IFg/viewform"> سجل معنا</a> -->
+                            <a class="main-btn" href="/signup"> سجل معنا</a>
+                        </div>
+                        <div class="offcanvas-social">
+                            <ul style="display: flex;" class="text-center justify-content-center">
+                                <li><a href="https://www.linkedin.com/company/muriapp/" target="_blank" style="display: flex;
+                                    justify-content: center;
+                                    align-items: center;"><img src="../../../assets/image/linkedin.svg" alt=""></a></li>
+                                <li><a href="https://twitter.com/MuriApp" target="_blank" style="display: flex;
+                                    justify-content: center;
+                                    align-items: center;"><img src="../../../assets/image/twitter.svg" alt=""></a></li>
+                                <li><a href="https://www.instagram.com/muri.app/" target="_blank" style="display: flex;
+                                    justify-content: center;
+                                    align-items: center;" ><img src="../../../assets/image/instagram.svg" alt=""></a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-widget-info">
+                            <ul class="text-center justify-content-center">
+                                <li><a href="mailto: info&#64;rapidshift.sa"><img src="../../../assets/image/email.svg" alt="" >info&#64;rapidshift.sa</a></li>
+                                <li><a href="https://api.whatsapp.com/send/?phone=%2B966534363917&text&type=phone_number&app_absent=0"><img src="../../../assets/image/whatsapp.svg" alt=""> +966534363917</a></li>
+                            </ul>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+  <!--====== Header ======-->
+    
+  <header class="appie-header-area appie-header-area-rtl appie-sticky">
+    <div class="container">
+        <div class="header-nav-box">
+            <div class="row align-items-center">
+                <div class="col-lg-2 col-md-4 col-sm-5 col-6 order-1 order-sm-1">
+                    <div class="appie-logo-box text-right">
+                        <a href="index.html">
+                            <img src="../../../assets/image/logo.png" alt="" class="logo">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-1 col-sm-1 order-3 order-sm-2">
+                    <div class="appie-header-main-menu">
+                        <ul>
+                            <li>
+                                <a class="top" href="index.html"> الرئيسية</a>
+                            </li>
+                            <li>
+                                <a class="top" href="index.html#service">حول موري</a>
+                            </li>
+                            <li> 
+                                <a class="top" href="index.html#features">الميزات  </a>
+                            </li>
+                            <li>
+                                <a class="top" href="index.html#questions" >الاسئلة الشائعة</a>
+                            </li>
+                            <li>
+                                <a class="top" href="muriapp.html" >من نحن؟</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4  col-md-7 col-sm-6 col-6 order-2 order-sm-3">
+                    <div class="appie-btn-box text-left">
+                        <a class="main-btn mr-30"href="signup"> سجل معنا</a>
+                        <div class="toggle-btn ml-30 canvas_open d-lg-none d-block" (click)="openMobileMenu()">
+                             
+                            <i class="muri-menu h5"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!--====== Header ENDS ======-->
+    
+    <!--====== PART ENDS ======-->
+
+    <!--====== APPIE HERO PART START ======-->
+    
+    <section class="appie-hero-area">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="appie-hero-content text-right">
+                        <span>أهلا بك في موري</span>
+                        <h1 class="appie-title">  
+                            رحلات مرنة بمواعيد دقيقة من البيت إلى الجامعة
+                            </h1>
+                        <p>
+                            موري للنقل التعليمي مختص بنقل الطالبات ومنسوبي الجامعات في رحلات منظمة حسب الجدول
+                             وساعات الدوام بأمان عالٍ وتكلفة مناسبة.
+                              يخدم موري طالبات وموظفات ومنسوبي الجامعة والمعاهد والمراكز التدريبية والسائقين على حد سواء،
+                              ويوفر لهم تطبيق إلكتروني سهل الاستخدام ومزود بخيارات مرنة تتناسب مع احتياجات المستخدم.
+                        </p>
+                        <ul>
+                            <li><a href="https://apps.apple.com/us/app/muri-%D9%85%D9%88%D8%B1%D9%8A-%D9%84%D9%84%D9%86%D9%82%D9%84-%D8%A7%D9%84%D8%AC%D9%85%D8%A7%D8%B9%D9%8A/id1672855064"><i class="muri-apple"></i> التحميل من ابل ستور</a></li>
+                            <li><a href="https://play.google.com/store/apps/details?id=com.muri.customer"><i class="muri-play "></i> التحميل من جوجل بلاي</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="appie-hero-thumb">
+                        <div class="thumb wow animated fadeInUp animated" data-wow-duration="2000ms" data-wow-delay="200ms" style="visibility: visible; animation-duration: 2000ms; animation-delay: 200ms; animation-name: fadeInUp;">
+                            <img src="../../../assets/image/muri-thumb-1.png" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-shape-1">
+            <img src="../../../assets/image/shape-2.png" alt="">
+        </div>
+        <div class="hero-shape-2">
+            <img src="../../../assets/image/shape-3.png" alt="">
+        </div>
+        <div class="hero-shape-3">
+            <img src="../../../assets/image/shape-4.png" alt="">
+        </div>
+    </section>
+    
+    <!--====== APPIE HERO PART ENDS ======-->
+
+    <!--====== APPIE SERVICES PART START ======-->
+    
+    <section class="appie-service-area pt-120 pb-120" id="service" >
+        <div class="container">
+            <div class=" justify-content-center">
+                <div class="">
+                    <div class="appie-section-title text-center justify-content-center">
+                        <h3 class="appie-title">كيف يعمل <span class="yellow-color">موري؟</span> </h3>
+                        <p col-lg-4>
+                            يجدول موري رحلاتك التعليمية حسب جدول محاضراتك تلقائيا ويتيح لك اختيار سيارة
+                            أو حافلة حسب رغبتك في الساعات التي تتوافق مع
+                            أوقات حضورك وانصرافك، ويتم إشعارك حال اقتراب السائق وعند وصوله إلى موقعك المحدد.
+                        </p>
+                    </div>
+                </div>
+                <div class="text-center pt-56 row">
+                    <div class="_doorhub_work_shape mt-50 col-sm-0 col-md-0">
+                        <img src="../../../assets/image/arrow.png" class="hidden-mobile">
+                    </div>
+                    <div class="container">
+                        <div class="row ">
+                            <div class="col-lg-3 col-md-6">
+                                <div class="text-center ">
+                                    <img class="" alt="" src="../../../assets/image/download.svg" />
+                                    <h4 class="pt-16 ">حمِّل</h4>
+                                    <p class="pt-16 "> حمِّلي التطبيق من المتجر الخاص بهاتفك.</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 padding-top-mobile">
+                                <div class="text-center">
+                                    <img class="" alt="" src="../../../assets/image/Login.svg" />
+                                    <h4 class="pt-16"> سجِّل </h4>
+                                    <p class="pt-16 "> 
+                                        أنشئي حسابك الخاص وسجلي الدخول.
+                                    </p>
+                                </div>    
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 padding-top-mobile">
+                                <div class="text-center">
+                                    <img class="" alt="" src="../../../assets/image/savetrips.svg" />
+                                    <h4 class="pt-16"> اضبط</h4>
+                                    <p class="pt-16 "> أدخلي مواعيد دوامك حسب جدولك الدراسي. </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-md-6 col-sm-6 padding-top-mobile">
+                                <div class="text-center">
+                                    <img class="" alt="" src="../../../assets/image/notification.svg" />
+                                    <h4 class="pt-16"> اربط</h4>
+                                    <p class="pt-16 "> 
+                                        فعلي خاصية إرسال التحديثات وطمئني من تحبين.
+                                     </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    
+                  </div>
+            </div>
+        </div>
+    </section>
+    
+    <!--====== APPIE SERVICES PART ENDS ======-->
+
+    <!--====== APPIE FEATURES PART START ======-->
+    
+<section class="appie-features-area pt-150" id="features">
+  <div class="container">
+    <div class="row align-items-center">
+      
+      <div class="col-lg-3">
+        <div class="appie-features-tabs-btn">
+          <div class="nav flex-column nav-pills text-right" role="tablist" aria-orientation="vertical">
+            @for (tab of tabs; track tab.id) {
+              <a 
+                class="nav-link col-sm-12"
+                [class.active]="isActive(tab.id)"
+                [id]="tab.tabId"
+                (click)="setActiveTab(tab.id)"
+                role="tab"
+                [attr.aria-controls]="'v-pills-' + tab.id"
+                [attr.aria-selected]="isActive(tab.id)"
+                style="cursor: pointer;">
+                <i [class]="tab.icon + ' h5'"></i> {{ tab.title }}
+              </a>
+            }
+          </div>
+        </div>  
+      </div>
+
+      <div class="col-lg-9">
+        <div class="tab-content" id="v-pills-tabContent">
+          @for (tab of tabs; track tab.id) {
+            <div 
+              class="tab-pane fade"
+              [class.active]="isActive(tab.id)"
+              [class.show]="isActive(tab.id)"
+              [id]="tab.id"
+              role="tabpanel"
+              [attr.aria-labelledby]="tab.tabId">
+              
+              <div class="row align-items-center">
+                <div class="col-lg-6">
+                  <div class="appie-features-thumb text-center animated fadeInUp animated" 
+                       data-wow-duration="2000ms" 
+                       data-wow-delay="200ms" 
+                       style="visibility: visible; animation-duration: 2000ms; animation-delay: 200ms; animation-name: fadeInUp;">
+                    <img [src]="tab.image" [alt]="tab.title">
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <div class="appie-features-content text-right animated fadeInRight animated" 
+                       data-wow-duration="2000ms" 
+                       data-wow-delay="600ms" 
+                       style="visibility: visible; animation-duration: 2000ms; animation-delay: 600ms; animation-name: fadeInRight;">
+                    <span>{{ tab.subtitle }}</span>
+                    <h3 class="title">{{ tab.title }}</h3>
+                    <p>{{ tab.content }}</p>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          }
+        </div>
+      </div>
+
+    </div>
+  </div>
+  
+  <div class="features-shape-1">
+    <img src="../../../assets/image/shape-6.png" alt="">
+  </div>
+  <div class="features-shape-2">
+    <img src="../../../assets/image/shape-7.png" alt="">
+  </div>
+  <div class="features-shape-3">
+    <img src="../../../assets/image/shape-8.png" alt="">
+  </div>
+</section>
+    <!-- SIMPLE TEST TEMPLATE - Replace your entire template with this first -->
+
+    <!--====== APPIE FEATURES PART ENDS ======-->
+
+
+
+
+    <!--====== APPIE FAQ PART START ======-->
+    
+    <section class="appie-faq-area appie-faq-area-rtl pb-140 pt-100" id="questions">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="appie-section-title text-center">
+                        <h3 class="appie-title">الأسئلة الشائعة</h3>
+                        <p class="">
+                            الأمان والراحة أولويتنا وسعيا منا إلى لأفضل نستقبل جميع الاستفسارات كما نرحب بما تقدمونه من مقترحات
+                        </p>
+                    </div>                    
+                </div>
+            </div>
+  <div class="row">
+  <!-- Left Column -->
+  <div class="col-lg-6">
+    <div class="faq-accordion wow fadeInRight mt-30 animated" data-wow-duration="1500ms">
+      <div class="accrodion-grp wow fadeIn faq-accrodion animated" data-wow-duration="1500ms" data-grp-name="faq-accrodion">
+        
+        <!-- First set of FAQ items (0-3) -->
+        <div *ngFor="let faq of faqItems.slice(0, 4); let i = index" 
+             class="accrodion" 
+             [class.active]="isAccordionActive(faq.id)">
+          <div class="accrodion-inner text-right">
+            <div class="accrodion-title" 
+                 (click)="toggleAccordion(faq.id)"
+                 style="cursor: pointer;">
+              <h4>{{ faq.question }}</h4>
+            </div>
+            <div class="accrodion-content" 
+                 [@accordionAnimation]="getAccordionState(faq.id)">
+              <div class="inner">
+                <p class="padding-top-text">{{ faq.answer }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Column -->
+  <div class="col-lg-6">
+    <div class="faq-accordion wow fadeInRight mt-30 animated" data-wow-duration="1500ms">
+      <div class="accrodion-grp wow fadeIn faq-accrodion animated" data-wow-duration="1500ms" data-grp-name="faq-accrodion">
+        
+        <!-- Second set of FAQ items (4-8) -->
+        <div *ngFor="let faq of faqItems.slice(4); let i = index" 
+             class="accrodion" 
+             [class.active]="isAccordionActive(faq.id)">
+          <div class="accrodion-inner text-right">
+            <div class="accrodion-title" 
+                 (click)="toggleAccordion(faq.id)"
+                 style="cursor: pointer;">
+              <h4>{{ faq.question }}</h4>
+            </div>
+            <div class="accrodion-content" 
+                 [@accordionAnimation]="getAccordionState(faq.id)">
+              <div class="inner">
+                <p class="padding-top-text">{{ faq.answer }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+        </div>
+    </section>
+    
+    <!--====== APPIE FAQ PART ENDS ======-->
+
+  <!--====== من نحن؟ ======-->
+    
+    <!-- <section class="appie-traffic-area appie-traffic-area-rtl  pt-140 pb-180">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="appie-traffic-title text-right">
+                        <span>من نحن؟</span>
+                        <h3 class="title">تطبيق موري للنقل التعليمي</h3>
+                        <p class="pt-16">
+                            هو منصة إلكترونية مختصة بنقل الطالبات ومنسوبي الجامعة من وإلى الجامعة، عبر تنظيم رحلات تتوافق
+                            مع ساعات الدوام المجدولة من قبل المشتركات في تطبيق
+                            موري، مما يقلل من تكلفة الوقت المستهلك في المواصلات مع تقديم خدمة ذات درجة عالية من الأمان والرقابة.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="traffic-thumb ">
+            <img class="wow animated fadeInRight animated" data-wow-duration="2000ms" data-wow-delay="200ms" src="./../../../assets/image/xcv.png" alt="" style="visibility: visible; animation-duration: 2000ms; animation-delay: 200ms; animation-name: fadeInRight;">
+        </div>
+    </section> -->
+    
+    <!--====== من نحن؟ ENDS ======-->
+
+
+
+
+       <!--====== APPIE PROJECT PART START ======-->
+    
+       <section class="appie-project-area appie-project-area-rtl pb-48">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="appie-project-box wow animated slideInUp animated" data-wow-duration="1000ms" data-wow-delay="0ms" style="visibility: visible; animation-duration: 1000ms; animation-delay: 0ms; animation-name: slideInUp;">
+                        <div class="appie-project-thumb ">
+                            <img src="../../../assets/image/project-thumb.png" alt="">
+                        </div>
+                        <div class="input-box mt-30 row p-0">
+                            <div class="col-lg-6">
+                                <div class="appie-project-content text-right">
+                                    <h3 class="title pt-56">سجلي الآن </h3>
+                                    <p>لا تشيلي هم المواصلات، خلي تركيزك على دراستك وتركيزنا على أمانك وراحتك ووقتك.</p>
+                                    <div class="input-box  mt-30 row p-0  ">
+                                        <button class="buttonx"><a href="https://apps.apple.com/us/app/muri-%D9%85%D9%88%D8%B1%D9%8A-%D9%84%D9%84%D9%86%D9%82%D9%84-%D8%A7%D9%84%D8%AC%D9%85%D8%A7%D8%B9%D9%8A/id1672855064"><img src="../../../assets/image/App%20store%20icon.png" alt=""></a></button>
+                                        <button class="buttonx "><a href="https://play.google.com/store/apps/details?id=com.muri.customer"><img src="../../../assets/image/Play%20store%20store%20icon.png" alt=""></a></button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!--====== APPIE PROJECT PART ENDS ======-->
+
+    <!--====== APPIE FOOTER PART START ======-->
+  
+
+     <section class="appie-footer-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-widget-info text-right">
+                        <h4 class="title">تواصل معنا</h4>
+                        <ul>
+                            <li><a href="mailto: info&#64;rapidshift.sa"><img src="../../../assets/image/email.svg" alt="" > info&#64;rapidshift.sa</a></li>
+                            <li><a href="https://api.whatsapp.com/send/?phone=%2B966534363917&text&type=phone_number&app_absent=0"><img src="../../../assets/image/whatsapp.svg" alt=""> +966534363917</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-navigation text-right">
+                        <h4 class="title">روابط سريعة</h4>
+                        <ul>
+                            <li><a href="index.html">الرئيسية</a></li>
+                            <li><a href="terms.html">الشروط والأحكام</a></li>
+                            <li><a href="privacy.html"> سياسة الإستخدام</a></li>
+                            <li><a href="muriapp.html"> تطبيق موري </a></li>
+    
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-lg-4 col-md-6">
+                    <div class="footer-about-widget text-right">
+                        <div class="logo">
+                            <a href="index.html"><img src="../../../assets/image/logo.png" alt="" class="logo"></a>
+                        </div>
+                        <p>رحلات مرنة بمواعيد دقيقة من البيت إلى الجامعة</p>
+                        <div class="social mt-30">
+                            <ul style="display: flex;">
+                                <li><a href="https://www.linkedin.com/company/muriapp/" target="_blank" style="display: flex;
+                                    justify-content: center;
+                                    align-items: center;"><img src="../../../assets/image/linkedin.svg" alt=""></a></li>
+                                <li><a href="https://twitter.com/MuriApp" target="_blank" style="display: flex;
+                                    justify-content: center;
+                                    align-items: center;"><img src="../../../assets/image/twitter.svg" alt=""></a></li>
+                                <li><a href="https://www.instagram.com/muri.app/" target="_blank" style="display: flex;
+                                    justify-content: center;
+                                    align-items: center;" ><img src="../../../assets/image/instagram.svg" alt=""></a></li>
+                            </ul>
+                        </div>
+                        <div class="appie-hero-content">
+                           
+                            <ul class="p-0 m-0">
+                                <li class="pt-24 pb-12 pr-0"><a href="https://apps.apple.com/us/app/muri-%D9%85%D9%88%D8%B1%D9%8A-%D9%84%D9%84%D9%86%D9%82%D9%84-%D8%A7%D9%84%D8%AC%D9%85%D8%A7%D8%B9%D9%8A/id1672855064"><i class="muri-apple"></i> التحميل من ابل ستور</a></li>
+                                <li><a class=" " href="https://play.google.com/store/apps/details?id=com.muri.customer"><i class="muri-play "></i> التحميل من جوجل بلاي</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="footer-copyright d-flex align-items-center justify-content-between pt-35">
+                        <div class="text-right">
+                            <a><img src="../../../assets/image/logo2.jpg" alt="" class="logo2"></a>
+                            <p>مشغل بواسطة النقلة السريعة Rapid Shift</p>
+                        
+                        </div>
+                        <div class="copyright-text">
+                            <p>© موري 2023. كل الحقوق محفوظة.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--====== APPIE FOOTER PART ENDS ======-->
+
+
+    <!--====== APPIE BACK TO TOP PART ENDS ======-->
+    <div class="back-to-top align-items-center" style="display: none;">
+        <a href="index.html" class=""><i class="muri-arrow-up pt-12"></i></a>
+    </div>
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="chrome-extension://liecbddmkiiihnedobmlmillhodjkdmb/css/blur.css" class="loom-blur-styles">
+</body>
+<!-- <loom-container id="lo-engage-ext-container"><loom-shadow classname="resolved"></loom-shadow></loom-container><loom-container id="lo-companion-container"><loom-shadow classname="resolved"></loom-shadow></loom-container><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration></html> -->

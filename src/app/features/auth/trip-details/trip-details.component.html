@@ -1,0 +1,295 @@
+<div class="signup-container">
+    <div class="main-content">
+        <!-- Form Section -->
+        <div class="form-section">
+            <div class="form-content">
+                <form class="form-data" [formGroup]="tripForm" (ngSubmit)="onSubmit()">
+                    <div class="back-button" (click)="goBack()">
+                        <div class="back-icon">
+                            <img src="assets/icons/chevron-back.svg" alt="رجوع">
+                        </div>
+                        <span class="back-text">العودة إلى تسجيل الدخول</span>
+
+                    </div>
+
+                    <!-- Header -->
+                    <div class="header-section">
+                        <h1 class="main-title">تفاصيل رحلتك</h1>
+                        <p class="subtitle">.الرجاء تحديد تفاصيل رحلاتك اليومية من وإلى وجهتك</p>
+                    </div>
+
+                    <!-- Trip Type Selection -->
+                    <div class="trip-type-section">
+                        <label class="section-label">نوع الرحلة</label>
+                        <div class="trip-type-selector">
+                            <button
+                                type="button"
+                                class="trip-type-option"
+                                [class.active]="tripType === 'one-way'"
+                                (click)="setTripType('one-way')">
+                                ذهاب فقط
+                            </button>
+                            <button
+                                type="button"
+                                class="trip-type-option"
+                                [class.active]="tripType === 'round-trip'"
+                                (click)="setTripType('round-trip')">
+                                ذهاب وعودة
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Location Fields -->
+                    <div class="location-fields">
+                        <div class="field-row">
+                            <!-- Destination Field -->
+                            <div class="form-field">
+                                <div class="field-header">
+                                    <span class="required-asterisk">*</span>
+                                    <label class="field-label">الوجهة (إلى)</label>
+                                </div>
+                                <div class="input-wrapper" [class.invalid]="hasFieldError('destination')">
+                                    <input
+                                        type="text"
+                                        class="form-input"
+                                        placeholder="مثال: جامعة الملك سعود"
+                                        formControlName="destination"
+                                        dir="rtl">
+                                    <div class="input-icon">
+                                        <img src="assets/icons/location-pin.svg" alt="موقع">
+                                    </div>
+                                </div>
+                                @if (hasFieldError('destination')) {
+                                <div class="error">{{ getFieldError('destination') }}</div>
+                                }
+                            </div>
+
+                            <!-- Origin Field -->
+                            <div class="form-field">
+                                <div class="field-header">
+                                    <span class="required-asterisk">*</span>
+                                    <label class="field-label">نقطة الانطلاق (من)</label>
+                                </div>
+                                <div class="input-wrapper" [class.invalid]="hasFieldError('origin')">
+                                    <input
+                                        type="text"
+                                        class="form-input"
+                                        placeholder="مثال: حي النرجس، الرياض"
+                                        formControlName="origin"
+                                        dir="rtl">
+                                    <div class="input-icon">
+                                        <img src="assets/icons/location-origin.svg" alt="موقع البداية">
+                                    </div>
+                                </div>
+                                @if (hasFieldError('origin')) {
+                                <div class="error">{{ getFieldError('origin') }}</div>
+                                }
+                            </div>
+                        </div>
+
+                        <!-- Outbound Trip Details -->
+                        <div class="trip-section">
+                            <h3 class="section-title">تفاصيل رحلة الذهاب</h3>
+                            <div class="field-row">
+                                <!-- Arrival Time -->
+                                <div class="form-field">
+                                    <div class="field-header">
+                                        <span class="required-asterisk">*</span>
+                                        <label class="field-label">وقت الوصول المطلوب</label>
+                                    </div>
+                                    <div class="input-wrapper" [class.invalid]="hasFieldError('arrivalTime')">
+                                        <input
+                                            type="time"
+                                            class="form-input"
+                                            formControlName="arrivalTime">
+                                        <div class="input-icon">
+                                            <img src="assets/icons/clock.svg" alt="وقت">
+                                        </div>
+                                    </div>
+                                    @if (hasFieldError('arrivalTime')) {
+                                    <div class="error">{{ getFieldError('arrivalTime') }}</div>
+                                    }
+                                </div>
+
+                                <!-- Start Date -->
+                                <div class="form-field">
+                                    <div class="field-header">
+                                        <span class="required-asterisk">*</span>
+                                        <label class="field-label">تاريخ بدء الرحلات</label>
+                                    </div>
+                                    <div class="input-wrapper" [class.invalid]="hasFieldError('startDate')">
+                                        <input
+                                            type="date"
+                                            class="form-input"
+                                            [min]="getTodayDate()"
+                                            formControlName="startDate">
+                                        <div class="input-icon">
+                                            <img src="assets/icons/calendar.svg" alt="تاريخ">
+                                        </div>
+                                    </div>
+                                    @if (hasFieldError('startDate')) {
+                                    <div class="error">{{ getFieldError('startDate') }}</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Return Trip Details -->
+                        @if (tripType === 'round-trip') {
+                        <div class="trip-section">
+                            <h3 class="section-title">تفاصيل رحلة العودة</h3>
+                            <div class="field-row">
+                                <!-- Departure Time -->
+                                <div class="form-field">
+                                    <div class="field-header">
+                                        <span class="required-asterisk">*</span>
+                                        <label class="field-label">وقت مغادرة</label>
+                                    </div>
+                                    <div class="input-wrapper" [class.invalid]="hasFieldError('departureTime')">
+                                        <input
+                                            type="time"
+                                            class="form-input"
+                                            formControlName="departureTime">
+                                        <div class="input-icon">
+                                            <img src="assets/icons/clock.svg" alt="وقت">
+                                        </div>
+                                    </div>
+                                    @if (hasFieldError('departureTime')) {
+                                    <div class="error">{{ getFieldError('departureTime') }}</div>
+                                    }
+                                </div>
+
+                                <!-- Return Date -->
+                                <div class="form-field">
+                                    <div class="field-header">
+                                        <span class="required-asterisk">*</span>
+                                        <label class="field-label">تاريخ بدء الرحلات</label>
+                                    </div>
+                                    <div class="input-wrapper" [class.invalid]="hasFieldError('returnDate')">
+                                        <input
+                                            type="date"
+                                            class="form-input"
+                                            [min]="getMinReturnDate()"
+                                            formControlName="returnDate">
+                                        <div class="input-icon">
+                                            <img src="assets/icons/calendar.svg" alt="تاريخ">
+                                        </div>
+                                    </div>
+                                    @if (hasFieldError('returnDate')) {
+                                    <div class="error">{{ getFieldError('returnDate') }}</div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        }
+
+                        <!-- Number of Seats -->
+                        <div class="trip-section">
+                            <h3 class="section-title">عدد المقاعد</h3>
+                            <div class="form-field">
+                                <div class="input-wrapper seats-input">
+                                    <input
+                                        type="number"
+                                        class="form-input"
+                                        min="1"
+                                        max="8"
+                                        formControlName="numberOfSeats"
+                                        readonly
+                                        dir="rtl">
+                                    <div class="input-icon">
+                                        <img src="assets/icons/seats.svg" alt="مقاعد">
+                                    </div>
+                                </div>
+                                @if (hasFieldError('numberOfSeats')) {
+                                <div class="error">{{ getFieldError('numberOfSeats') }}</div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="submit-section">
+                        <button type="submit" class="submit-button" [disabled]="!isFormValid()">
+                            تأكيد
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Right side - Background -->
+        <div class="background-section">
+            <div class="background-overlay"></div>
+            <div class="background-content">
+                <div class="content-top">
+                    <!-- Logo -->
+                    <div class="logo-container animated fadeInLeft">
+                        <img src="http://localhost:3845/assets/38f2cf02340374263708ce72de3150081587981d.png"
+                            alt="موري" class="logo">
+                    </div>
+
+                    <!-- Main Heading -->
+                    <h2 class="bg-title animated fadeInRight">رحلتك تبدأ بخطوة آمنة.</h2>
+
+                    <!-- Features List -->
+                    <div class="features-list animated fadeInLeft">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <img src="http://localhost:3845/assets/7725173c3761a14cb510b4bcccc8cc5db859c8a0.svg"
+                                    alt="Security">
+                            </div>
+                            <div class="feature-content">
+                                <h3 class="feature-title">أمان تثق به</h3>
+                                <p class="feature-desc">سائقون معتمدون وخاصية "طمئن من تحب" لراحة بالك وبالهم.</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <img src="http://localhost:3845/assets/7f7916507f89e4fe4b639712760413cceeacbb19.svg"
+                                    alt="Schedule">
+                            </div>
+                            <div class="feature-content">
+                                <h3 class="feature-title">جدول على مقاسك</h3>
+                                <p class="feature-desc">رحلات مجدولة تلقائيًا لتناسب مواعيد محاضراتك بدقة.</p>
+                            </div>
+                        </div>
+
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <img src="http://localhost:3845/assets/86dbe830c8962320f308806d6b46d52cbd72ed37.svg"
+                                    alt="Comfort">
+                            </div>
+                            <div class="feature-content">
+                                <h3 class="feature-title">توفير وراحة</h3>
+                                <p class="feature-desc">مقعدك محجوز في مركبة مريحة وباشتراك يوفر عليك الكثير.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial -->
+                <div class="testimonial animated fadeInRight">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <img src="http://localhost:3845/assets/45a659cfd16093095efd2abe045aabceb1bf36c3.svg"
+                                alt="Quote">
+                        </div>
+                        <span class="quote-text">
+                            "أفضل قرار اتخذته هذا الفصل الدراسي. تطبيق موري وفر عليّ وقت وجهد كبير، والأهم من كذا،
+                            أهلي صاروا متطمنين عليّ طول الوقت."
+                        </span>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <div class="author-name">نورة العبدالله</div>
+                                <div class="author-title">طالبة في جامعة الملك سعود</div>
+                            </div>
+                            <img src="http://localhost:3845/assets/1dad3632c4b8c168659211338e8f060d5a802a35.png"
+                                alt="نورة العبدالله" class="author-avatar">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
