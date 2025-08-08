@@ -1,8 +1,7 @@
-
 import { RenderMode, ServerRoute } from ‘@angular/ssr’;
 
 export const serverRoutes: ServerRoute[] = [
-// Prerender static pages that don’t require user data
+// Prerender all your specific routes
 {
 path: ‘’,
 renderMode: RenderMode.Prerender
@@ -11,20 +10,13 @@ renderMode: RenderMode.Prerender
 path: ‘landing’,
 renderMode: RenderMode.Prerender
 },
-
-// Use Server-Side Rendering for dynamic/authenticated pages
 {
 path: ‘signup’,
-renderMode: RenderMode.Server
+renderMode: RenderMode.Prerender
 },
 {
 path: ‘trip-details’,
-renderMode: RenderMode.Server
-},
-
-// Fallback for any other routes - use SSR for flexibility
-{
-path: ‘**’,
-renderMode: RenderMode.Server
+renderMode: RenderMode.Prerender
 }
+// Note: No wildcard route needed when prerendering specific routes
 ];
