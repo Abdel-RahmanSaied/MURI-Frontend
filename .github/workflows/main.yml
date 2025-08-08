@@ -16,7 +16,7 @@ jobs:
           ref: main
           clean: false
 
-      - name: Use Node.js 16
+      - name: Use Node.js 18
         uses: actions/setup-node@v3
         with:
           node-version: 16
