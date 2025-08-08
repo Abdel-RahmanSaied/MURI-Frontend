@@ -1,0 +1,37 @@
+name: deploy-runner
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    environment: Production
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          clean: false
+
+      - name: Use Node.js 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Set Environment Variables
+        run: |
+          export NG_ANALYTICS=false
+          export TERM=xterm
+
+      - name: Run npm 
+        run: npm install -f
+
+      - name: Run ng build
+        run: npx ng build
+
+      - name: Deploy Twiscope
+        run: |
+          sudo cp dist/muri /var/www/ -r -f
