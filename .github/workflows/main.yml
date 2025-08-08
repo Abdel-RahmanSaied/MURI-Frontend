@@ -32,6 +32,6 @@ jobs:
       - name: Run ng build
         run: npx ng build
 
-      - name: Deploy Twiscope
+      - name: Deploy MURI
         run: |
           sudo cp dist/muri /var/www/ -r -f
