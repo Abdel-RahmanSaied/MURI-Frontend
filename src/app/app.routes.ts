@@ -5,8 +5,8 @@ import { TripDetailsComponent } from './features/auth/trip-details/trip-details.
 
 export const routes: Routes = [
   { path: '', redirectTo: 'landing',  },
-  { path: 'landing', component: LandingComponent },
-  { path: 'signup', component: SignupComponent},
+  { path: '/landing', component: LandingComponent },
+  { path: '/signup', component: SignupComponent},
   { path: 'trip-details', component: TripDetailsComponent},
   { path: '**', redirectTo: '', }
 ];
