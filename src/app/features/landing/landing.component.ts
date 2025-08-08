@@ -132,22 +132,22 @@ export class LandingComponent {
   menuItems = [
     {
       title: 'الرئيسية',
-      href: 'index.html',
+      href: '/',
       hasSubMenu: false
     },
     {
       title: 'حول موري',
-      href: 'index.html#service',
+      href: '#service',
       hasSubMenu: false
     },
     {
       title: 'الميزات',
-      href: 'index.html#features',
+      href: '#features',
       hasSubMenu: false
     },
     {
       title: 'الاسئلة الشائعة',
-      href: 'index.html#questions',
+      href: '#questions',
       hasSubMenu: false
     },
     {
