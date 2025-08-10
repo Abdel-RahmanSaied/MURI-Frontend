@@ -2,6 +2,7 @@ import { Component, ChangeDetectorRef, Inject, PLATFORM_ID } from '@angular/core
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { NavbarComponent } from "../../shared/navbar/navbar.component";
+import { FooterComponent } from "../../shared/footer/footer.component";
 
 
 // Static counter to track instances
@@ -9,7 +10,7 @@ let componentInstanceCounter = 0;
 
 @Component({
   selector: 'app-landing',
-  imports: [CommonModule, NavbarComponent],
+  imports: [CommonModule, NavbarComponent ,FooterComponent],
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss',
   animations: [
