@@ -63,7 +63,7 @@ body {
     flex-direction: column;
     width: 640px;
     gap: 24px;
-    align-items: flex-end;
+    align-items: flex-start;
     width: 100%;
 }
 
@@ -171,14 +171,14 @@ body {
     flex-direction: column;
     gap: 6px;
     flex: 1;
-    align-items: flex-end;
+    align-items: flex-start;
 
 }
 
 .field-label {
     display: flex;
     align-items: flex-start;
-    justify-content: flex-end;
+    justify-content: flex-start;
     gap: 6px;
     font-family: $font-primary;
     font-size: 14px;
@@ -287,7 +287,7 @@ body {
 .supporting-text {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
     padding: 0 8px;
     width: 100%;
 }
@@ -326,7 +326,9 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    flex-direction: row-reverse;
+    flex-direction: row;
+    flex-wrap: wrap;
+
 }
 
 .checkbox-container {
@@ -477,7 +479,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 32px;
-    align-items: flex-end;
+    align-items: flex-start;
     width: 100%;
 }
 
@@ -517,7 +519,7 @@ body {
 .feature-item {
     display: flex;
     align-items: flex-start;
-    flex-direction: row-reverse;
+    flex-direction: row;
     justify-content: flex-start;
     width: 100%;
     gap: 16px;
@@ -562,6 +564,7 @@ body {
 .testimonial {
     padding-top: 48px;
     width: 100%;
+    
 }
 
 .testimonial-content {
@@ -572,7 +575,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    align-items: flex-end;
+    align-items: flex-start;
     width: 100%;
 }
 
@@ -595,16 +598,26 @@ body {
     width: 427.48px;
     margin: 0;
     direction: rtl;
+    @media ( max-width : 460px)
+    {
+        width: 100%;
+       
+    }
 }
 
 .testimonial-author {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
     padding-top: 8px;
     padding-left: 232.97px;
     width: 100%;
     gap: 16px;
+     @media ( max-width : 460px)
+    {
+        padding: 0;
+        
+    }
 }
 
 .author-avatar {
@@ -617,7 +630,7 @@ body {
 .author-info {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
 }
 
 .author-name {
@@ -640,7 +653,7 @@ body {
 // Responsive Design
 @media (max-width: 1280px) {
     .main-container {
-        flex-direction: column;
+        flex-direction: column-reverse;
         height: auto;
     }
 
@@ -682,5 +695,5 @@ body {
 }
 
 .invalid {
-  border-color: rgba(178, 34, 34, 1);
+    border-color: rgba(178, 34, 34, 1);
 }

@@ -1,0 +1,560 @@
+/*===========================
+    10.APPIE FOOTER css 
+===========================*/
+.appie-footer-area {
+    background: #FAFAFA;
+    padding-top: 50px;
+    padding-bottom: 60px;
+}
+
+.appie-footer-area.appie-footer-3-area {
+    padding-top: 180px;
+}
+
+.appie-footer-area.appie-footer-3-area.appie-footer-5-area {
+    background: #fff;
+}
+
+.appie-footer-area.appie-footer-about-area {
+    padding-top: 230px;
+}
+
+.appie-footer-area.appie-footer-about-area.appie-footer-8-area {
+    background: #fff;
+}
+
+.appie-footer-area.appie-footer-about-area.appie-footer-8-area .footer-about-widget .social ul li a {
+    border: 2px solid #e6e7ea;
+}
+
+.appie-footer-area.appie-footer-about-area.appie-footer-8-area .footer-about-widget .social ul li a:hover {
+    background: #db0f30;
+    border-color: #db0f30;
+    color: #fff;
+}
+
+.appie-footer-area.appie-footer-about-area.appie-footer-8-area .footer-navigation ul li a:hover {
+    color: #db0f30;
+}
+
+.appie-footer-area.appie-footer-about-area.appie-footer-8-area .footer-widget-info ul li a i {
+    color: #db0f30;
+}
+
+.appie-footer-area.appie-footer-about-area.appie-footer-8-area .footer-copyright .apps-download-btn ul li a {
+    background: #1B1E28;
+    color: #fff;
+    border-color: #1B1E28;
+}
+
+.appie-footer-area.appie-footer-about-area.appie-footer-8-area .footer-copyright .apps-download-btn ul li a:hover {
+    background: #fff;
+    color: #1B1E28;
+}
+
+.appie-footer-area.appie-footer-about-area.appie-footer-8-area .footer-copyright .apps-download-btn ul li a.item-2 {
+    background: #fff;
+    color: #1B1E28;
+}
+
+.appie-footer-area.appie-footer-about-area.appie-footer-8-area .footer-copyright .apps-download-btn ul li a.item-2:hover {
+    background: #1B1E28;
+    color: #fff;
+    border-color: #1B1E28;
+}
+
+.appie-footer-area.appie-footer-9-area .footer-about-widget .social ul li a:hover {
+    background: #FF4245;
+}
+
+.appie-footer-area.appie-footer-9-area .footer-navigation ul li a:hover {
+    color: #FF4245;
+}
+
+.appie-footer-area.appie-footer-9-area .footer-widget-info ul li a i {
+    color: #FF4245;
+}
+
+.footer-about-widget {
+    padding-right: 70px;
+    margin-top: 30px;
+}
+
+@media (max-width: 767px) {
+    .footer-about-widget {
+        text-align: center;
+        padding-right: 0;
+    }
+}
+
+.footer-about-widget p {
+    padding-top: 25px;
+}
+
+.footer-about-widget>a {
+    font-size: 15px;
+    font-weight: 500;
+    color: #0e1133;
+    margin-top: 15px;
+}
+
+.footer-about-widget>a i {
+    padding-left: 6px;
+}
+
+.footer-about-widget .social ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.footer-about-widget .social ul li {
+    display: inline-block;
+}
+
+.footer-about-widget .social ul li a {
+    height: 36px;
+    width: 36px;
+    text-align: center;
+    background: #E6E6E6;
+    color: #0e1133;
+    border-radius: 6px;
+    line-height: 36px;
+    margin-right: 5px;
+}
+
+.footer-about-widget .social ul li a:hover {
+    background: #2b70fa;
+    color: #fff;
+}
+
+.footer-about-widget.footer-about-widget-2 ul li a:hover {
+    background: #ff3e66;
+}
+
+.footer-about-widget.footer-about-widget-3 ul li a:hover {
+    background: #ff6b58;
+}
+
+.footer-about-widget.footer-about-widget-6 ul li a:hover {
+    background: #9b2cfa;
+}
+
+.footer-about-widget.footer-about-widget-5 ul li a:hover {
+    background: #801f82;
+}
+
+.footer-navigation {
+    margin-top: 30px;
+}
+
+@media (max-width: 767px) {
+    .footer-navigation {
+        text-align: center;
+    }
+}
+
+.footer-navigation .title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.footer-navigation ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.footer-navigation ul li a {
+    color: #505056;
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.footer-navigation ul li a:hover {
+    color: #2b70fa;
+}
+
+.footer-navigation.footer-navigation-2 ul li a:hover {
+    color: #ff3e66;
+}
+
+.footer-navigation.footer-navigation-3 ul li a:hover {
+    color: #ff6b58;
+}
+
+.footer-navigation.footer-navigation-6 ul li a:hover {
+    color: #9b2cfa;
+}
+
+.footer-navigation.footer-navigation-5 ul li a:hover {
+    color: #801f82;
+}
+
+.footer-widget-info {
+    margin-top: 30px;
+}
+
+@media (max-width: 767px) {
+    .footer-widget-info {
+        text-align: center;
+    }
+}
+
+.footer-widget-info .title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 18px;
+}
+
+.footer-widget-info ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.footer-widget-info ul li a {
+    color: #505056;
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    padding-left: 30px;
+    position: relative;
+}
+
+.footer-widget-info ul li a i {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #2b70fa;
+}
+
+.footer-copyright {
+    padding-top: 35px;
+    border-top: 1px solid #e1e5ec;
+    margin-top: 80px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .footer-copyright {
+        display: block !important;
+        text-align: center;
+    }
+}
+
+@media (max-width: 767px) {
+    .footer-copyright {
+        display: block !important;
+        text-align: center;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .footer-copyright .apps-download-btn {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 767px) {
+    .footer-copyright .apps-download-btn {
+        margin-bottom: 20px;
+    }
+}
+
+.footer-copyright .apps-download-btn ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+.footer-copyright .apps-download-btn ul li {
+    display: inline-block;
+    margin-right: 8px;
+}
+
+@media (max-width: 767px) {
+    .footer-copyright .apps-download-btn ul li {
+        margin-bottom: 20px;
+    }
+}
+
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+    .footer-copyright .apps-download-btn ul li {
+        margin-bottom: 0px;
+    }
+}
+
+.footer-copyright .apps-download-btn ul li a {
+    background: #fff;
+    color: #0e1133;
+    line-height: 40px;
+    padding: 0 23px;
+    border-radius: 6px;
+    border: 2px solid #fff;
+}
+
+.footer-copyright .apps-download-btn ul li a i {
+    padding-right: 6px;
+}
+
+.footer-copyright .apps-download-btn ul li a:hover {
+    background: transparent;
+    color: #0e1133;
+    border-color: #e7eaef;
+}
+
+.footer-copyright .apps-download-btn ul li a.item-2 {
+    background: transparent;
+    color: #0e1133;
+    border-color: #e7eaef;
+}
+
+.footer-copyright .apps-download-btn ul li a.item-2:hover {
+    background: #fff;
+    color: #0e1133;
+}
+
+.appie-error-area {
+    padding-top: 250px;
+}
+
+.appie-error-content span {
+    display: block;
+    font-size: 50px;
+    color: #db0f30;
+    font-weight: 800;
+    padding-top: 40px;
+}
+
+.appie-error-content .title {
+    font-size: 50px;
+    font-weight: 800;
+    color: #0e1133;
+    padding-bottom: 11px;
+}
+
+.appie-error-content p {
+    line-height: 26px;
+    color: #505056;
+    font-size: 16px;
+    padding: 0 50px;
+}
+
+.appie-error-content a {
+    border: 2px solid #2b70fa;
+    line-height: 45px;
+    padding: 0 35px;
+    border-radius: 6px;
+    margin-top: 30px;
+}
+
+.appie-signup-area.appie-signup-8-area {
+    background: #FAFAFA;
+}
+
+.appie-signup-area.appie-signup-8-area .appie-signup-box form .input-box button {
+    background: #db0f30;
+}
+
+.appie-signup-area.appie-signup-9-area {
+    background: none;
+    margin-bottom: 120px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .appie-signup-area.appie-signup-9-area {
+        margin-bottom: 100px;
+    }
+}
+
+.appie-signup-area.appie-signup-9-area .appie-signup-box {
+    background: url("https://muri.sa/assets/images/home-subs-bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-bottom: 0px;
+}
+
+.appie-signup-box {
+    background-image: url(https://muri.sa/assets/images/signup-bg.jpg);
+    padding: 63px 100px 60px;
+    border-radius: 10px;
+    box-shadow: 0px 40px 50px 0px rgba(0, 24, 72, 0.3);
+    overflow: hidden;
+    position: relative;
+    margin-bottom: -160px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .appie-signup-box {
+        padding: 30px 50px;
+    }
+}
+
+@media (max-width: 767px) {
+    .appie-signup-box {
+        padding: 30px;
+    }
+}
+
+.appie-signup-box .thumb {
+    position: absolute;
+    right: 70px;
+    bottom: 30px;
+    width: 160px;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .appie-signup-box .thumb {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) {
+    .appie-signup-box .thumb {
+        display: none;
+    }
+}
+
+.appie-signup-box span {
+    color: #fff;
+    font-weight: 500;
+}
+
+.appie-signup-box .title {
+    font-size: 46px;
+    color: #fff;
+    padding-bottom: 20px;
+}
+
+@media (max-width: 767px) {
+    .appie-signup-box .title {
+        font-size: 30px;
+    }
+}
+
+.appie-signup-box form {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .appie-signup-box form {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 767px) {
+    .appie-signup-box form {
+        flex-direction: column;
+    }
+}
+
+.appie-signup-box form .input-box {
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.appie-signup-box form .input-box input {
+    width: 300px;
+    background: #fff;
+    line-height: 55px;
+    border-radius: 6px;
+    padding-left: 30px;
+    border: 0;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .appie-signup-box form .input-box input {
+        width: 100%;
+    }
+}
+
+@media (max-width: 767px) {
+    .appie-signup-box form .input-box input {
+        width: 100%;
+    }
+}
+
+.appie-signup-box form .input-box button {
+    background: #2b70fa;
+    line-height: 55px;
+    border: 0;
+    color: #fff;
+    border-radius: 6px;
+    padding: 0 45px;
+    font-weight: 500;
+}
+
+.appie_checkbox_common {
+    margin-top: 15px;
+}
+
+.appie_checkbox_common label {
+    color: #fff;
+    font-size: 14px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    font-weight: 400;
+}
+
+.appie_checkbox_common label a {
+    //   text-decoration: underline;
+    color: #b3b6bc;
+}
+
+.appie_checkbox_common input[type=checkbox] {
+    display: none;
+}
+
+.appie_checkbox_common input[type=checkbox]+label span {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: -1px 15px 0 0;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    position: relative;
+}
+
+.appie_checkbox_common input[type=checkbox]+label span:before {
+    color: #fff;
+    content: "\f00c";
+    font-family: "Font Awesome 5 Pro";
+    font-size: 11px;
+    position: absolute;
+    text-align: center;
+    left: 3px;
+    top: -1px;
+    transform: scale(0);
+    transition: 0.2s;
+}
+
+.appie_checkbox_common input[type=checkbox]:checked+label span {
+    background: #2079ff;
+    border-color: #2079ff;
+}
+
+.appie_checkbox_common input[type=checkbox]:checked+label span:before {
+    transform: scale(1);
+}
+
+.appie_checkbox_common input[type=checkbox]+label span,
+.appie_checkbox_common input[type=checkbox]:checked+label span {
+    transition: background-color 0.2s linear;
+}
+
+.appie_checkbox_common.checkbox_style2 input[type=checkbox]+label span {
+    border-radius: 3px;
+}
+
+.appie-footer-10-area .footer-about-widget .social ul li a:hover {
+    background: #2b70fa;
+}
+
+.appie-footer-10-area .footer-navigation ul li a:hover {
+    color: #2b70fa;
+}

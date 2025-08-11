@@ -39,17 +39,6 @@
 //     jQuery(document).on('ready', function () {
 
 
-//         //===== Sticky
-
-//         jQuery(window).on('scroll', function (event) {
-//             var scroll = jQuery(window).scrollTop();
-//             if (scroll < 150) {
-//                 jQuery(".appie-sticky").removeClass("sticky");
-//             } else {
-//                 jQuery(".appie-sticky").addClass("sticky");
-//             }
-//         });
-
 
 //         //===== appie team slick slider
 //         $('.appie-testimonial-slider').slick({

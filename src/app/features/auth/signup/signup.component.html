@@ -10,316 +10,9 @@
         rel="stylesheet">
 </head>
 
-<body style="direction: ltr;">
+<body>
     <div class="sign-up-container">
         <div class="main-container">
-            <!-- Left side - Form -->
-            <div class="form-section">
-                <div class="form-content">
-                    <!-- Header -->
-                    <div class="header-text animated fadeInUp ">
-                        <h1 class="main-title ">.رحلتك تبدأ بخطوة آمنة</h1>
-                        <p class="subtitle">.انضم لآلاف العملاء المستفدين من التطبيق كل يوم</p>
-                    </div>
-
-                    <!-- Form -->
-                    <form class="signup-form animated fadeInDown" [formGroup]="SignupForm" (ngSubmit)="signup()">
-                        <!-- Profile Image Upload -->
-                        <div class="profile-upload ">
-                            <div class="profile-image-container">
-                                <div class="avatar-placeholder" (click)="triggerFileInput()">
-                                    <img [src]="profileImageUrl || '/assets/image/upload_photo.png'"
-                                        alt="Avatar" class="avatar-img">
-                                    <div class="upload-icon">
-                                        <img src="/assets/icons/upload.png"
-                                            alt="Upload">
-                                    </div>
-                                </div>
-                                <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*"
-                                    style="display: none;">
-                                <label class="upload-label" (click)="triggerFileInput()">رفع الصورة الشخصية</label>
-                            </div>
-                            @if (SignupForm.get('profile_pic')?.errors?.['required'] && submitted) {
-                            <div class="error">الصورة الشخصية مطلوبة</div>
-                            }
-                            @if (SignupForm.get('profile_pic')?.errors?.['invalidFileType'] && submitted) {
-                            <div class="error">نوع الملف غير مدعوم. يرجى اختيار صورة صالحة</div>
-                            }
-                            @if (SignupForm.get('profile_pic')?.errors?.['maxSize'] && submitted) {
-                            <div class="error">حجم الصورة يجب أن يكون أقل من 5 ميجابايت</div>
-                            }
-                        </div>
-
-                        <!-- Name Fields -->
-                        <div class="form-row">
-                            <div class="form-field">
-                                <label class="field-label">
-                                    <span class="required">*</span>
-                                     اسم العائلة
-                                </label>
-                                <input placeholder="الاسم الأخير"
-                                    type="text" class="form-input"
-                                    maxlength="30" required formControlName="family_name"
-                                    [class.invalid]="SignupForm.get('family_name')?.invalid && submitted">
-                                @if (SignupForm.get('family_name')?.errors?.['required'] && submitted) {
-                                <div class="error">اسم العائلة مطلوب</div>
-                                }
-                                @if (SignupForm.get('family_name')?.errors?.['pattern'] && submitted) {
-                                <div class="error">الاسم يجب أن يحتوي على أحرف فقط</div>
-                                }
-                            </div>
-                            <div class="form-field">
-                                <label class="field-label">
-                                    <span class="required">*</span>
-                                    الاسم الثاني
-                                </label>
-                                <input placeholder="الاسم الأخير"
-                                    type="text" class="form-input"
-                                    maxlength="30" required formControlName="second_name"
-                                    [class.invalid]="SignupForm.get('second_name')?.invalid && submitted">
-                                @if (SignupForm.get('second_name')?.errors?.['required'] && submitted) {
-                                <div class="error">الاسم الثاني مطلوب</div>
-                                }
-                                @if (SignupForm.get('second_name')?.errors?.['pattern'] && submitted) {
-                                <div class="error">الاسم يجب أن يحتوي على أحرف فقط</div>
-                                }
-                            </div>
-
-                            <div class="form-field">
-                                <label class="field-label">
-                                    <span class="required">*</span>
-                                    الاسم الأول
-                                </label>
-                                <input placeholder="الاسم الأول"
-                                    type="text" class="form-input"
-                                    maxlength="30" required formControlName="first_name"
-                                    [class.invalid]="SignupForm.get('first_name')?.invalid && submitted">
-                                @if (SignupForm.get('first_name')?.errors?.['required'] && submitted) {
-                                <div class="error">الاسم الأول مطلوب</div>
-                                }
-                                @if (SignupForm.get('first_name')?.errors?.['pattern'] && submitted) {
-                                <div class="error">الاسم يجب أن يحتوي على أحرف فقط</div>
-                                }
-                            </div>
-                        </div>
-
-                        <!-- Email and Phone -->
-                        <div class="form-row">
-                            <div class="form-field">
-                                <label class="field-label">
-                                    <span class="required">*</span>
-                                    البريد الالكتروني
-                                </label>
-                                <input type="email" class="form-input"
-                                    placeholder="example@example.com"
-                                    maxlength="50" required formControlName="email"
-                                    [class.invalid]="SignupForm.get('email')?.invalid && submitted">
-                                @if (SignupForm.get('email')?.errors?.['required'] && submitted) {
-                                <div class="error">البريد الإلكتروني مطلوب</div>
-                                }
-                                @if (SignupForm.get('email')?.errors?.['email'] && submitted) {
-                                <div class="error">البريد الإلكتروني غير صحيح</div>
-                                }
-                                @if (SignupForm.get('email')?.errors?.['emailWithDot'] && submitted) {
-                                <div class="error">البريد الإلكتروني يجب أن يحتوي على نقطة</div>
-                                }
-                                @if (SignupForm.get('email')?.errors?.['emailNoArabic'] && submitted) {
-                                <div class="error">البريد الإلكتروني لا يجب أن يحتوي على أحرف عربية</div>
-                                }
-                            </div>
-                            <div class="form-field">
-                                <label class="field-label">
-                                    <span class="required">*</span>
-                                    رقم الجوال
-                                </label>
-                                <div class="phone-input">
-                                    <ngx-intl-tel-input [preferredCountries]="[CountryISO.SaudiArabia]"
-                                        [enableAutoCountrySelect]="true"
-                                        [enablePlaceholder]="false" [preferredCountries]="[CountryISO.SaudiArabia]"
-                                        [searchCountryFlag]="true" [searchCountryField]="[
-                        SearchCountryField.Iso2,
-                        SearchCountryField.Name
-                    ]" [selectFirstCountry]="false" [selectedCountryISO]="CountryISO.SaudiArabia" [maxLength]="15"
-                                        [phoneValidation]="true" [separateDialCode]="separateDialCode"
-                                        [numberFormat]="PhoneNumberFormat.National" style="direction: ltr; width:100%;"
-                                        formControlName="phone" required
-                                        [class.invalid]="SignupForm.get('phone')?.invalid && submitted">
-                                    </ngx-intl-tel-input>
-                                </div>
-                                @if (SignupForm.get('phone')?.errors?.['required'] && submitted) {
-                                <div class="error">رقم الجوال مطلوب</div>
-                                }
-                                @if (SignupForm.get('phone')?.errors?.['validatePhoneNumber'] && submitted) {
-                                <div class="error">رقم الجوال غير صحيح</div>
-                                }
-                            </div>
-                        </div>
-
-                        <!-- Birth Date -->
-                        <div class="form-field">
-                            <label class="field-label">
-                                <span class="required">*</span>
-                                تاريخ الميلاد
-                            </label>
-                            <input
-                                type="date"
-                                class="form-input"
-                                required
-                                formControlName="birth_date"
-                                [class.invalid]="SignupForm.get('birth_date')?.invalid && submitted">
-                            @if (SignupForm.get('birth_date')?.errors?.['required'] && submitted) {
-                            <div class="error">تاريخ الميلاد مطلوب</div>
-                            }
-                        </div>
-
-                        <!-- ID Number -->
-                        <div class="form-field">
-                            <label class="field-label">
-                                <span class="required">*</span>
-                                رقم الهوية
-                            </label>
-                            <input
-                                class="form-input"
-                                type="text"
-                                inputmode="numeric"
-                                placeholder="رقم الهوية"
-                                maxlength="10"
-                                required
-                                formControlName="national_id"
-                                (keypress)="allowOnlyNumbers($event)"
-                                [class.invalid]="SignupForm.get('national_id')?.invalid && submitted">
-                            <div class="supporting-text">
-                                <span class="support-label">يجب أن يتكون من 10 أرقام</span>
-                            </div>
-                            @if (SignupForm.get('national_id')?.errors?.['required'] && submitted) {
-                            <div class="error">رقم الهوية مطلوب</div>
-                            }
-                            @if (SignupForm.get('national_id')?.errors?.['pattern'] && submitted) {
-                            <div class="error">يجب إدخال أرقام فقط</div>
-                            }
-                            @if (SignupForm.get('national_id')?.errors?.['minlength'] && submitted) {
-                            <div class="error">رقم الهوية يجب أن يتكون من 10 أرقام</div>
-                            }
-                            @if (SignupForm.get('national_id')?.errors?.['maxlength'] && submitted) {
-                            <div class="error">رقم الهوية يجب أن يتكون من 10 أرقام</div>
-                            }
-                            @if (SignupForm.get('national_id')?.errors?.['noSpacesAllowed'] && submitted) {
-                            <div class="error">المسافات غير مسموحة</div>
-                            }
-                        </div>
-
-                        <!-- Password -->
-                        <div class="form-field">
-                            <label class="field-label">
-                                <span class="required">*</span>
-                                كلمة المرور
-                            </label>
-                            <div class="password-input">
-                                <input
-                                    [type]="showPassword ? 'text' : 'password'"
-                                    class="form-input"
-                                    maxlength="30"
-                                    required
-                                    formControlName="password"
-                                    placeholder="ادخل كلمه المرور"
-                                    onkeypress='return /[A-Za-z0-9!@_#$%^&*(),.?":{}|<>]/.test(String.fromCharCode(event.charCode))'
-                                    [class.invalid]="SignupForm.get('password')?.invalid && submitted">
-                                <div class="eye-icon">
-                                    <img src="assets/icons/eye.svg"
-                                        (click)="togglePasswordVisibility()" alt="Eye">
-                                </div>
-                            </div>
-                            @if (SignupForm.get('password')?.errors?.['required'] && submitted) {
-                            <div class="error">كلمة المرور مطلوبة</div>
-                            }
-                            @if (SignupForm.get('password')?.errors?.['minlength'] && submitted) {
-                            <div class="error">كلمة المرور يجب أن تتكون من 8 أحرف على الأقل</div>
-                            }
-                            @if (SignupForm.get('password')?.errors?.['specialCharacter'] && submitted) {
-                            <div class="error">كلمة المرور يجب أن تحتوي على رمز خاص</div>
-                            }
-                            @if (SignupForm.get('password')?.errors?.['containsNumber'] && submitted) {
-                            <div class="error">كلمة المرور يجب أن تحتوي على رقم</div>
-                            }
-                            @if (SignupForm.get('password')?.errors?.['noSpaceAllowed'] && submitted) {
-                            <div class="error">كلمة المرور لا يجب أن تحتوي على مسافات</div>
-                            }
-                            @if (SignupForm.get('password')?.errors?.['containsLetter'] && submitted) {
-                            <div class="error">كلمة المرور يجب أن تحتوي على أحرف</div>
-                            }
-                        </div>
-
-                        <!-- Confirm Password -->
-                        <div class="form-field">
-                            <label class="field-label">
-                                <span class="required">*</span>
-                                تأكيد كلمة المرور
-                            </label>
-                            <div class="password-input">
-                                <input
-                                    [type]="showConfirmPassword ? 'text' : 'password'"
-                                    class="form-input"
-                                    maxlength="30"
-                                    required
-                                    formControlName="confirm_password"
-                                    placeholder="ادخل كلمه المرور"
-                                    onkeypress='return /[A-Za-z0-9!@_#$%^&*(),.?":{}|<>]/.test(String.fromCharCode(event.charCode))'
-                                    [class.invalid]="SignupForm.get('confirm_password')?.invalid && submitted">
-                                <div class="eye-icon">
-                                    <img src="assets/icons/eye.svg"
-                                        (click)="toggleConfirmPasswordVisibility()" alt="Eye">
-                                </div>
-                            </div>
-                            @if (SignupForm.get('confirm_password')?.errors?.['required'] && submitted) {
-                            <div class="error">تأكيد كلمة المرور مطلوب</div>
-                            }
-                            @if (SignupForm.get('confirm_password')?.errors?.['minlength'] && submitted) {
-                            <div class="error">تأكيد كلمة المرور يجب أن يتكون من 8 أحرف على الأقل</div>
-                            }
-                            @if (SignupForm.get('confirm_password')?.errors?.['passwordMismatch'] && submitted) {
-                            <div class="error">كلمة المرور غير متطابقة</div>
-                            }
-                        </div>
-
-                        <!-- Terms Checkbox -->
-                        <div class="terms-section">
-                            <div class="checkbox-container">
-                                <input type="checkbox" id="terms" class="checkbox" formControlName="terms" required>
-                                <label for="terms" class="checkbox-label"></label>
-                            </div>
-                            <label for="terms" class="terms-text">
-                                <span class="link"> سياسات الخصوصية </span>
-
-                                أوافق على جميع
-
-                                <span class="link"> الشروط</span>
-
-                                و
-
-
-                            </label>
-                            @if (SignupForm.get('terms')?.errors?.['required'] && submitted) {
-                            <div class="error">يجب الموافقة على الشروط وسياسات الخصوصية</div>
-                            }
-                        </div>
-
-                        <!-- Submit Button -->
-                        <button type="submit" class="submit-btn">إنشاء حساب</button>
-
-                        <!-- Login Link -->
-                        <div class="login-link">
-                            لديك حساب بالفعل؟ <span class="link">سجل الدخول</span>
-                        </div>
-
-                        <!-- Divider -->
-                        <div class="divider">
-                            <div class="divider-line"></div>
-                            <div class="divider-line"></div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
             <!-- Right side - Background -->
             <div class="background-section">
                 <div class="background-overlay"></div>
@@ -379,18 +72,416 @@
                                     alt="Quote">
                             </div>
                             <span class="quote-text">"
-                                أفضل قرار اتخذته هذا الفصل الدراسي. تطبيق موري وفر عليّ وقت وجهد كبير، والأهم من كذا، أهلي صاروا متطمنين عليّ طول الوقت
-                            "</span>
+                                أفضل قرار اتخذته هذا الفصل الدراسي. تطبيق موري وفر عليّ وقت وجهد كبير، والأهم من كذا،
+                                أهلي صاروا متطمنين عليّ طول الوقت
+                                "</span>
                             <div class="testimonial-author">
+                                <img src="assets/image/quoter-( demo).png"
+                                    alt="نورة العبدالله" class="author-avatar">
                                 <div class="author-info">
                                     <div class="author-name">نورة العبدالله</div>
                                     <div class="author-title">طالبة في جامعة الملك سعود</div>
                                 </div>
-                                <img src="assets/image/quoter-( demo).png"
-                                    alt="نورة العبدالله" class="author-avatar">
+
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+            <!-- Left side - Form -->
+            <div class="form-section">
+                <div class="form-content">
+                    <!-- Header -->
+                    <div class="header-text animated fadeInUp ">
+                        <h1 class="main-title ">.رحلتك تبدأ بخطوة آمنة</h1>
+                        <p class="subtitle">.انضم لآلاف العملاء المستفدين من التطبيق كل يوم</p>
+                    </div>
+
+                    <!-- Form -->
+                    <form class="signup-form animated fadeInDown" [formGroup]="SignupForm" (ngSubmit)="signup()">
+                        <!-- Profile Image Upload -->
+                        <div class="profile-upload ">
+                            <div class="profile-image-container">
+                                <div class="avatar-placeholder" (click)="triggerFileInput()">
+                                    <img [src]="profileImageUrl || '/assets/image/upload_photo.png'"
+                                        alt="Avatar" class="avatar-img">
+                                    <div class="upload-icon">
+                                        <img src="/assets/icons/upload.png"
+                                            alt="Upload">
+                                    </div>
+                                </div>
+                                <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*"
+                                    style="display: none;">
+                                <label class="upload-label" (click)="triggerFileInput()">رفع الصورة الشخصية</label>
+                            </div>
+                            @if (SignupForm.get('profile_pic')?.errors?.['required'] && submitted) {
+                            <div class="error">الصورة الشخصية مطلوبة</div>
+                            }
+                            @if (SignupForm.get('profile_pic')?.errors?.['invalidFileType'] && submitted) {
+                            <div class="error">نوع الملف غير مدعوم. يرجى اختيار صورة صالحة</div>
+                            }
+                            @if (SignupForm.get('profile_pic')?.errors?.['maxSize'] && submitted) {
+                            <div class="error">حجم الصورة يجب أن يكون أقل من 5 ميجابايت</div>
+                            }
+                            @if (SignupForm.get('profile_pic')?.errors?.['serverError'] && submitted) {
+                            <div class="error">{{ SignupForm.get('profile_pic')?.errors?.['serverError'] }}</div>
+                            }
+                        </div>
+                        <!-- username -->
+
+                        <div class="form-field">
+                            <label class="field-label">
+                                <span class="required">*</span>
+                                اسم المستخدم
+                            </label>
+                            <input placeholder="الاسم المستخدم"
+                                type="text"
+                                class="form-input"
+                                maxlength="30"
+                                required
+                                formControlName="username"
+                                [class.invalid]="SignupForm.get('username')?.invalid && submitted">
+                            @if (SignupForm.get('username')?.errors?.['required'] && submitted) {
+                            <div class="error">اسم المستخدم مطلوب</div>
+                            }
+                            @if (SignupForm.get('username')?.errors?.['pattern'] && submitted) {
+                            <div class="error">الاسم يجب أن يحتوي على أحرف </div>
+                            }
+                            @if (SignupForm.get('username')?.errors?.['serverError'] && submitted) {
+                            <div class="error">{{ SignupForm.get('username')?.errors?.['serverError'] }}</div>
+                            }
+                        </div>
+                        <!-- Name Fields -->
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label class="field-label">
+                                    <span class="required">*</span>
+                                    الاسم الأول
+                                </label>
+                                <input placeholder="الاسم الأول"
+                                    type="text" class="form-input"
+                                    maxlength="30" required formControlName="first_name"
+                                    [class.invalid]="SignupForm.get('first_name')?.invalid && submitted">
+                                @if (SignupForm.get('first_name')?.errors?.['required'] && submitted) {
+                                <div class="error">الاسم الأول مطلوب</div>
+                                }
+                                @if (SignupForm.get('first_name')?.errors?.['pattern'] && submitted) {
+                                <div class="error">الاسم يجب أن يحتوي على أحرف فقط</div>
+                                }
+                                @if (SignupForm.get('first_name')?.errors?.['serverError'] && submitted) {
+                                <div class="error">{{ SignupForm.get('first_name')?.errors?.['serverError'] }}</div>
+                                }
+
+                            </div>
+                            <div class="form-field">
+                                <label class="field-label">
+                                    <span class="required">*</span>
+                                    الاسم الثاني
+                                </label>
+                                <input placeholder="الاسم الأخير"
+                                    type="text" class="form-input"
+                                    maxlength="30" required formControlName="second_name"
+                                    [class.invalid]="SignupForm.get('second_name')?.invalid && submitted">
+                                @if (SignupForm.get('second_name')?.errors?.['required'] && submitted) {
+                                <div class="error">الاسم الثاني مطلوب</div>
+                                }
+                                @if (SignupForm.get('second_name')?.errors?.['pattern'] && submitted) {
+                                <div class="error">الاسم يجب أن يحتوي على أحرف فقط</div>
+                                }
+                                @if (SignupForm.get('second_name')?.errors?.['serverError'] && submitted) {
+                                <div class="error">{{ SignupForm.get('second_name')?.errors?.['serverError'] }}</div>
+                                }
+                            </div>
+
+
+                            <div class="form-field">
+                                <label class="field-label">
+                                    <span class="required">*</span>
+                                    اسم العائلة
+                                </label>
+                                <input placeholder="الاسم الأخير"
+                                    type="text" class="form-input"
+                                    maxlength="30" required formControlName="last_name"
+                                    [class.invalid]="SignupForm.get('last_name')?.invalid && submitted">
+                                @if (SignupForm.get('last_name')?.errors?.['required'] && submitted) {
+                                <div class="error">اسم العائلة مطلوب</div>
+                                }
+                                @if (SignupForm.get('last_name')?.errors?.['pattern'] && submitted) {
+                                <div class="error">الاسم يجب أن يحتوي على أحرف فقط</div>
+                                }
+                                @if (SignupForm.get('last_name')?.errors?.['serverError'] && submitted) {
+                                <div class="error">{{ SignupForm.get('last_name')?.errors?.['serverError'] }}</div>
+                                }
+                            </div>
+                        </div>
+
+                        <!-- Email and Phone -->
+                        <div class="form-row">
+
+                            <div class="form-field">
+                                <label class="field-label">
+                                    <span class="required">*</span>
+                                    البريد الالكتروني
+                                </label>
+                                <input type="email" class="form-input"
+                                    placeholder="example@example.com"
+                                    maxlength="50" required formControlName="email"
+                                    [class.invalid]="SignupForm.get('email')?.invalid && submitted">
+                                @if (SignupForm.get('email')?.errors?.['required'] && submitted) {
+                                <div class="error">البريد الإلكتروني مطلوب</div>
+                                }
+                                @if (SignupForm.get('email')?.errors?.['email'] && submitted) {
+                                <div class="error">البريد الإلكتروني غير صحيح</div>
+                                }
+                                @if (SignupForm.get('email')?.errors?.['emailWithDot'] && submitted) {
+                                <div class="error">البريد الإلكتروني يجب أن يحتوي على نقطة</div>
+                                }
+                                @if (SignupForm.get('email')?.errors?.['emailNoArabic'] && submitted) {
+                                <div class="error">البريد الإلكتروني لا يجب أن يحتوي على أحرف عربية</div>
+                                }
+                                @if (SignupForm.get('email')?.errors?.['serverError'] && submitted) {
+                                <div class="error">{{ SignupForm.get('email')?.errors?.['serverError'] }}</div>
+                                }
+                            </div>
+                            <div class="form-field">
+                                <label class="field-label">
+                                    <span class="required">*</span>
+                                    رقم الجوال
+                                </label>
+                                <div class="phone-input">
+                                    <ngx-intl-tel-input [preferredCountries]="[CountryISO.SaudiArabia]"
+                                        [enableAutoCountrySelect]="true"
+                                        [enablePlaceholder]="false" [preferredCountries]="[CountryISO.SaudiArabia]"
+                                        [searchCountryFlag]="true" [searchCountryField]="[
+                                        SearchCountryField.Iso2,
+                                        SearchCountryField.Name
+                                    ]" [selectFirstCountry]="false"
+                                        [selectedCountryISO]="CountryISO.SaudiArabia"
+                                        [maxLength]="15"
+                                        [phoneValidation]="true" [separateDialCode]="separateDialCode"
+                                        [numberFormat]="PhoneNumberFormat.National" style=" width:100%;"
+                                        formControlName="phone" required
+                                        [class.invalid]="SignupForm.get('phone')?.invalid && submitted">
+                                    </ngx-intl-tel-input>
+                                </div>
+                                @if (SignupForm.get('phone')?.errors?.['required'] && submitted) {
+                                <div class="error">رقم الجوال مطلوب</div>
+                                }
+                                @if (SignupForm.get('phone')?.errors?.['validatePhoneNumber'] && submitted) {
+                                <div class="error">رقم الجوال غير صحيح</div>
+                                }
+                                @if (SignupForm.get('phone')?.errors?.['serverError'] && submitted) {
+                                <div class="error">{{ SignupForm.get('phone')?.errors?.['serverError'] }}</div>
+                                }
+                            </div>
+                        </div>
+
+                        <!-- Birth Date -->
+                        <div class="form-field">
+                            <label class="field-label">
+                                <span class="required">*</span>
+                                تاريخ الميلاد
+                            </label>
+                            <input
+                                type="date"
+                                class="form-input"
+                                required
+                                formControlName="birth_date"
+                                [class.invalid]="SignupForm.get('birth_date')?.invalid && submitted">
+                            @if (SignupForm.get('birth_date')?.errors?.['required'] && submitted) {
+                            <div class="error">تاريخ الميلاد مطلوب</div>
+                            }
+                            @if (SignupForm.get('birth_date')?.errors?.['serverError'] && submitted) {
+                            <div class="error">{{ SignupForm.get('birth_date')?.errors?.['serverError'] }}</div>
+                            }
+                        </div>
+                        <div class="form-row">
+
+
+                            <!-- ID Number -->
+                            <div class="form-field">
+                                <label class="field-label">
+                                    <span class="required">*</span>
+                                    رقم الهوية
+                                </label>
+                                <input
+                                    class="form-input"
+                                    type="text"
+                                    inputmode="numeric"
+                                    placeholder="رقم الهوية"
+                                    maxlength="10"
+                                    required
+                                    formControlName="identity_number"
+                                    (keypress)="allowOnlyNumbers($event)"
+                                    [class.invalid]="SignupForm.get('identity_number')?.invalid && submitted">
+                                <div class="supporting-text">
+                                    <span class="support-label">يجب أن يتكون من 10 أرقام</span>
+                                </div>
+                                @if (SignupForm.get('identity_number')?.errors?.['required'] && submitted) {
+                                <div class="error">رقم الهوية مطلوب</div>
+                                }
+                                @if (SignupForm.get('identity_number')?.errors?.['pattern'] && submitted) {
+                                <div class="error">يجب إدخال أرقام فقط</div>
+                                }
+                                @if (SignupForm.get('identity_number')?.errors?.['minlength'] && submitted) {
+                                <div class="error">رقم الهوية يجب أن يتكون من 10 أرقام</div>
+                                }
+                                @if (SignupForm.get('identity_number')?.errors?.['maxlength'] && submitted) {
+                                <div class="error">رقم الهوية يجب أن يتكون من 10 أرقام</div>
+                                }
+                                @if (SignupForm.get('identity_number')?.errors?.['noSpacesAllowed'] && submitted) {
+                                <div class="error">المسافات غير مسموحة</div>
+                                }
+                                @if (SignupForm.get('identity_number')?.errors?.['serverError'] && submitted) {
+                                <div class="error">{{ SignupForm.get('identity_number')?.errors?.['serverError'] }}
+                                </div>
+                                }
+
+                            </div>
+                            <!-- nationality -->
+                            <div class="form-field">
+                                <label class="field-label">
+                                    <span class="required">*</span>
+                                    الجنسية
+                                </label>
+                                <select
+                                    class="form-input"
+                                    name=""
+                                    id=""
+                                    dir="rtl"
+                                    formControlName="nationality"
+                                    [class.invalid]="SignupForm.get('nationality')?.invalid && submitted">
+                                    <option value="" disabled selected>اختر الجنسية</option>
+                                    @for ( nationality of nationalities; track $index) {
+                                    <option
+                                        [value]="nationality.nationalityEn">
+                                        {{ nationality.nationalityAr }}
+                                    </option>
+                                    }
+                                </select>
+                                @if (SignupForm.get('nationality')?.errors?.['required'] && submitted) {
+                                <div class="error"> اختيار الجنسية مطلوب</div>
+                                }
+                                @if (SignupForm.get('nationality')?.errors?.['serverError'] && submitted) {
+                                <div class="error">{{ SignupForm.get('nationality')?.errors?.['serverError'] }}</div>
+                                }
+                            </div>
+
+                        </div>
+
+
+                        <!-- Password -->
+                        <div class="form-field">
+                            <label class="field-label">
+                                <span class="required">*</span>
+                                كلمة المرور
+                            </label>
+                            <div class="password-input">
+                                <input
+                                    [type]="showPassword ? 'text' : 'password'"
+                                    class="form-input"
+                                    maxlength="30"
+                                    required
+                                    formControlName="password"
+                                    placeholder="ادخل كلمه المرور"
+                                    onkeypress='return /[A-Za-z0-9!@_#$%^&*(),.?":{}|<>]/.test(String.fromCharCode(event.charCode))'
+                                    [class.invalid]="SignupForm.get('password')?.invalid && submitted">
+                                <div class="eye-icon">
+                                    <img src="assets/icons/eye.svg"
+                                        (click)="togglePasswordVisibility()" alt="Eye">
+                                </div>
+                            </div>
+                            @if (SignupForm.get('password')?.errors?.['required'] && submitted) {
+                            <div class="error">كلمة المرور مطلوبة</div>
+                            }
+                            @if (SignupForm.get('password')?.errors?.['minlength'] && submitted) {
+                            <div class="error">كلمة المرور يجب أن تتكون من 8 أحرف على الأقل</div>
+                            }
+                            @if (SignupForm.get('password')?.errors?.['specialCharacter'] && submitted) {
+                            <div class="error">كلمة المرور يجب أن تحتوي على رمز خاص</div>
+                            }
+                            @if (SignupForm.get('password')?.errors?.['containsNumber'] && submitted) {
+                            <div class="error">كلمة المرور يجب أن تحتوي على رقم</div>
+                            }
+                            @if (SignupForm.get('password')?.errors?.['noSpaceAllowed'] && submitted) {
+                            <div class="error">كلمة المرور لا يجب أن تحتوي على مسافات</div>
+                            }
+                            @if (SignupForm.get('password')?.errors?.['containsLetter'] && submitted) {
+                            <div class="error">كلمة المرور يجب أن تحتوي على أحرف</div>
+                            }
+                            @if (SignupForm.get('password')?.errors?.['serverError'] && submitted) {
+                            <div class="error">{{ SignupForm.get('password')?.errors?.['serverError'] }}</div>
+                            }
+                        </div>
+
+                        <!-- Confirm Password -->
+                        <div class="form-field">
+                            <label class="field-label">
+                                <span class="required">*</span>
+                                تأكيد كلمة المرور
+                            </label>
+                            <div class="password-input">
+                                <input
+                                    [type]="showConfirmPassword ? 'text' : 'password'"
+                                    class="form-input"
+                                    maxlength="30"
+                                    required
+                                    formControlName="confirm_password"
+                                    placeholder="ادخل كلمه المرور"
+                                    onkeypress='return /[A-Za-z0-9!@_#$%^&*(),.?":{}|<>]/.test(String.fromCharCode(event.charCode))'
+                                    [class.invalid]="SignupForm.get('confirm_password')?.invalid && submitted">
+                                <div class="eye-icon">
+                                    <img src="assets/icons/eye.svg"
+                                        (click)="toggleConfirmPasswordVisibility()" alt="Eye">
+                                </div>
+                            </div>
+                            @if (SignupForm.get('confirm_password')?.errors?.['required'] && submitted) {
+                            <div class="error">تأكيد كلمة المرور مطلوب</div>
+                            }
+                            @if (SignupForm.get('confirm_password')?.errors?.['minlength'] && submitted) {
+                            <div class="error">تأكيد كلمة المرور يجب أن يتكون من 8 أحرف على الأقل</div>
+                            }
+                            @if (SignupForm.get('confirm_password')?.errors?.['passwordMismatch'] && submitted) {
+                            <div class="error">كلمة المرور غير متطابقة</div>
+                            }
+                        </div>
+
+                        <!-- Terms Checkbox -->
+                        <div class="terms-section">
+                            <div class="checkbox-container">
+                                <input type="checkbox" id="terms" class="checkbox" formControlName="terms" required>
+                                <label for="terms" class="checkbox-label"></label>
+                            </div>
+                            <label for="terms" class="terms-text">
+
+                                أوافق على جميع
+
+                                <span class="link"> الشروط</span>
+
+                                و
+
+                                <span class="link"> سياسات الخصوصية </span>
+
+                            </label>
+                            @if (SignupForm.get('terms')?.errors?.['required'] && submitted) {
+                            <div class="error">يجب الموافقة على الشروط وسياسات الخصوصية</div>
+                            }
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" class="submit-btn">إنشاء حساب</button>
+
+                        <!-- Login Link -->
+                        <div class="login-link">
+                            لديك حساب بالفعل؟ <span class="link">سجل الدخول</span>
+                        </div>
+
+                        <!-- Divider -->
+                        <div class="divider">
+                            <div class="divider-line"></div>
+                            <div class="divider-line"></div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

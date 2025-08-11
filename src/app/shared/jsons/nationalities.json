@@ -1,0 +1,574 @@
+{
+  "nationalities": [
+    {
+      "countryEn": "Saudi Arabia",
+      "countryAr": "المملكة العربية السعودية",
+      "nationalityEn": "Saudi",
+      "nationalityAr": "سعودي"
+    },
+    {
+      "countryEn": "United Arab Emirates",
+      "countryAr": "الإمارات العربية المتحدة",
+      "nationalityEn": "Emirati",
+      "nationalityAr": "إماراتي"
+    },
+    {
+      "countryEn": "Egypt",
+      "countryAr": "مصر",
+      "nationalityEn": "Egyptian",
+      "nationalityAr": "مصري"
+    },
+    {
+      "countryEn": "Jordan",
+      "countryAr": "الأردن",
+      "nationalityEn": "Jordanian",
+      "nationalityAr": "أردني"
+    },
+    {
+      "countryEn": "Lebanon",
+      "countryAr": "لبنان",
+      "nationalityEn": "Lebanese",
+      "nationalityAr": "لبناني"
+    },
+    {
+      "countryEn": "Syria",
+      "countryAr": "سوريا",
+      "nationalityEn": "Syrian",
+      "nationalityAr": "سوري"
+    },
+    {
+      "countryEn": "Iraq",
+      "countryAr": "العراق",
+      "nationalityEn": "Iraqi",
+      "nationalityAr": "عراقي"
+    },
+    {
+      "countryEn": "Kuwait",
+      "countryAr": "الكويت",
+      "nationalityEn": "Kuwaiti",
+      "nationalityAr": "كويتي"
+    },
+    {
+      "countryEn": "Qatar",
+      "countryAr": "قطر",
+      "nationalityEn": "Qatari",
+      "nationalityAr": "قطري"
+    },
+    {
+      "countryEn": "Bahrain",
+      "countryAr": "البحرين",
+      "nationalityEn": "Bahraini",
+      "nationalityAr": "بحريني"
+    },
+    {
+      "countryEn": "Oman",
+      "countryAr": "عُمان",
+      "nationalityEn": "Omani",
+      "nationalityAr": "عماني"
+    },
+    {
+      "countryEn": "Yemen",
+      "countryAr": "اليمن",
+      "nationalityEn": "Yemeni",
+      "nationalityAr": "يمني"
+    },
+    {
+      "countryEn": "Palestine",
+      "countryAr": "فلسطين",
+      "nationalityEn": "Palestinian",
+      "nationalityAr": "فلسطيني"
+    },
+    {
+      "countryEn": "Morocco",
+      "countryAr": "المغرب",
+      "nationalityEn": "Moroccan",
+      "nationalityAr": "مغربي"
+    },
+    {
+      "countryEn": "Algeria",
+      "countryAr": "الجزائر",
+      "nationalityEn": "Algerian",
+      "nationalityAr": "جزائري"
+    },
+    {
+      "countryEn": "Tunisia",
+      "countryAr": "تونس",
+      "nationalityEn": "Tunisian",
+      "nationalityAr": "تونسي"
+    },
+    {
+      "countryEn": "Libya",
+      "countryAr": "ليبيا",
+      "nationalityEn": "Libyan",
+      "nationalityAr": "ليبي"
+    },
+    {
+      "countryEn": "Sudan",
+      "countryAr": "السودان",
+      "nationalityEn": "Sudanese",
+      "nationalityAr": "سوداني"
+    },
+    {
+      "countryEn": "Mauritania",
+      "countryAr": "موريتانيا",
+      "nationalityEn": "Mauritanian",
+      "nationalityAr": "موريتاني"
+    },
+    {
+      "countryEn": "Somalia",
+      "countryAr": "الصومال",
+      "nationalityEn": "Somali",
+      "nationalityAr": "صومالي"
+    },
+    {
+      "countryEn": "Djibouti",
+      "countryAr": "جيبوتي",
+      "nationalityEn": "Djiboutian",
+      "nationalityAr": "جيبوتي"
+    },
+    {
+      "countryEn": "Comoros",
+      "countryAr": "جزر القمر",
+      "nationalityEn": "Comorian",
+      "nationalityAr": "قمري"
+    },
+    {
+      "countryEn": "United States",
+      "countryAr": "الولايات المتحدة الأمريكية",
+      "nationalityEn": "American",
+      "nationalityAr": "أمريكي"
+    },
+    {
+      "countryEn": "United Kingdom",
+      "countryAr": "المملكة المتحدة",
+      "nationalityEn": "British",
+      "nationalityAr": "بريطاني"
+    },
+    {
+      "countryEn": "Canada",
+      "countryAr": "كندا",
+      "nationalityEn": "Canadian",
+      "nationalityAr": "كندي"
+    },
+    {
+      "countryEn": "Australia",
+      "countryAr": "أستراليا",
+      "nationalityEn": "Australian",
+      "nationalityAr": "أسترالي"
+    },
+    {
+      "countryEn": "Germany",
+      "countryAr": "ألمانيا",
+      "nationalityEn": "German",
+      "nationalityAr": "ألماني"
+    },
+    {
+      "countryEn": "France",
+      "countryAr": "فرنسا",
+      "nationalityEn": "French",
+      "nationalityAr": "فرنسي"
+    },
+    {
+      "countryEn": "Italy",
+      "countryAr": "إيطاليا",
+      "nationalityEn": "Italian",
+      "nationalityAr": "إيطالي"
+    },
+    {
+      "countryEn": "Spain",
+      "countryAr": "إسبانيا",
+      "nationalityEn": "Spanish",
+      "nationalityAr": "إسباني"
+    },
+    {
+      "countryEn": "Netherlands",
+      "countryAr": "هولندا",
+      "nationalityEn": "Dutch",
+      "nationalityAr": "هولندي"
+    },
+    {
+      "countryEn": "Belgium",
+      "countryAr": "بلجيكا",
+      "nationalityEn": "Belgian",
+      "nationalityAr": "بلجيكي"
+    },
+    {
+      "countryEn": "Switzerland",
+      "countryAr": "سويسرا",
+      "nationalityEn": "Swiss",
+      "nationalityAr": "سويسري"
+    },
+    {
+      "countryEn": "Austria",
+      "countryAr": "النمسا",
+      "nationalityEn": "Austrian",
+      "nationalityAr": "نمساوي"
+    },
+    {
+      "countryEn": "Sweden",
+      "countryAr": "السويد",
+      "nationalityEn": "Swedish",
+      "nationalityAr": "سويدي"
+    },
+    {
+      "countryEn": "Norway",
+      "countryAr": "النرويج",
+      "nationalityEn": "Norwegian",
+      "nationalityAr": "نرويجي"
+    },
+    {
+      "countryEn": "Denmark",
+      "countryAr": "الدنمارك",
+      "nationalityEn": "Danish",
+      "nationalityAr": "دنماركي"
+    },
+    {
+      "countryEn": "Finland",
+      "countryAr": "فنلندا",
+      "nationalityEn": "Finnish",
+      "nationalityAr": "فنلندي"
+    },
+    {
+      "countryEn": "Portugal",
+      "countryAr": "البرتغال",
+      "nationalityEn": "Portuguese",
+      "nationalityAr": "برتغالي"
+    },
+    {
+      "countryEn": "Greece",
+      "countryAr": "اليونان",
+      "nationalityEn": "Greek",
+      "nationalityAr": "يوناني"
+    },
+    {
+      "countryEn": "Ireland",
+      "countryAr": "أيرلندا",
+      "nationalityEn": "Irish",
+      "nationalityAr": "أيرلندي"
+    },
+    {
+      "countryEn": "New Zealand",
+      "countryAr": "نيوزيلندا",
+      "nationalityEn": "New Zealander",
+      "nationalityAr": "نيوزيلندي"
+    },
+    {
+      "countryEn": "China",
+      "countryAr": "الصين",
+      "nationalityEn": "Chinese",
+      "nationalityAr": "صيني"
+    },
+    {
+      "countryEn": "Japan",
+      "countryAr": "اليابان",
+      "nationalityEn": "Japanese",
+      "nationalityAr": "ياباني"
+    },
+    {
+      "countryEn": "South Korea",
+      "countryAr": "كوريا الجنوبية",
+      "nationalityEn": "South Korean",
+      "nationalityAr": "كوري جنوبي"
+    },
+    {
+      "countryEn": "India",
+      "countryAr": "الهند",
+      "nationalityEn": "Indian",
+      "nationalityAr": "هندي"
+    },
+    {
+      "countryEn": "Pakistan",
+      "countryAr": "باكستان",
+      "nationalityEn": "Pakistani",
+      "nationalityAr": "باكستاني"
+    },
+    {
+      "countryEn": "Bangladesh",
+      "countryAr": "بنغلاديش",
+      "nationalityEn": "Bangladeshi",
+      "nationalityAr": "بنغلاديشي"
+    },
+    {
+      "countryEn": "Indonesia",
+      "countryAr": "إندونيسيا",
+      "nationalityEn": "Indonesian",
+      "nationalityAr": "إندونيسي"
+    },
+    {
+      "countryEn": "Malaysia",
+      "countryAr": "ماليزيا",
+      "nationalityEn": "Malaysian",
+      "nationalityAr": "ماليزي"
+    },
+    {
+      "countryEn": "Singapore",
+      "countryAr": "سنغافورة",
+      "nationalityEn": "Singaporean",
+      "nationalityAr": "سنغافوري"
+    },
+    {
+      "countryEn": "Thailand",
+      "countryAr": "تايلاند",
+      "nationalityEn": "Thai",
+      "nationalityAr": "تايلاندي"
+    },
+    {
+      "countryEn": "Vietnam",
+      "countryAr": "فيتنام",
+      "nationalityEn": "Vietnamese",
+      "nationalityAr": "فيتنامي"
+    },
+    {
+      "countryEn": "Philippines",
+      "countryAr": "الفلبين",
+      "nationalityEn": "Filipino",
+      "nationalityAr": "فلبيني"
+    },
+    {
+      "countryEn": "Sri Lanka",
+      "countryAr": "سريلانكا",
+      "nationalityEn": "Sri Lankan",
+      "nationalityAr": "سريلانكي"
+    },
+    {
+      "countryEn": "Nepal",
+      "countryAr": "نيبال",
+      "nationalityEn": "Nepalese",
+      "nationalityAr": "نيبالي"
+    },
+    {
+      "countryEn": "Myanmar",
+      "countryAr": "ميانمار",
+      "nationalityEn": "Myanmar",
+      "nationalityAr": "ميانماري"
+    },
+    {
+      "countryEn": "Cambodia",
+      "countryAr": "كمبوديا",
+      "nationalityEn": "Cambodian",
+      "nationalityAr": "كمبودي"
+    },
+    {
+      "countryEn": "Laos",
+      "countryAr": "لاوس",
+      "nationalityEn": "Laotian",
+      "nationalityAr": "لاوسي"
+    },
+    {
+      "countryEn": "Turkey",
+      "countryAr": "تركيا",
+      "nationalityEn": "Turkish",
+      "nationalityAr": "تركي"
+    },
+    {
+      "countryEn": "Iran",
+      "countryAr": "إيران",
+      "nationalityEn": "Iranian",
+      "nationalityAr": "إيراني"
+    },
+    {
+      "countryEn": "Afghanistan",
+      "countryAr": "أفغانستان",
+      "nationalityEn": "Afghan",
+      "nationalityAr": "أفغاني"
+    },
+    {
+      "countryEn": "Cyprus",
+      "countryAr": "قبرص",
+      "nationalityEn": "Cypriot",
+      "nationalityAr": "قبرصي"
+    },
+    {
+      "countryEn": "South Africa",
+      "countryAr": "جنوب أفريقيا",
+      "nationalityEn": "South African",
+      "nationalityAr": "جنوب أفريقي"
+    },
+    {
+      "countryEn": "Nigeria",
+      "countryAr": "نيجيريا",
+      "nationalityEn": "Nigerian",
+      "nationalityAr": "نيجيري"
+    },
+    {
+      "countryEn": "Kenya",
+      "countryAr": "كينيا",
+      "nationalityEn": "Kenyan",
+      "nationalityAr": "كيني"
+    },
+    {
+      "countryEn": "Ethiopia",
+      "countryAr": "إثيوبيا",
+      "nationalityEn": "Ethiopian",
+      "nationalityAr": "إثيوبي"
+    },
+    {
+      "countryEn": "Ghana",
+      "countryAr": "غانا",
+      "nationalityEn": "Ghanaian",
+      "nationalityAr": "غاني"
+    },
+    {
+      "countryEn": "Uganda",
+      "countryAr": "أوغندا",
+      "nationalityEn": "Ugandan",
+      "nationalityAr": "أوغندي"
+    },
+    {
+      "countryEn": "Tanzania",
+      "countryAr": "تنزانيا",
+      "nationalityEn": "Tanzanian",
+      "nationalityAr": "تنزاني"
+    },
+    {
+      "countryEn": "Russia",
+      "countryAr": "روسيا",
+      "nationalityEn": "Russian",
+      "nationalityAr": "روسي"
+    },
+    {
+      "countryEn": "Ukraine",
+      "countryAr": "أوكرانيا",
+      "nationalityEn": "Ukrainian",
+      "nationalityAr": "أوكراني"
+    },
+    {
+      "countryEn": "Poland",
+      "countryAr": "بولندا",
+      "nationalityEn": "Polish",
+      "nationalityAr": "بولندي"
+    },
+    {
+      "countryEn": "Czech Republic",
+      "countryAr": "التشيك",
+      "nationalityEn": "Czech",
+      "nationalityAr": "تشيكي"
+    },
+    {
+      "countryEn": "Hungary",
+      "countryAr": "المجر",
+      "nationalityEn": "Hungarian",
+      "nationalityAr": "مجري"
+    },
+    {
+      "countryEn": "Romania",
+      "countryAr": "رومانيا",
+      "nationalityEn": "Romanian",
+      "nationalityAr": "روماني"
+    },
+    {
+      "countryEn": "Bulgaria",
+      "countryAr": "بلغاريا",
+      "nationalityEn": "Bulgarian",
+      "nationalityAr": "بلغاري"
+    },
+    {
+      "countryEn": "Brazil",
+      "countryAr": "البرازيل",
+      "nationalityEn": "Brazilian",
+      "nationalityAr": "برازيلي"
+    },
+    {
+      "countryEn": "Argentina",
+      "countryAr": "الأرجنتين",
+      "nationalityEn": "Argentine",
+      "nationalityAr": "أرجنتيني"
+    },
+    {
+      "countryEn": "Colombia",
+      "countryAr": "كولومبيا",
+      "nationalityEn": "Colombian",
+      "nationalityAr": "كولومبي"
+    },
+    {
+      "countryEn": "Peru",
+      "countryAr": "بيرو",
+      "nationalityEn": "Peruvian",
+      "nationalityAr": "بيروفي"
+    },
+    {
+      "countryEn": "Chile",
+      "countryAr": "تشيلي",
+      "nationalityEn": "Chilean",
+      "nationalityAr": "تشيلي"
+    },
+    {
+      "countryEn": "Venezuela",
+      "countryAr": "فنزويلا",
+      "nationalityEn": "Venezuelan",
+      "nationalityAr": "فنزويلي"
+    },
+    {
+      "countryEn": "Ecuador",
+      "countryAr": "الإكوادور",
+      "nationalityEn": "Ecuadorian",
+      "nationalityAr": "إكوادوري"
+    },
+    {
+      "countryEn": "Kazakhstan",
+      "countryAr": "كازاخستان",
+      "nationalityEn": "Kazakh",
+      "nationalityAr": "كازاخي"
+    },
+    {
+      "countryEn": "Uzbekistan",
+      "countryAr": "أوزبكستان",
+      "nationalityEn": "Uzbek",
+      "nationalityAr": "أوزبكي"
+    },
+    {
+      "countryEn": "Kyrgyzstan",
+      "countryAr": "قيرغيزستان",
+      "nationalityEn": "Kyrgyz",
+      "nationalityAr": "قيرغيزي"
+    },
+    {
+      "countryEn": "Tajikistan",
+      "countryAr": "طاجيكستان",
+      "nationalityEn": "Tajik",
+      "nationalityAr": "طاجيكي"
+    },
+    {
+      "countryEn": "Turkmenistan",
+      "countryAr": "تركمانستان",
+      "nationalityEn": "Turkmen",
+      "nationalityAr": "تركماني"
+    },
+    {
+      "countryEn": "Azerbaijan",
+      "countryAr": "أذربيجان",
+      "nationalityEn": "Azerbaijani",
+      "nationalityAr": "أذربيجاني"
+    },
+    {
+      "countryEn": "Armenia",
+      "countryAr": "أرمينيا",
+      "nationalityEn": "Armenian",
+      "nationalityAr": "أرمني"
+    },
+    {
+      "countryEn": "Georgia",
+      "countryAr": "جورجيا",
+      "nationalityEn": "Georgian",
+      "nationalityAr": "جورجي"
+    },
+    {
+      "countryEn": "Mexico",
+      "countryAr": "المكسيك",
+      "nationalityEn": "Mexican",
+      "nationalityAr": "مكسيكي"
+    },
+    {
+      "countryEn": "Cuba",
+      "countryAr": "كوبا",
+      "nationalityEn": "Cuban",
+      "nationalityAr": "كوبي"
+    },
+    {
+      "countryEn": "Jamaica",
+      "countryAr": "جامايكا",
+      "nationalityEn": "Jamaican",
+      "nationalityAr": "جامايكي"
+    }
+  ]
+}
