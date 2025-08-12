@@ -59,7 +59,7 @@ export class TripDetailsComponent implements OnInit {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       const selectedDate = new Date(control.value);
-      
+
       if (selectedDate < today) {
         return { pastDate: true };
       }
@@ -72,20 +72,20 @@ export class TripDetailsComponent implements OnInit {
     const tripType = control.get('tripType')?.value;
     const startDate = control.get('startDate')?.value;
     const returnDate = control.get('returnDate')?.value;
-    
+
     if (tripType === 'round-trip' && startDate && returnDate) {
       if (new Date(returnDate) < new Date(startDate)) {
         return { dateSequence: true };
       }
     }
-    
+
     return null;
   }
 
   // Form initialization
   private initializeForm(): void {
     const today = this.formatDate(new Date());
-    
+
     this.tripForm.patchValue({
       startDate: today,
       returnDate: today
@@ -118,7 +118,7 @@ export class TripDetailsComponent implements OnInit {
       returnDateControl?.clearValidators();
       departureTimeControl?.setValue('');
       returnDateControl?.setValue('');
-      
+
       // Clear the touched and dirty state when switching to one-way
       departureTimeControl?.markAsUntouched();
       departureTimeControl?.markAsPristine();
@@ -128,14 +128,14 @@ export class TripDetailsComponent implements OnInit {
 
     departureTimeControl?.updateValueAndValidity();
     returnDateControl?.updateValueAndValidity();
-    
+
     // Don't revalidate the entire form here to avoid triggering form-level validators
   }
 
   private handleStartDateChange(startDate: string): void {
     const returnDateControl = this.tripForm.get('returnDate');
     const currentReturnDate = returnDateControl?.value;
-    
+
     // If return date is before start date, update it
     if (startDate && currentReturnDate && currentReturnDate < startDate) {
       returnDateControl?.setValue(startDate);
@@ -168,23 +168,18 @@ export class TripDetailsComponent implements OnInit {
 
   hasFieldError(fieldName: string): boolean {
     const field = this.tripForm.get(fieldName);
-    
-    // Only show errors if field is touched/dirty OR form has been submitted
-    // AND the field is actually invalid
     const shouldShowError = field && field.invalid && (field.dirty || field.touched || this.submitted);
-    
-    // For round-trip specific fields, also check if trip type is round-trip
     if (fieldName === 'departureTime' || fieldName === 'returnDate') {
       const isRoundTrip = this.tripType === 'round-trip';
       return !!(shouldShowError && isRoundTrip);
     }
-    
+
     return !!shouldShowError;
   }
 
   getFieldError(fieldName: string): string | null {
     const field = this.tripForm.get(fieldName);
-    
+
     // Only return error messages if the field should show an error
     if (!this.hasFieldError(fieldName)) {
       return null;
@@ -195,12 +190,12 @@ export class TripDetailsComponent implements OnInit {
     }
 
     const errors = field.errors;
-    
+
     // Check for form-level date sequence error for return date
     if (fieldName === 'returnDate' && this.tripForm.errors?.['dateSequence']) {
       return 'تاريخ العودة يجب أن يكون بعد تاريخ البدء أو في نفس اليوم';
     }
-    
+
     // Arabic error messages for field-level errors
     const errorMessages: { [key: string]: { [key: string]: string } } = {
       destination: {
@@ -274,10 +269,10 @@ export class TripDetailsComponent implements OnInit {
   // Form submission
   onSubmit(): void {
     this.submitted = true;
-    
+
     // Trigger form validation
     this.tripForm.updateValueAndValidity();
-    
+
     if (this.tripForm.invalid) {
       console.log('Form is invalid');
       this.markFormGroupTouched(this.tripForm);
@@ -311,12 +306,7 @@ export class TripDetailsComponent implements OnInit {
   private async submitTripDetails(data: TripFormData): Promise<void> {
     try {
       console.log('Submitting trip details:', data);
-      
-      // Example API call (replace with your actual service)
-      // await this.tripService.createTrip(data);
-
-      // Navigate to next step or success page
-      this.router.navigate(['/sign-up/step3'], {
+      this.router.navigate(['/trip-done'], {
         state: { tripData: data }
       });
 
@@ -330,7 +320,7 @@ export class TripDetailsComponent implements OnInit {
     Object.keys(formGroup.controls).forEach(key => {
       const control = formGroup.get(key);
       control?.markAsTouched();
-      
+
       if (control instanceof FormGroup) {
         this.markFormGroupTouched(control);
       }

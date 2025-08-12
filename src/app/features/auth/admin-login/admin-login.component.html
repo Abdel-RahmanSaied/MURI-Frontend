@@ -1,0 +1,124 @@
+<div class="login-container">
+  <div class="bg-overlay"></div>
+  
+  <div class="login-card">
+    <!-- Logo Section -->
+    <div class="logo-section">
+      <div class="muri-logo">
+        <img src="assets/image/logo.png" alt="موري Logo" class="logo-image">
+      </div>
+    </div>
+
+    <!-- Header Text -->
+    <div class="header-section">
+      <p class="welcome-subtitle">أهلاً بك في لوحة تحكم موري</p>
+      <h1 class="welcome-title">يرجى إدخال بياناتك للمتابعة</h1>
+    </div>
+
+    <!-- Login Form -->
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form" novalidate>
+      
+      <!-- Error Message -->
+      @if (errorMessage) {
+        <div class="error-message" role="alert">
+          <i class="error-icon">⚠</i>
+          {{ errorMessage }}
+          <button type="button" class="close-error" (click)="clearError()" aria-label="إغلاق الخطأ">×</button>
+        </div>
+      }
+
+      <div class="form-fields">
+        <!-- Email Field -->
+        <div class="form-group">
+          <div class="input-container" [class.focused]="emailFocused" [class.filled]="loginForm.get('email')?.value" [class.invalid]="hasFieldError('email')">
+            <input
+              id="email"
+              type="email"
+              formControlName="email"
+              class="form-input"
+              placeholder="johnsondoe@nomail.com"
+              autocomplete="email"
+              [attr.aria-describedby]="hasFieldError('email') ? 'email-error' : null"
+              (focus)="emailFocused = true; clearError()"
+              (blur)="emailFocused = false"
+            >
+            <label for="email" class="floating-label">البريد الإلكتروني</label>
+          </div>
+          @if (hasFieldError('email')) {
+            <div id="email-error" class="error" role="alert">
+              {{ getFieldError('email') }}
+            </div>
+          }
+          @if (loginForm.get('email')?.errors?.['serverError'] && submitted) {
+            <div class="error server-error" role="alert">
+              {{ loginForm.get('email')?.errors?.['serverError'] }}
+            </div>
+          }
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-group">
+          <div class="input-container" [class.focused]="passwordFocused" [class.filled]="loginForm.get('password')?.value" [class.invalid]="hasFieldError('password')">
+            <input
+              id="password"
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+              class="form-input"
+              placeholder="***************"
+              autocomplete="current-password"
+              [attr.aria-describedby]="hasFieldError('password') ? 'password-error' : null"
+              (focus)="passwordFocused = true; clearError()"
+              (blur)="passwordFocused = false"
+            >
+            <label for="password" class="floating-label">كلمة المرور</label>
+            <button
+              type="button"
+              class="password-toggle"
+              (click)="togglePasswordVisibility()"
+              [attr.aria-label]="showPassword ? 'إخفاء كلمة المرور' : 'إظهار كلمة المرور'"
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                @if (!showPassword) {
+                  <path d="M8 3C4.5 3 1.73 5.61 1 8c.73 2.39 3.5 5 7 5s6.27-2.61 7-5c-.73-2.39-3.5-5-7-5zM8 11.5c-1.93 0-3.5-1.57-3.5-3.5S6.07 4.5 8 4.5s3.5 1.57 3.5 3.5S9.93 11.5 8 11.5zM8 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z" fill="currentColor"/>
+                } @else {
+                  <path d="M8 3C4.5 3 1.73 5.61 1 8c.73 2.39 3.5 5 7 5s6.27-2.61 7-5c-.73-2.39-3.5-5-7-5zM8 11.5c-1.93 0-3.5-1.57-3.5-3.5S6.07 4.5 8 4.5s3.5 1.57 3.5 3.5S9.93 11.5 8 11.5z" fill="currentColor"/>
+                  <line x1="1" y1="1" x2="15" y2="15" stroke="currentColor" stroke-width="2"/>
+                }
+              </svg>
+            </button>
+          </div>
+          @if (hasFieldError('password')) {
+            <div id="password-error" class="error" role="alert">
+              {{ getFieldError('password') }}
+            </div>
+          }
+          @if (loginForm.get('password')?.errors?.['serverError'] && submitted) {
+            <div class="error server-error" role="alert">
+              {{ loginForm.get('password')?.errors?.['serverError'] }}
+            </div>
+          }
+        </div>
+      </div>
+
+
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="submit-button"
+        [class.loading]="isLoading"
+        [disabled]="isLoading"
+        [attr.aria-busy]="isLoading"
+      >
+        @if (!isLoading) {
+          <span class="button-text">تسجيل الدخول</span>
+        } @else {
+          <span class="button-loading">
+            <div class="loading-spinner"></div>
+            جاري تسجيل الدخول...
+          </span>
+        }
+      </button>
+    </form>
+  </div>
+</div>

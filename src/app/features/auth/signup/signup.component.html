@@ -93,8 +93,8 @@
                 <div class="form-content">
                     <!-- Header -->
                     <div class="header-text animated fadeInUp ">
-                        <h1 class="main-title ">.رحلتك تبدأ بخطوة آمنة</h1>
-                        <p class="subtitle">.انضم لآلاف العملاء المستفدين من التطبيق كل يوم</p>
+                        <h1 class="main-title ">رحلتك تبدأ بخطوة آمنة.</h1>
+                        <p class="subtitle">انضم لآلاف العملاء المستفدين من التطبيق كل يوم.</p>
                     </div>
 
                     <!-- Form -->
@@ -129,7 +129,7 @@
                         </div>
                         <!-- username -->
 
-                        <div class="form-field">
+                        <!-- <div class="form-field">
                             <label class="field-label">
                                 <span class="required">*</span>
                                 اسم المستخدم
@@ -150,7 +150,7 @@
                             @if (SignupForm.get('username')?.errors?.['serverError'] && submitted) {
                             <div class="error">{{ SignupForm.get('username')?.errors?.['serverError'] }}</div>
                             }
-                        </div>
+                        </div> -->
                         <!-- Name Fields -->
                         <div class="form-row">
                             <div class="form-field">
@@ -178,7 +178,7 @@
                                     <span class="required">*</span>
                                     الاسم الثاني
                                 </label>
-                                <input placeholder="الاسم الأخير"
+                                <input placeholder="الاسم الثاني"
                                     type="text" class="form-input"
                                     maxlength="30" required formControlName="second_name"
                                     [class.invalid]="SignupForm.get('second_name')?.invalid && submitted">
@@ -288,6 +288,7 @@
                                 required
                                 formControlName="birth_date"
                                 [class.invalid]="SignupForm.get('birth_date')?.invalid && submitted">
+
                             @if (SignupForm.get('birth_date')?.errors?.['required'] && submitted) {
                             <div class="error">تاريخ الميلاد مطلوب</div>
                             }

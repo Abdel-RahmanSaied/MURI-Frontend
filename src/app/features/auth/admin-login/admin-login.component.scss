@@ -1,0 +1,530 @@
+// SCSS Variables - Matching Figma Design
+$primary-blue: #5c82ef;
+$primary-blue-hover: #4f7df3;
+$primary-blue-active: #3b6de8;
+$border-blue: #6d83e7;
+$border-default: #bdbdbd;
+$text-dark: #000000;
+$text-medium: #424242;
+$text-light: #757575;
+$text-lighter: #bebebe;
+$background-white: #ffffff;
+$background-gray: #f5f5f5;
+$background-card: #fafafa;
+$shadow-card: rgba(0, 0, 0, 0.1);
+
+// Font Family
+$font-family: 'IBM Plex Sans Arabic', sans-serif;
+
+// Border Radius
+$border-radius: 8px;
+$border-radius-card: 24px;
+
+// Transitions
+$transition: all 0.2s ease-in-out;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Main Container
+.login-container {
+  min-height: 100vh;
+//   background-image: url('../../../../assets/image/lo'); // Replace with your background image
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  @include flex-center;
+  padding: 1rem;
+  font-family: $font-family;
+  direction: rtl;
+  position: relative;
+
+  @media (max-width: 640px) {
+    padding: 0.5rem;
+  }
+}
+
+// Background Overlay
+.bg-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(245, 245, 245, 0.5);
+  pointer-events: none;
+}
+
+// Login Card
+.login-card {
+  background: $background-card;
+  border-radius: $border-radius-card;
+  box-shadow: 4px 10px 10px 0px $shadow-card;
+  width: 100%;
+  max-width: 432px; // 380px + 2*26px padding
+  padding: 40px 26px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+
+  @media (max-width: 640px) {
+    padding: 32px 20px;
+    margin: 0.5rem;
+    max-width: calc(100% - 1rem);
+  }
+}
+
+// Logo Section
+.logo-section {
+  margin-bottom: 10px;
+
+  .muri-logo {
+    .logo-image {
+      height: fit-content;
+      width: 192px;
+      object-fit: contain;
+    }
+  }
+}
+
+// Header Section
+.header-section {
+  
+  margin-bottom: 17px;
+  width: 380px;
+
+  .welcome-subtitle {
+    font-size: 14px;
+    font-weight: 400;
+    color: $text-dark;
+    margin: 0 0 4px 0;
+    line-height: 22.53px;
+  }
+
+  .welcome-title {
+    font-size: 24px;
+    font-weight: 500;
+    color: $text-dark;
+    margin: 0;
+    line-height: 44px;
+  }
+
+  @media (max-width: 640px) {
+    width: 100%;
+    
+    .welcome-subtitle {
+      font-size: 13px;
+    }
+    
+    .welcome-title {
+      font-size: 20px;
+      line-height: 36px;
+    }
+  }
+}
+
+// Form Styles
+.login-form {
+  width: 380px;
+
+  @media (max-width: 640px) {
+    width: 100%;
+  }
+
+  .form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .form-group {
+    position: relative;
+  }
+
+  .input-container {
+    position: relative;
+    width: 100%;
+
+    .form-input {
+      width: 100%;
+      height: 56px;
+      padding: 20px 16px 12px 16px;
+      border: 1px solid $border-default;
+      border-radius: $border-radius;
+      font-size: 16px;
+      font-weight: 400;
+      background-color: $background-white;
+      transition: $transition;
+      
+      
+      color: $text-medium;
+
+      &::placeholder {
+        color: $text-medium;
+        
+        text-align: left;
+        opacity: 0;
+        transition: $transition;
+      }
+
+      &:focus {
+        outline: none;
+        border-color: $border-blue;
+
+        &::placeholder {
+          opacity: 1;
+        }
+      }
+    }
+
+    .floating-label {
+      position: absolute;
+      top: -11.5px;
+      right: 16px;
+      background-color: $background-card;
+      padding: 0 9px;
+      font-size: 14px;
+      font-weight: 400;
+      color: $text-medium;
+      transition: $transition;
+      pointer-events: none;
+      line-height: 23px;
+      height: 23px;
+      display: flex;
+      align-items: center;
+    }
+
+    &.focused, &.filled {
+      .form-input {
+        border-color: $border-blue;
+
+        &::placeholder {
+          opacity: 1;
+        }
+      }
+
+      .floating-label {
+        color: $text-medium;
+      }
+    }
+
+    &.error {
+      .form-input {
+        border-color: #ef4444;
+      }
+
+      .floating-label {
+        color: #ef4444;
+      }
+    }
+
+    .password-toggle {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: $text-light;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 4px;
+      transition: $transition;
+      width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:hover {
+        color: $primary-blue;
+      }
+
+      &:focus {
+        outline: 2px solid $primary-blue;
+        outline-offset: 2px;
+      }
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+
+}
+
+// Error Message
+.error-message {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: $border-radius;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  color: #ef4444;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  
+
+  .error-icon {
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .close-error {
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    background: none;
+    border: none;
+    color: #ef4444;
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    @include flex-center;
+    transition: all 0.15s ease-in-out;
+
+    &:hover {
+      background-color: rgba(239, 68, 68, 0.1);
+    }
+  }
+}
+
+// Form Options (Remember Me)
+.form-options {
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: flex-start;
+
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    cursor: pointer;
+    user-select: none;
+
+    .checkbox-input {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .checkbox-custom {
+      width: 24px;
+      height: 24px;
+      border: 1px solid $border-default;
+      border-radius: 4px;
+      background-color: $background-white;
+      transition: $transition;
+      position: relative;
+      @include flex-center;
+
+      svg {
+        opacity: 0;
+        transition: $transition;
+      }
+    }
+
+    .checkbox-label {
+      font-size: 12.8px;
+      font-weight: 400;
+      color: $text-dark;
+      line-height: 22.53px;
+    }
+
+    &:hover .checkbox-custom {
+      border-color: $border-blue;
+    }
+
+    .checkbox-input:checked + .checkbox-custom {
+      background-color: $primary-blue;
+      border-color: $primary-blue;
+
+      svg {
+        opacity: 1;
+      }
+    }
+
+    .checkbox-input:focus + .checkbox-custom {
+      box-shadow: 0 0 0 2px rgba(92, 130, 239, 0.2);
+    }
+  }
+}
+
+// Submit Button
+.submit-button {
+  width: 100%;
+  background-color: $primary-blue;
+  color: white;
+  border: none;
+  border-radius: $border-radius;
+  padding: 12px 32px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: $transition;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -2px rgba(0, 0, 0, 0.1);
+  height: 48px;
+  @include flex-center;
+
+  &:hover:not(:disabled) {
+    background-color: $primary-blue-hover;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active:not(:disabled) {
+    background-color: $primary-blue-active;
+    transform: translateY(0);
+  }
+
+  &:focus {
+    outline: 2px solid $primary-blue;
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  &.loading {
+    .button-text {
+      opacity: 0;
+    }
+  }
+
+  .button-loading {
+    @include flex-center;
+    gap: 8px;
+  }
+
+  .loading-spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+// Loading Animation
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Responsive Design
+@media (max-width: 480px) {
+  .login-card {
+    padding: 24px 16px;
+  }
+
+  .header-section {
+    margin-bottom: 12px;
+
+    .welcome-subtitle {
+      font-size: 12px;
+    }
+
+    .welcome-title {
+      font-size: 18px;
+      line-height: 32px;
+    }
+  }
+
+  .logo-section {
+    .muri-logo .logo-image {
+      height: 80px;
+      width: 140px;
+    }
+  }
+
+  .login-form {
+    .form-fields {
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .input-container {
+      .form-input {
+        height: 48px;
+        padding: 16px 12px 8px 12px;
+        font-size: 14px;
+      }
+
+      .floating-label {
+        font-size: 12px;
+        right: 12px;
+      }
+
+      .password-toggle {
+        left: 12px;
+      }
+    }
+  }
+
+  .form-options {
+    margin-bottom: 12px;
+  }
+
+  .submit-button {
+    height: 44px;
+    font-size: 14px;
+    padding: 10px 24px;
+  }
+}
+
+// High contrast mode support
+@media (prefers-contrast: high) {
+  .login-card {
+    border: 2px solid $text-dark;
+  }
+
+  .form-input {
+    border-width: 2px;
+  }
+
+  .submit-button {
+    border: 2px solid transparent;
+  }
+}
+
+// Reduced motion support
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .loading-spinner {
+    animation: none;
+    border: 2px solid white;
+    border-top: 2px solid transparent;
+  }
+}

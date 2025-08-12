@@ -30,7 +30,6 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/intl-tel-input/build/css/intlTelInput.css",
               "src/styles.scss",
               "src/assets/css/font-awesome.min.css",
               "src/assets/css/animate.min.css",
@@ -39,7 +38,6 @@
               "src/assets/css/custom-animation.css",
               "src/assets/css/default.css",
               "src/assets/css/rtl.css"
-
             ],
             "scripts": [
               "src/assets/js/modernizr-3.6.0.min.js",

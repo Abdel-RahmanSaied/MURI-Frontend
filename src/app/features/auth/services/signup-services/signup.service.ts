@@ -25,7 +25,7 @@ export class SignupService {
     formData.delete('confirm_password');
     formData.delete('terms'); 
     
-    const textFields = ['username', 'email', 'first_name', 'second_name', 'last_name', 'nationality'];
+    const textFields = ['email', 'first_name', 'second_name', 'last_name', 'nationality'];
     textFields.forEach(field => {
       const value = formData.get(field) as string;
       if (value) {

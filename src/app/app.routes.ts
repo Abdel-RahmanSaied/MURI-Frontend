@@ -5,12 +5,15 @@ import { TripDetailsComponent } from './features/auth/trip-details/trip-details.
 import { AboutUsComponent } from './features/landing/about-us/about-us.component'
 import { PrivacyComponent } from './features/landing/privacy/privacy.component'
 import { TermsComponent } from './features/landing/terms/terms.component'
-
+import { TripDoneComponent } from './features/auth/trip-done/trip-done.component';
+import { AdminLoginComponent } from './features/auth/admin-login/admin-login.component';
 export const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
   { path: 'landing', component: LandingComponent },
   { path: 'signup', component: SignupComponent},
   { path: 'trip-details', component: TripDetailsComponent},
+  { path: 'trip-done', component: TripDoneComponent},
+  { path: 'login-admin', component: AdminLoginComponent},
   { path: 'privacy', component: PrivacyComponent},
   { path: 'terms', component: TermsComponent},
   { path: 'aboutUs', component: AboutUsComponent},

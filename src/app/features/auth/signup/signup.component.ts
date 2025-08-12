@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http'; // Add this import
+
 import {
   SearchCountryField,
   CountryISO,
@@ -56,10 +57,7 @@ export class SignupComponent {
     private router: Router
   ) {
     this.SignupForm = this.fb.group({
-      username: [
-        '',
-        [Validators.required, Validators.pattern(/^[\p{L}\p{N}\s]*$/u)] // Accepts letters and spaces from any language
-      ],
+
       email: ['', [Validators.required, Validators.email, emailWithDotValidator(), emailNoArabicValidator()]],
 
       first_name: [
@@ -220,7 +218,7 @@ export class SignupComponent {
       }
     }
 
-    const requiredFields = ['username', 'email', 'first_name', 'last_name', 'phone', 'password', 'identity_number', 'nationality'];
+    const requiredFields = [ 'email', 'first_name', 'last_name', 'phone', 'password', 'identity_number', 'nationality'];
     const missingFields = requiredFields.filter(field => !formData.has(field));
     if (missingFields.length > 0) {
       console.error('❌ Missing required fields:', missingFields);
@@ -290,11 +288,7 @@ export class SignupComponent {
         });
       }
 
-      if (error.error.errors.username) {
-        this.SignupForm.get('username')?.setErrors({
-          serverError: error.error.errors.username[0].detail || error.error.errors.username[0]
-        });
-      }
+   
 
       if (error.error.errors.first_name) {
         this.SignupForm.get('first_name')?.setErrors({
@@ -364,9 +358,9 @@ export class SignupComponent {
         case 400:
           errorMessage = 'Invalid data provided. Please check your information.';
           break;
-        case 409:
-          errorMessage = 'An account with this email or username already exists.';
-          break;
+        // case 409:
+        //   errorMessage = 'An account with this email or username already exists.';
+        //   break;
         case 422:
           errorMessage = 'Validation error. Please check your input.';
           break;

@@ -1,0 +1,445 @@
+// ========================================
+// VARIABLES
+// ========================================
+
+// Colors
+$primary-blue: #5c82ef;
+$primary-dark: #1d293d;
+$text-primary: #1d293d;
+$text-secondary: #45556c;
+$text-muted: #62748e;
+$white: #ffffff;
+$slate-50: #f8fafc;
+$blue-light-bg: rgba(92, 130, 239, 0.1);
+$steps-bg: rgba(241, 245, 249, 0.7);
+
+// Typography
+$font-arabic: 'IBM Plex Sans Arabic', sans-serif;
+$font-tajawal: 'Tajawal', sans-serif;
+
+// Spacing
+$container-padding: 48px;
+$step-gap: 16px;
+$border-radius-xl: 16px;
+$border-radius-lg: 8px;
+$border-radius-full: 50%;
+
+// Shadows
+$shadow-modal: 0px 20px 25px -5px rgba(0, 0, 0, 0.1), 0px 8px 10px -6px rgba(0, 0, 0, 0.1);
+$shadow-step: 0px 4px 6px -1px rgba(0, 0, 0, 0.1), 0px 2px 4px -2px rgba(0, 0, 0, 0.1);
+$shadow-button: 0px 10px 15px -3px rgba(0, 0, 0, 0.1), 0px 4px 6px -4px rgba(0, 0, 0, 0.1);
+
+// ========================================
+// RESET & BASE STYLES
+// ========================================
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: $font-arabic;
+    direction: rtl;
+    overflow: hidden;
+
+}
+
+// ========================================
+// LAYOUT COMPONENTS
+// ========================================
+
+.sign-up-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background: $slate-50;
+    background-image: url(../../../../assets/image/done\ regist\ -\ \(\ demo\).png);
+    background-position: cover;
+    background-size: cover;
+}
+
+
+
+// ========================================
+// MODAL COMPONENTS
+// ========================================
+
+.modal-container {
+    top: 49px;
+    left: 358px;
+    width: 672px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    .modal-content {
+        background: $white;
+        border-radius: $border-radius-xl;
+        box-shadow: $shadow-modal;
+        padding: $container-padding;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 36px;
+        overflow: hidden;
+
+
+
+    }
+}
+
+// ========================================
+// SUCCESS ICON
+// ========================================
+
+.success-icon-container {
+    background: $blue-light-bg;
+    border-radius: $border-radius-full;
+    width: 96px;
+    height: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .success-icon {
+        width: 64px;
+        height: 64px;
+        display: block;
+        max-width: none;
+    }
+}
+
+// ========================================
+// CONTENT SECTION
+// ========================================
+
+.content-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 576px;
+
+    .title-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+
+        .main-title {
+            font-family: $font-arabic;
+            font-size: 36px;
+            font-weight: 400;
+            line-height: 40px;
+            color: $text-primary;
+            text-align: center;
+            letter-spacing: -0.9px;
+            width: 548.14px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    .description-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+
+        .description {
+            font-family: $font-arabic;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 29.25px;
+            color: $text-secondary;
+            text-align: center;
+            width: 563.02px;
+            height: 88px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
+}
+
+// ========================================
+// STEPS SECTION
+// ========================================
+
+.steps-section {
+    background: $steps-bg;
+    border-radius: 12px;
+    padding: 24px;
+    width: 576px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .steps-header {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+
+        .steps-title {
+            font-family: $font-arabic;
+            font-size: 20px;
+            font-weight: 400;
+            line-height: 28px;
+            color: #0f172b;
+            text-align: right;
+            width: 136.13px;
+        }
+    }
+
+    .step-item {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: $step-gap;
+        padding-top: 8px;
+        width: 100%;
+
+        .step-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+
+            .step-header {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+
+                .step-title {
+                    font-family: $font-arabic;
+                    font-size: 16px;
+                    font-weight: 700;
+                    line-height: 24px;
+                    color: $text-primary;
+                    text-align: right;
+                    height: 24px;
+                    display: flex;
+                    align-items: center;
+                }
+            }
+
+            .step-description {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                width: 100%;
+
+                p {
+                    font-family: $font-arabic;
+                    font-size: 14px;
+                    font-weight: 400;
+                    line-height: 24px;
+                    color: $text-muted;
+                    text-align: right;
+                }
+            }
+        }
+
+        .step-number {
+            background: $primary-blue;
+            border-radius: $border-radius-full;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: $shadow-step;
+            flex-shrink: 0;
+
+            span {
+                font-family: $font-arabic;
+                font-size: 18px;
+                font-weight: 400;
+                line-height: 28px;
+                color: $white;
+                text-align: center;
+                height: 28px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+}
+
+// ========================================
+// CTA BUTTON
+// ========================================
+
+.cta-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 576px;
+
+    .cta-button {
+        background: $primary-blue;
+        border: none;
+        border-radius: $border-radius-lg;
+        box-shadow: $shadow-button;
+        padding: 12px 40px;
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+
+       
+
+        a {
+            font-family: $font-arabic;
+            font-size: 18px;
+            font-weight: 700;
+            line-height: 28px;
+            color: $white;
+            text-align: center;
+            width: 219.78px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
+
+// ========================================
+// FOOTER LINKS
+// ========================================
+
+.footer-links {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    width: 576px;
+    height: 20px;
+
+    .footer-text {
+        font-family: $font-arabic;
+        color: $text-muted;
+        width: 126.44px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .contact-link {
+        font-family: $font-arabic;
+        color: $primary-blue;
+        text-decoration: none;
+        width: 126.47px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    .footer-dot {
+        font-family: $font-tajawal;
+        color: $text-muted;
+        width: 3.7px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+// ========================================
+// RESPONSIVE DESIGN
+// ========================================
+
+@media (max-width: 1440px) {
+    .background {
+        width: 100vw;
+    }
+}
+
+@media (max-width: 1200px) {
+    .modal-container {
+        width: 90%;
+        max-width: 672px;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-container {
+        width: 95%;
+
+        .modal-content {
+            padding: 32px 24px;
+            gap: 24px;
+        }
+    }
+
+    .content-section {
+        width: 100%;
+
+        .title-container .main-title {
+            width: 100%;
+            font-size: 28px;
+            line-height: 36px;
+            height: auto;
+        }
+
+        .description-container .description {
+            width: 100%;
+            font-size: 16px;
+            line-height: 26px;
+            height: auto;
+        }
+    }
+
+    .steps-section {
+        width: 100%;
+        padding: 20px;
+
+        .step-item {
+            gap: 12px;
+
+            .step-content .step-description p {
+                font-size: 13px;
+                line-height: 22px;
+            }
+        }
+    }
+
+    .cta-container {
+        width: 100%;
+
+        .cta-button span {
+            width: 100%;
+            font-size: 16px;
+        }
+    }
+
+    .footer-links {
+        width: 100%;
+        flex-direction: column;
+        gap: 8px;
+        height: auto;
+
+        .footer-text,
+        .contact-link,
+        .footer-dot {
+            width: auto;
+        }
+    }
+}
