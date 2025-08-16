@@ -9,8 +9,7 @@ jobs:
     runs-on: self-hosted
     environment: Production
     steps:
-
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           ref: main
@@ -20,18 +19,24 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
+          cache: 'npm'
 
       - name: Set Environment Variables
         run: |
           export NG_ANALYTICS=false
           export TERM=xterm
 
-      - name: Run npm 
-        run: npm install -f
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps --force
 
-      - name: Run ng build
-        run: npx ng build
+      - name: Build Angular app
+        run: npx ng build --configuration production
 
-      - name: Deploy MURI
+      - name: Deploy MURI to server path
         run: |
-          sudo cp dist/muri /var/www/ -r -f
+          sudo rm -rf /var/www/muri
+          sudo mkdir -p /var/www/muri
+          sudo cp -r dist/muri/browser/* /var/www/muri/
+          sudo chown -R www-data:www-data /var/www/muri
+          sudo chmod -R 755 /var/www/muri
+          sudo systemctl reload nginx
