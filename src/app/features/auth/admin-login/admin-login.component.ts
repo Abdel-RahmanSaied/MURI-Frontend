@@ -106,7 +106,6 @@ export class AdminLoginComponent implements OnInit, OnDestroy {
       )
       .subscribe({
         next: (response) => {
-          console.log('✅ Login successful:', response.user_data);
           this.handleSuccessfulLogin(response.user_data.user_type);
         },
         error: (error) => {
@@ -122,25 +121,19 @@ export class AdminLoginComponent implements OnInit, OnDestroy {
   private handleSuccessfulLogin(userType: string): void {
     // Navigate based on user type
     if (userType === 'super admin' || userType === 'admin') {
-      // this.router.navigate(['/admin/dashboard']);
+      this.router.navigate(['/dashboard']);
     } else {
       this.errorMessage = 'غير مصرح لك بالوصول إلى لوحة الإدارة';
       this.adminLoginService.logout();
     }
   }
 
-  /**
-   * Handle login error similar to signup component
-   */
+
   private handleLoginError(error: any): void {
     this.isLoading = false;
 
-    // Handle field-specific validation errors from server
     if (error.error && error.error.errors) {
-      // Clear all previous server errors first
       this.clearServerErrors();
-
-      // Handle each field error
       Object.keys(error.error.errors).forEach(field => {
         const fieldErrors = error.error.errors[field];
         if (fieldErrors && fieldErrors.length > 0) {

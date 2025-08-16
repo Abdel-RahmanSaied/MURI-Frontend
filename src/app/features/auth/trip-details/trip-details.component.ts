@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { TripDetailService, TripApiRequest } from '../services/trip-details-service/trip-detail.service';
 
 export interface TripFormData {
   tripType: 'one-way' | 'round-trip';
@@ -10,7 +11,7 @@ export interface TripFormData {
   arrivalTime: string;
   startDate: string;
   departureTime?: string;
-  returnDate?: string;
+  endDate?: string;
   numberOfSeats: number;
 }
 
@@ -24,10 +25,12 @@ export interface TripFormData {
 export class TripDetailsComponent implements OnInit {
   tripForm!: FormGroup;
   submitted: boolean = false;
+  isSubmitting: boolean = false;
 
   constructor(
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private tripDetailService: TripDetailService
   ) {
     this.tripForm = this.fb.group({
       tripType: ['one-way', [Validators.required]],
@@ -36,9 +39,9 @@ export class TripDetailsComponent implements OnInit {
       arrivalTime: ['', [Validators.required]],
       startDate: ['', [Validators.required, this.futureDateValidator]],
       departureTime: [''],
-      returnDate: [''],
+      endDate: [''],
       numberOfSeats: [1, [Validators.required, Validators.min(1), Validators.max(8)]]
-    }, { validators: [this.dateSequenceValidator] }); // Removed returnTripValidator from here
+    }, { validators: [this.dateSequenceValidator, this.timeLogicValidator] });
   }
 
   ngOnInit(): void {
@@ -71,15 +74,38 @@ export class TripDetailsComponent implements OnInit {
   private dateSequenceValidator(control: AbstractControl): ValidationErrors | null {
     const tripType = control.get('tripType')?.value;
     const startDate = control.get('startDate')?.value;
-    const returnDate = control.get('returnDate')?.value;
+    const endDate = control.get('endDate')?.value;
 
-    if (tripType === 'round-trip' && startDate && returnDate) {
-      if (new Date(returnDate) < new Date(startDate)) {
+    if (tripType === 'round-trip' && startDate && endDate) {
+      if (new Date(endDate) < new Date(startDate)) {
         return { dateSequence: true };
       }
     }
 
     return null;
+  }
+
+  private timeLogicValidator(control: AbstractControl): ValidationErrors | null {
+    const tripType = control.get('tripType')?.value;
+    const arrivalTime = control.get('arrivalTime')?.value;
+    const departureTime = control.get('departureTime')?.value;
+
+    if (tripType === 'round-trip' && arrivalTime && departureTime) {
+      // Convert time strings to minutes for comparison
+      const arrivalMinutes = this.timeToMinutes(arrivalTime);
+      const departureMinutes = this.timeToMinutes(departureTime);
+
+      if (departureMinutes <= arrivalMinutes) {
+        return { invalidTimeSequence: true };
+      }
+    }
+
+    return null;
+  }
+
+  private timeToMinutes(timeString: string): number {
+    const [hours, minutes] = timeString.split(':').map(Number);
+    return hours * 60 + minutes;
   }
 
   // Form initialization
@@ -88,7 +114,7 @@ export class TripDetailsComponent implements OnInit {
 
     this.tripForm.patchValue({
       startDate: today,
-      returnDate: today
+      endDate: today
     });
   }
 
@@ -106,39 +132,37 @@ export class TripDetailsComponent implements OnInit {
 
   private handleTripTypeChange(type: 'one-way' | 'round-trip'): void {
     const departureTimeControl = this.tripForm.get('departureTime');
-    const returnDateControl = this.tripForm.get('returnDate');
+    const endDateControl = this.tripForm.get('endDate');
 
     if (type === 'round-trip') {
       // Add validators for return trip
       departureTimeControl?.setValidators([Validators.required]);
-      returnDateControl?.setValidators([Validators.required, this.futureDateValidator]);
+      endDateControl?.setValidators([Validators.required, this.futureDateValidator]);
     } else {
       // Clear validators and values for one-way trip
       departureTimeControl?.clearValidators();
-      returnDateControl?.clearValidators();
+      endDateControl?.clearValidators();
       departureTimeControl?.setValue('');
-      returnDateControl?.setValue('');
+      endDateControl?.setValue('');
 
       // Clear the touched and dirty state when switching to one-way
       departureTimeControl?.markAsUntouched();
       departureTimeControl?.markAsPristine();
-      returnDateControl?.markAsUntouched();
-      returnDateControl?.markAsPristine();
+      endDateControl?.markAsUntouched();
+      endDateControl?.markAsPristine();
     }
 
     departureTimeControl?.updateValueAndValidity();
-    returnDateControl?.updateValueAndValidity();
-
-    // Don't revalidate the entire form here to avoid triggering form-level validators
+    endDateControl?.updateValueAndValidity();
   }
 
   private handleStartDateChange(startDate: string): void {
-    const returnDateControl = this.tripForm.get('returnDate');
-    const currentReturnDate = returnDateControl?.value;
+    const endDateControl = this.tripForm.get('endDate');
+    const currentReturnDate = endDateControl?.value;
 
     // If return date is before start date, update it
     if (startDate && currentReturnDate && currentReturnDate < startDate) {
-      returnDateControl?.setValue(startDate);
+      endDateControl?.setValue(startDate);
     }
   }
 
@@ -163,13 +187,13 @@ export class TripDetailsComponent implements OnInit {
 
   // Validation helper methods
   isFormValid(): boolean {
-    return this.tripForm.valid;
+    return this.tripForm.valid && !this.isSubmitting;
   }
 
   hasFieldError(fieldName: string): boolean {
     const field = this.tripForm.get(fieldName);
     const shouldShowError = field && field.invalid && (field.dirty || field.touched || this.submitted);
-    if (fieldName === 'departureTime' || fieldName === 'returnDate') {
+    if (fieldName === 'departureTime' || fieldName === 'endDate') {
       const isRoundTrip = this.tripType === 'round-trip';
       return !!(shouldShowError && isRoundTrip);
     }
@@ -186,14 +210,28 @@ export class TripDetailsComponent implements OnInit {
     }
 
     if (!field || !field.errors) {
+      // Check for form-level errors
+      if (this.tripForm.errors) {
+        if (fieldName === 'endDate' && this.tripForm.errors['dateSequence']) {
+          return 'تاريخ العودة يجب أن يكون بعد تاريخ البدء أو في نفس اليوم';
+        }
+        if (fieldName === 'departureTime' && this.tripForm.errors['invalidTimeSequence']) {
+          return 'وقت المغادرة يجب أن يكون بعد وقت الوصول';
+        }
+      }
       return null;
     }
 
     const errors = field.errors;
 
     // Check for form-level date sequence error for return date
-    if (fieldName === 'returnDate' && this.tripForm.errors?.['dateSequence']) {
+    if (fieldName === 'endDate' && this.tripForm.errors?.['dateSequence']) {
       return 'تاريخ العودة يجب أن يكون بعد تاريخ البدء أو في نفس اليوم';
+    }
+
+    // Check for form-level time sequence error for departure time
+    if (fieldName === 'departureTime' && this.tripForm.errors?.['invalidTimeSequence']) {
+      return 'وقت المغادرة يجب أن يكون بعد وقت الوصول';
     }
 
     // Arabic error messages for field-level errors
@@ -218,7 +256,7 @@ export class TripDetailsComponent implements OnInit {
       departureTime: {
         required: 'وقت المغادرة مطلوب'
       },
-      returnDate: {
+      endDate: {
         required: 'تاريخ العودة مطلوب',
         pastDate: 'تاريخ العودة لا يمكن أن يكون في الماضي'
       },
@@ -297,22 +335,65 @@ export class TripDetailsComponent implements OnInit {
     // Add return trip data if applicable
     if (formValue.tripType === 'round-trip') {
       formData.departureTime = formValue.departureTime;
-      formData.returnDate = formValue.returnDate;
+      formData.endDate = formValue.endDate;
     }
 
     return formData;
   }
 
   private async submitTripDetails(data: TripFormData): Promise<void> {
+    if (this.isSubmitting) {
+      return; // Prevent double submission
+    }
+
+    this.isSubmitting = true;
+
     try {
       console.log('Submitting trip details:', data);
-      this.router.navigate(['/trip-done'], {
-        state: { tripData: data }
+      
+      // Transform data to API format
+      const apiData: TripApiRequest = this.tripDetailService.transformFormDataToApiFormat(data);
+      console.log('API formatted data:', apiData);
+
+      // Submit to API
+      this.tripDetailService.submitTripRequest(apiData).subscribe({
+        next: (response) => {
+          console.log('Trip submission successful:', response);
+          
+          // Navigate to success page with trip data
+          this.router.navigate(['/trip-done'], {
+            state: { tripData: data, apiResponse: response }
+          });
+        },
+        error: (error) => {
+          console.error('Error submitting trip details:', error);
+          this.isSubmitting = false;
+          
+          // Handle different types of errors
+          if (error.status === 400) {
+            // Validation errors from server
+            console.error('Validation error:', error.error);
+            // You can show specific error messages here
+          } else if (error.status === 500) {
+            // Server error
+            console.error('Server error occurred');
+          } else {
+            // Network or other errors
+            console.error('Network error occurred');
+          }
+          
+          // Show error message to user (you can implement toast/snackbar here)
+          alert('حدث خطأ أثناء إرسال البيانات. يرجى المحاولة مرة أخرى.');
+        },
+        complete: () => {
+          this.isSubmitting = false;
+        }
       });
 
     } catch (error) {
-      console.error('Error submitting trip details:', error);
-      // Handle error (show toast, etc.)
+      console.error('Unexpected error:', error);
+      this.isSubmitting = false;
+      alert('حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.');
     }
   }
 

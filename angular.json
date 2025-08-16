@@ -17,6 +17,9 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "allowedCommonJsDependencies": [
+              "google-libphonenumber"
+            ],
             "outputPath": "dist/muri",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -54,6 +57,12 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",
@@ -67,8 +76,8 @@
                 }
               ],
               "outputHashing": "all",
-              "sourceMap": false,
               "optimization": true,
+              "sourceMap": false,
               "extractLicenses": true
             },
             "development": {

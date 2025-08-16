@@ -7,6 +7,7 @@ import { PrivacyComponent } from './features/landing/privacy/privacy.component'
 import { TermsComponent } from './features/landing/terms/terms.component'
 import { TripDoneComponent } from './features/auth/trip-done/trip-done.component';
 import { AdminLoginComponent } from './features/auth/admin-login/admin-login.component';
+
 export const routes: Routes = [
   { path: '', redirectTo: 'landing', pathMatch: 'full' },
   { path: 'landing', component: LandingComponent },

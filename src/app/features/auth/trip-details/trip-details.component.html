@@ -42,6 +42,27 @@
                     <!-- Location Fields -->
                     <div class="location-fields">
                         <div class="field-row">
+                              <!-- Origin Field -->
+                            <div class="form-field">
+                                <div class="field-header">
+                                    <span class="required-asterisk">*</span>
+                                    <label class="field-label">نقطة الانطلاق (من)</label>
+                                </div>
+                                <div class="input-wrapper" [class.invalid]="hasFieldError('origin')">
+                                    <input
+                                        type="text"
+                                        class="form-input"
+                                        placeholder="مثال: حي النرجس، الرياض"
+                                        formControlName="origin"
+                                        dir="rtl">
+                                    <div class="input-icon">
+                                        <img src="assets/icons/location-origin.svg" alt="موقع البداية">
+                                    </div>
+                                </div>
+                                @if (hasFieldError('origin')) {
+                                <div class="error">{{ getFieldError('origin') }}</div>
+                                }
+                            </div>
                             <!-- Destination Field -->
                             <div class="form-field">
                                 <div class="field-header">
@@ -64,52 +85,14 @@
                                 }
                             </div>
 
-                            <!-- Origin Field -->
-                            <div class="form-field">
-                                <div class="field-header">
-                                    <span class="required-asterisk">*</span>
-                                    <label class="field-label">نقطة الانطلاق (من)</label>
-                                </div>
-                                <div class="input-wrapper" [class.invalid]="hasFieldError('origin')">
-                                    <input
-                                        type="text"
-                                        class="form-input"
-                                        placeholder="مثال: حي النرجس، الرياض"
-                                        formControlName="origin"
-                                        dir="rtl">
-                                    <div class="input-icon">
-                                        <img src="assets/icons/location-origin.svg" alt="موقع البداية">
-                                    </div>
-                                </div>
-                                @if (hasFieldError('origin')) {
-                                <div class="error">{{ getFieldError('origin') }}</div>
-                                }
-                            </div>
+                          
                         </div>
 
                         <!-- Outbound Trip Details -->
                         <div class="trip-section">
-                            <h3 class="section-title">تفاصيل رحلة الذهاب</h3>
+                            <h3 class="section-title">تفاصيل الاشتراك</h3>
                             <div class="field-row">
-                                <!-- Arrival Time -->
-                                <div class="form-field">
-                                    <div class="field-header">
-                                        <span class="required-asterisk">*</span>
-                                        <label class="field-label">وقت الوصول المطلوب</label>
-                                    </div>
-                                    <div class="input-wrapper" [class.invalid]="hasFieldError('arrivalTime')">
-                                        <input
-                                            type="time"
-                                            class="form-input"
-                                            formControlName="arrivalTime">
-                                        <div class="input-icon">
-                                            <img src="assets/icons/clock.svg" alt="وقت">
-                                        </div>
-                                    </div>
-                                    @if (hasFieldError('arrivalTime')) {
-                                    <div class="error">{{ getFieldError('arrivalTime') }}</div>
-                                    }
-                                </div>
+
 
                                 <!-- Start Date -->
                                 <div class="form-field">
@@ -131,15 +114,57 @@
                                     <div class="error">{{ getFieldError('startDate') }}</div>
                                     }
                                 </div>
+
+                                <!-- Return Date -->
+                                <div class="form-field">
+                                    <div class="field-header">
+                                        <span class="required-asterisk">*</span>
+                                        <label class="field-label">تاريخ انتهاء الرحلات</label>
+                                    </div>
+                                    <div class="input-wrapper" [class.invalid]="hasFieldError('endDate')">
+                                        <input
+                                            type="date"
+                                            class="form-input"
+                                            [min]="getMinReturnDate()"
+                                            formControlName="endDate">
+                                        <div class="input-icon">
+                                            <img src="assets/icons/calendar.svg" alt="تاريخ">
+                                        </div>
+                                    </div>
+                                    @if (hasFieldError('endDate')) {
+                                    <div class="error">{{ getFieldError('endDate') }}</div>
+                                    }
+                                </div>
                             </div>
                         </div>
 
                         <!-- Return Trip Details -->
-                        @if (tripType === 'round-trip') {
+
                         <div class="trip-section">
-                            <h3 class="section-title">تفاصيل رحلة العودة</h3>
+                            <h3 class="section-title">تفاصيل رحلة الذهاب</h3>
                             <div class="field-row">
+                                 <!-- Arrival Time -->
+                                <div class="form-field">
+                                    <div class="field-header">
+                                        <span class="required-asterisk">*</span>
+                                        <label class="field-label">وقت الوصول المطلوب</label>
+                                    </div>
+                                    <div class="input-wrapper" [class.invalid]="hasFieldError('arrivalTime')">
+                                        <input
+                                            type="time"
+                                            class="form-input"
+                                            formControlName="arrivalTime">
+                                        <div class="input-icon">
+                                            <img src="assets/icons/clock.svg" alt="وقت">
+                                        </div>
+                                    </div>
+                                    @if (hasFieldError('arrivalTime')) {
+                                    <div class="error">{{ getFieldError('arrivalTime') }}</div>
+                                    }
+                                </div>
+
                                 <!-- Departure Time -->
+                                 @if (tripType === 'round-trip') {
                                 <div class="form-field">
                                     <div class="field-header">
                                         <span class="required-asterisk">*</span>
@@ -158,30 +183,13 @@
                                     <div class="error">{{ getFieldError('departureTime') }}</div>
                                     }
                                 </div>
+                            }
+                               
 
-                                <!-- Return Date -->
-                                <div class="form-field">
-                                    <div class="field-header">
-                                        <span class="required-asterisk">*</span>
-                                        <label class="field-label">تاريخ بدء الرحلات</label>
-                                    </div>
-                                    <div class="input-wrapper" [class.invalid]="hasFieldError('returnDate')">
-                                        <input
-                                            type="date"
-                                            class="form-input"
-                                            [min]="getMinReturnDate()"
-                                            formControlName="returnDate">
-                                        <div class="input-icon">
-                                            <img src="assets/icons/calendar.svg" alt="تاريخ">
-                                        </div>
-                                    </div>
-                                    @if (hasFieldError('returnDate')) {
-                                    <div class="error">{{ getFieldError('returnDate') }}</div>
-                                    }
-                                </div>
                             </div>
                         </div>
-                        }
+
+                
 
                         <!-- Number of Seats -->
                         <div class="trip-section">

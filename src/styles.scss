@@ -17,7 +17,6 @@ $text-light: #cad5e2;
 $font-primary: 'IBM Plex Sans Arabic', sans-serif;
 $font-cairo: 'Cairo', sans-serif;
 $font-montserrat: 'Montserrat', sans-serif;
-
 /*-----------------------------------------------------------------------------------
 
     Template Name: Sample - Corporate Business Bootstrap4 HTML5 Template
@@ -579,7 +578,7 @@ p {
 
 .loader-wrap .layer-one {
     position: absolute;
-    left: 0%;
+    left: 0;
     top: 0;
     width: 33.3333%;
     height: 100%;
