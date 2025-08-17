@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { environment } from '../../../environments/enviroment';
+
 @Component({
   selector: 'app-navbar',
   imports: [],
@@ -17,13 +18,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
   isSticky = false;
   my_space = environment.my_Space
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object,
-  ) {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
     this.isBrowser = isPlatformBrowser(this.platformId);
   }
 
   ngOnInit(): void {
-
     console.log('my_Space value:', environment.my_Space);
     console.log('Production mode:', environment.production);
     if (this.isBrowser) {
@@ -66,5 +65,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
     if (this.isBrowser) {
       document.body.style.overflow = '';
     }
+  }
+
+  // Add this missing method for overlay click
+  onOverlayClick(event: Event): void {
+    this.closeMobileMenu();
   }
 }
