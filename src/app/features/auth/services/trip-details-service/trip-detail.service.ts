@@ -63,10 +63,6 @@ export class TripDetailService {
    * @returns Observable of the API response
    */
   submitTripRequest(tripData: TripApiRequest): Observable<TripApiResponse> {
-    const headers = new HttpHeaders({
-      
-    });
-
     return this.http.post<TripApiResponse>(this.apiUrl, tripData, { headers :this.getHeaders() });
   }
 

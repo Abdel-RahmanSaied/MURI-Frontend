@@ -85,7 +85,7 @@ export class TripDetailsComponent implements OnInit {
     return null;
   }
 
-  private timeLogicValidator(control: AbstractControl): ValidationErrors | null {
+  private timeLogicValidator = (control: AbstractControl): ValidationErrors | null => {
     const tripType = control.get('tripType')?.value;
     const arrivalTime = control.get('arrivalTime')?.value;
     const departureTime = control.get('departureTime')?.value;
