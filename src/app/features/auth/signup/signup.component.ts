@@ -51,6 +51,7 @@ export class SignupComponent {
   profileImageUrl: string | null = null;
   selectedFile: File | null = null;
   nationalities = nationalities
+
   constructor(
     private fb: FormBuilder,
     private signupService: SignupService,
@@ -87,11 +88,34 @@ export class SignupComponent {
         Validators.pattern(/^[0-9]+$/), // Only numbers allowed
           noSpacesAllowed,]
       ],
-      birth_date: ['', Validators.required],
+      birth_date: ['', [Validators.required, this.minimumAgeValidator(3)]],
       nationality: ['', Validators.required],
       // profile_pic: ['',],
       terms: ['', [Validators.required]]
     }, { validators: this.passwordMatchValidator });
+  }
+
+  // Custom validator for minimum age
+  minimumAgeValidator(minAge: number) {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null; // Let required validator handle empty values
+      }
+
+      const birthDate = new Date(control.value);
+      const today = new Date();
+      
+      // Calculate age in years
+      let age = today.getFullYear() - birthDate.getFullYear();
+      const monthDiff = today.getMonth() - birthDate.getMonth();
+      
+      // Adjust age if birthday hasn't occurred this year
+      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+      }
+
+      return age < minAge ? { minimumAge: { required: minAge, actual: age } } : null;
+    };
   }
 
   // Custom validator for password confirmation
@@ -104,12 +128,8 @@ export class SignupComponent {
       return { passwordMismatch: true };
     }
 
-
-
     return null;
   }
-
-
 
   // File upload methods
   triggerFileInput(): void {
@@ -218,7 +238,7 @@ export class SignupComponent {
       }
     }
 
-    const requiredFields = [ 'email', 'first_name', 'last_name', 'phone', 'password', 'identity_number', 'nationality'];
+    const requiredFields = ['email', 'first_name', 'last_name', 'phone', 'password', 'identity_number', 'nationality'];
     const missingFields = requiredFields.filter(field => !formData.has(field));
     if (missingFields.length > 0) {
       console.error('❌ Missing required fields:', missingFields);
@@ -266,77 +286,81 @@ export class SignupComponent {
       // Clear all previous server errors first
       this.clearServerErrors();
 
-      // Handle each field error
+      // Handle each field error with improved logic
       Object.keys(error.error.errors).forEach(field => {
         const fieldErrors = error.error.errors[field];
-        if (fieldErrors && fieldErrors.length > 0) {
-          const errorMessage = fieldErrors[0].detail || fieldErrors[0];
+        let errorMessage = '';
+
+        // Handle different error formats
+        if (Array.isArray(fieldErrors)) {
+          // If it's an array of error objects
+          if (fieldErrors.length > 0) {
+            errorMessage = fieldErrors[0].detail || fieldErrors[0];
+          }
+        } else if (typeof fieldErrors === 'string') {
+          // If it's a direct string
+          errorMessage = fieldErrors;
+        } else if (fieldErrors && typeof fieldErrors === 'object') {
+          // If it's an object with detail property
+          errorMessage = fieldErrors.detail || fieldErrors.message || 'Invalid value';
+        }
+
+        if (errorMessage) {
           this.setFieldServerError(field, errorMessage);
         }
       });
 
-      // Handle specific field errors with custom logic
+      // Specific field error handling (keeping existing logic but with improved error extraction)
       if (error.error.errors.email) {
-        this.SignupForm.get('email')?.setErrors({
-          serverError: error.error.errors.email[0].detail || error.error.errors.email[0]
-        });
+        const emailError = this.extractErrorMessage(error.error.errors.email);
+        this.SignupForm.get('email')?.setErrors({ serverError: emailError });
       }
 
       if (error.error.errors.phone) {
-        this.SignupForm.get('phone')?.setErrors({
-          serverError: error.error.errors.phone[0].detail || error.error.errors.phone[0]
-        });
+        const phoneError = this.extractErrorMessage(error.error.errors.phone);
+        this.SignupForm.get('phone')?.setErrors({ serverError: phoneError });
       }
 
-   
-
       if (error.error.errors.first_name) {
-        this.SignupForm.get('first_name')?.setErrors({
-          serverError: error.error.errors.first_name[0].detail || error.error.errors.first_name[0]
-        });
+        const firstNameError = this.extractErrorMessage(error.error.errors.first_name);
+        this.SignupForm.get('first_name')?.setErrors({ serverError: firstNameError });
       }
 
       if (error.error.errors.second_name) {
-        this.SignupForm.get('second_name')?.setErrors({
-          serverError: error.error.errors.second_name[0].detail || error.error.errors.second_name[0]
-        });
+        const secondNameError = this.extractErrorMessage(error.error.errors.second_name);
+        this.SignupForm.get('second_name')?.setErrors({ serverError: secondNameError });
       }
 
       if (error.error.errors.last_name) {
-        this.SignupForm.get('last_name')?.setErrors({
-          serverError: error.error.errors.last_name[0].detail || error.error.errors.last_name[0]
-        });
+        const lastNameError = this.extractErrorMessage(error.error.errors.last_name);
+        this.SignupForm.get('last_name')?.setErrors({ serverError: lastNameError });
       }
 
       if (error.error.errors.password) {
-        this.SignupForm.get('password')?.setErrors({
-          serverError: error.error.errors.password[0].detail || error.error.errors.password[0]
-        });
+        const passwordError = this.extractErrorMessage(error.error.errors.password);
+        this.SignupForm.get('password')?.setErrors({ serverError: passwordError });
       }
 
       if (error.error.errors.identity_number) {
-        this.SignupForm.get('identity_number')?.setErrors({
-          serverError: error.error.errors.identity_number[0].detail || error.error.errors.identity_number[0]
-        });
+        const identityError = this.extractErrorMessage(error.error.errors.identity_number);
+        this.SignupForm.get('identity_number')?.setErrors({ serverError: identityError });
       }
 
+      // Updated birth_date error handling
       if (error.error.errors.birth_date) {
-        this.SignupForm.get('birth_date')?.setErrors({
-          serverError: error.error.errors.birth_date[0].detail || error.error.errors.birth_date[0]
-        });
+        const birthDateError = this.extractErrorMessage(error.errors.birth_date);
+        this.SignupForm.get('birth_date')?.setErrors({ serverError: birthDateError });
       }
 
       if (error.error.errors.nationality) {
-        this.SignupForm.get('nationality')?.setErrors({
-          serverError: error.error.errors.nationality[0].detail || error.error.errors.nationality[0]
-        });
+        const nationalityError = this.extractErrorMessage(error.error.errors.nationality);
+        this.SignupForm.get('nationality')?.setErrors({ serverError: nationalityError });
       }
 
       if (error.error.errors.profile_pic || error.error.errors.profile_picture) {
         const profileError = error.error.errors.profile_pic || error.error.errors.profile_picture;
-        this.SignupForm.get('profile_pic')?.setErrors({
-          serverError: profileError[0].detail || profileError[0]
-        });
+        const profileErrorMessage = this.extractErrorMessage(profileError);
+        this.SignupForm.get('profile_pic')?.setErrors({ serverError: profileErrorMessage });
       }
 
     } else {
@@ -358,9 +382,6 @@ export class SignupComponent {
         case 400:
           errorMessage = 'Invalid data provided. Please check your information.';
           break;
-        // case 409:
-        //   errorMessage = 'An account with this email or username already exists.';
-        //   break;
         case 422:
           errorMessage = 'Validation error. Please check your input.';
           break;
@@ -370,9 +391,23 @@ export class SignupComponent {
         default:
           console.error('Unhandled error status:', error.status);
       }
-
     }
   }
+
+  // Helper method to extract error message from different formats
+  private extractErrorMessage(fieldError: any): string {
+    if (Array.isArray(fieldError)) {
+      if (fieldError.length > 0) {
+        return fieldError[0].detail || fieldError[0];
+      }
+    } else if (typeof fieldError === 'string') {
+      return fieldError;
+    } else if (fieldError && typeof fieldError === 'object') {
+      return fieldError.detail || fieldError.message || 'Invalid value';
+    }
+    return 'Invalid value';
+  }
+
   private clearServerErrors() {
     Object.keys(this.SignupForm.controls).forEach(key => {
       const control = this.SignupForm.get(key);
@@ -386,6 +421,7 @@ export class SignupComponent {
       }
     });
   }
+
   private setFieldServerError(fieldName: string, errorMessage: string) {
     const control = this.SignupForm.get(fieldName);
     if (control) {
@@ -393,6 +429,7 @@ export class SignupComponent {
       control.setErrors({ ...currentErrors, serverError: errorMessage });
     }
   }
+  
   private markFormGroupTouched(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(key => {
       const control = formGroup.get(key);

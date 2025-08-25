@@ -292,7 +292,17 @@
                             @if (SignupForm.get('birth_date')?.errors?.['required'] && submitted) {
                             <div class="error">تاريخ الميلاد مطلوب</div>
                             }
+
+                            @if (SignupForm.get('birth_date')?.errors?.['minimumAge'] && submitted) {
+                            <div class="error">يجب أن يكون العمر أكثر من 3 سنوات</div>
+                            }
+
                             @if (SignupForm.get('birth_date')?.errors?.['serverError'] && submitted) {
+                            <div class="error">{{ SignupForm.get('birth_date')?.errors?.['serverError'] }}</div>
+                            }
+
+                            <!-- Alternative server error condition (without submitted check) -->
+                            @if (SignupForm.get('birth_date')?.errors?.['serverError']) {
                             <div class="error">{{ SignupForm.get('birth_date')?.errors?.['serverError'] }}</div>
                             }
                         </div>
