@@ -165,10 +165,11 @@
 
                                         <div class="time-segment">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 class="time-field minute-field"
                                                 placeholder="00"
                                                 maxlength="2"
+
                                                 [value]="getTimeValue('arrivalTime', 'minute')"
                                                 (input)="onTimeSegmentChange('minute', $any($event.target).value, 'arrivalTime')"
                                                 dir="ltr">
@@ -178,7 +179,7 @@
                                         <div class="time-separator">:</div>
                                         <div class="time-segment">
                                             <input
-                                                type="text"
+                                                type="number"
                                                 class="time-field hour-field"
                                                 placeholder="12"
                                                 maxlength="2"
@@ -222,7 +223,7 @@
                                         <div class="time-segment">
 
                                             <input
-                                                type="text"
+                                                type="number"
                                                 class="time-field minute-field"
                                                 placeholder="00"
                                                 maxlength="2"
@@ -238,7 +239,7 @@
                                         <div class="time-segment">
 
                                             <input
-                                                type="text"
+                                                type="number"
                                                 class="time-field hour-field"
                                                 placeholder="12"
                                                 maxlength="2"
