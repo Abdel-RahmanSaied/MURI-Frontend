@@ -40,7 +40,8 @@
               "src/assets/css/slick.css",
               "src/assets/css/custom-animation.css",
               "src/assets/css/default.css",
-              "src/assets/css/rtl.css"
+              "src/assets/css/rtl.css",
+              "node_modules/intl-tel-input/build/css/intlTelInput.css"
             ],
             "scripts": [
               "src/assets/js/modernizr-3.6.0.min.js",

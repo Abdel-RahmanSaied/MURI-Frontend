@@ -42,7 +42,7 @@
                     <!-- Location Fields -->
                     <div class="location-fields">
                         <div class="field-row">
-                              <!-- Origin Field -->
+                            <!-- Origin Field -->
                             <div class="form-field">
                                 <div class="field-header">
                                     <span class="required-asterisk">*</span>
@@ -85,15 +85,14 @@
                                 }
                             </div>
 
-                          
+
                         </div>
 
                         <!-- Outbound Trip Details -->
+                        <!-- Fixed template section - make endDate conditional like departureTime -->
                         <div class="trip-section">
                             <h3 class="section-title">تفاصيل الاشتراك</h3>
                             <div class="field-row">
-
-
                                 <!-- Start Date -->
                                 <div class="form-field">
                                     <div class="field-header">
@@ -115,7 +114,8 @@
                                     }
                                 </div>
 
-                                <!-- Return Date -->
+                                <!-- End Date - Only show for round-trip -->
+                                @if (tripType === 'round-trip') {
                                 <div class="form-field">
                                     <div class="field-header">
                                         <span class="required-asterisk">*</span>
@@ -135,6 +135,7 @@
                                     <div class="error">{{ getFieldError('endDate') }}</div>
                                     }
                                 </div>
+                                }
                             </div>
                         </div>
 
@@ -143,66 +144,144 @@
                         <div class="trip-section">
                             <h3 class="section-title">تفاصيل رحلة الذهاب</h3>
                             <div class="field-row">
-                                 <!-- Arrival Time -->
+                                <!-- Arrival Time -->
                                 <div class="form-field">
                                     <div class="field-header">
                                         <span class="required-asterisk">*</span>
                                         <label class="field-label">وقت الوصول المطلوب</label>
                                     </div>
-                                    <div class="input-wrapper" [class.invalid]="hasFieldError('arrivalTime')">
-                                        <input
-                                            type="time"
-                                            class="form-input"
-                                            formControlName="arrivalTime">
+                                    <div class="custom-time-input" [class.invalid]="hasFieldError('arrivalTime')">
+                                        <!-- AM/PM Selector -->
+                                        <div class="time-segment">
+                                            <select
+                                                class="time-field ampm-field"
+                                                [value]="getTimeValue('arrivalTime', 'ampm')"
+                                                (change)="onTimeSegmentChange('ampm', $any($event.target).value, 'arrivalTime')">
+                                                <option value="">--</option>
+                                                <option value="AM">صباحاً</option>
+                                                <option value="PM">مساءً</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="time-segment">
+                                            <input
+                                                type="text"
+                                                class="time-field minute-field"
+                                                placeholder="00"
+                                                maxlength="2"
+                                                [value]="getTimeValue('arrivalTime', 'minute')"
+                                                (input)="onTimeSegmentChange('minute', $any($event.target).value, 'arrivalTime')"
+                                                dir="ltr">
+                                        </div>
+
+                                        <!-- Separator -->
+                                        <div class="time-separator">:</div>
+                                        <div class="time-segment">
+                                            <input
+                                                type="text"
+                                                class="time-field hour-field"
+                                                placeholder="12"
+                                                maxlength="2"
+                                                [value]="getTimeValue('arrivalTime', 'hour')"
+                                                (input)="onTimeSegmentChange('hour', $any($event.target).value, 'arrivalTime')"
+                                                dir="ltr">
+                                        </div>
+
+                                        <!-- Clock Icon -->
                                         <div class="input-icon">
                                             <img src="assets/icons/clock.svg" alt="وقت">
                                         </div>
                                     </div>
+
                                     @if (hasFieldError('arrivalTime')) {
                                     <div class="error">{{ getFieldError('arrivalTime') }}</div>
                                     }
                                 </div>
 
-                                <!-- Departure Time -->
-                                 @if (tripType === 'round-trip') {
+                                <!-- Fixed Custom Time Input for Departure Time (Round Trip) -->
+                                @if (tripType === 'round-trip') {
                                 <div class="form-field">
                                     <div class="field-header">
                                         <span class="required-asterisk">*</span>
-                                        <label class="field-label">وقت مغادرة</label>
+                                        <label class="field-label">وقت المغادرة</label>
                                     </div>
-                                    <div class="input-wrapper" [class.invalid]="hasFieldError('departureTime')">
-                                        <input
-                                            type="time"
-                                            class="form-input"
-                                            formControlName="departureTime">
+                                    <div class="custom-time-input" [class.invalid]="hasFieldError('departureTime')">
+                                        <!-- AM/PM Selector -->
+                                        <div class="time-segment">
+                                            <select
+                                                class="time-field ampm-field"
+                                                [value]="getTimeValue('departureTime', 'ampm')"
+                                                (change)="onTimeSegmentChange('ampm', $any($event.target).value, 'departureTime')">
+                                                <option value="">--</option>
+                                                <option value="AM">صباحاً</option>
+                                                <option value="PM">مساءً</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Minute Input -->
+                                        <div class="time-segment">
+
+                                            <input
+                                                type="text"
+                                                class="time-field minute-field"
+                                                placeholder="00"
+                                                maxlength="2"
+                                                [value]="getTimeValue('departureTime', 'minute')"
+                                                (input)="onTimeSegmentChange('minute', $any($event.target).value, 'departureTime')"
+                                                dir="ltr">
+                                        </div>
+
+                                        <!-- Separator -->
+                                        <div class="time-separator">:</div>
+
+                                        <!-- Hour Input -->
+                                        <div class="time-segment">
+
+                                            <input
+                                                type="text"
+                                                class="time-field hour-field"
+                                                placeholder="12"
+                                                maxlength="2"
+                                                [value]="getTimeValue('departureTime', 'hour')"
+                                                (input)="onTimeSegmentChange('hour', $any($event.target).value, 'departureTime')"
+                                                dir="ltr">
+                                        </div>
+
+                                        <!-- Clock Icon -->
                                         <div class="input-icon">
                                             <img src="assets/icons/clock.svg" alt="وقت">
                                         </div>
                                     </div>
+
                                     @if (hasFieldError('departureTime')) {
                                     <div class="error">{{ getFieldError('departureTime') }}</div>
                                     }
                                 </div>
-                            }
-                               
+                                }
+
 
                             </div>
                         </div>
 
-                
+
 
                         <!-- Number of Seats -->
+                        <!-- Updated seats input with Safari-compatible number validation -->
                         <div class="trip-section">
                             <h3 class="section-title">عدد المقاعد</h3>
                             <div class="form-field">
-                                <div class="input-wrapper seats-input">
+                                <div class="input-wrapper seats-input" [class.invalid]="hasFieldError('numberOfSeats')">
                                     <input
                                         type="number"
                                         class="form-input"
                                         min="1"
                                         max="8"
                                         formControlName="numberOfSeats"
-
+                                        (input)="onSeatsInputChange($event)"
+                                        (keydown)="onSeatsKeyDown($event)"
+                                        (paste)="onSeatsPaste($event)"
+                                        inputmode="numeric"
+                                        pattern="[0-9]*"
                                         dir="rtl">
                                     <div class="input-icon">
                                         <img src="assets/icons/seats.svg" alt="مقاعد">

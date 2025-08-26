@@ -24,7 +24,7 @@ export class SignupService {
   private readonly baseUrl: string = env.APIURL;
   private readonly apiUrl: string = `${this.baseUrl}/api/clients/users/`;
   private readonly TOKEN_KEY: string = 'admin_access_token';
-  private readonly DEFAULT_LANGUAGE: string = 'en';
+  private readonly DEFAULT_LANGUAGE: string = 'ar';
   private selectedLanguage: string = 'ar';
 
   constructor(
@@ -99,6 +99,8 @@ export class SignupService {
    */
   private handleSignupError(error: HttpErrorResponse): Observable<never> {
     console.error('Signup error:', error);
+      return throwError(() => error);
+
     const userMessage = error.error?.message || 'Signup failed. Please try again.';
     return throwError(() => new Error(userMessage));
   }

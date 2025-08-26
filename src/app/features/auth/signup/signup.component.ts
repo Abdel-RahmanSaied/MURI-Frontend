@@ -51,7 +51,6 @@ export class SignupComponent {
   profileImageUrl: string | null = null;
   selectedFile: File | null = null;
   nationalities = nationalities
-
   constructor(
     private fb: FormBuilder,
     private signupService: SignupService,
@@ -88,34 +87,11 @@ export class SignupComponent {
         Validators.pattern(/^[0-9]+$/), // Only numbers allowed
           noSpacesAllowed,]
       ],
-      birth_date: ['', [Validators.required, this.minimumAgeValidator(3)]],
+      birth_date: ['', Validators.required],
       nationality: ['', Validators.required],
-      // profile_pic: ['',],
+      profile_pic: ['',],
       terms: ['', [Validators.required]]
     }, { validators: this.passwordMatchValidator });
-  }
-
-  // Custom validator for minimum age
-  minimumAgeValidator(minAge: number) {
-    return (control: AbstractControl): ValidationErrors | null => {
-      if (!control.value) {
-        return null; // Let required validator handle empty values
-      }
-
-      const birthDate = new Date(control.value);
-      const today = new Date();
-      
-      // Calculate age in years
-      let age = today.getFullYear() - birthDate.getFullYear();
-      const monthDiff = today.getMonth() - birthDate.getMonth();
-      
-      // Adjust age if birthday hasn't occurred this year
-      if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-        age--;
-      }
-
-      return age < minAge ? { minimumAge: { required: minAge, actual: age } } : null;
-    };
   }
 
   // Custom validator for password confirmation
@@ -128,8 +104,12 @@ export class SignupComponent {
       return { passwordMismatch: true };
     }
 
+
+
     return null;
   }
+
+
 
   // File upload methods
   triggerFileInput(): void {
@@ -138,24 +118,36 @@ export class SignupComponent {
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
+    const profilePicControl = this.SignupForm.get('profile_pic');
+
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
 
+      // Mark as touched so error messages will show
+      profilePicControl?.markAsTouched();
+
       // Validate file type
       if (!this.isValidImageType(file)) {
-        this.SignupForm.get('profile_pic')?.setErrors({ invalidFileType: true });
+        profilePicControl?.setErrors({ invalidFileType: true });
+        // Clear the selected file
+        this.selectedFile = null;
+        this.profileImageUrl = null;
         return;
       }
 
       // Validate file size (5MB max)
       if (file.size > 5 * 1024 * 1024) {
-        this.SignupForm.get('profile_pic')?.setErrors({ maxSize: true });
+        profilePicControl?.setErrors({ maxSize: true });
+        // Clear the selected file
+        this.selectedFile = null;
+        this.profileImageUrl = null;
         return;
       }
 
+      // If validation passes, proceed with file handling
       this.selectedFile = file;
-      this.SignupForm.get('profile_pic')?.setValue(file);
-      this.SignupForm.get('profile_pic')?.setErrors(null);
+      profilePicControl?.setValue(file);
+      profilePicControl?.setErrors(null);
 
       // Create preview URL
       const reader = new FileReader();
@@ -163,11 +155,27 @@ export class SignupComponent {
         this.profileImageUrl = e.target?.result as string;
       };
       reader.readAsDataURL(file);
+    } else {
+      // No file selected
+      profilePicControl?.markAsTouched();
+      this.selectedFile = null;
+      this.profileImageUrl = null;
+      profilePicControl?.setValue('');
     }
   }
 
+  // Also update your isValidImageType method to be more comprehensive
   private isValidImageType(file: File): boolean {
-    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/webp'];
+    const validTypes = [
+      'image/jpeg',
+      'image/jpg',
+      'image/png',
+      'image/gif',
+      'image/webp',
+      'image/svg+xml'
+    ];
+
+    console.log('File type:', file.type); // Debug log
     return validTypes.includes(file.type);
   }
 
@@ -177,7 +185,44 @@ export class SignupComponent {
       event.preventDefault();
     }
   }
+  // New method to handle input event (catches autofill, typing, and programmatic changes)
+  sanitizeIdentityNumber(event: Event) {
+    const input = event.target as HTMLInputElement;
+    let value = input.value;
 
+    // Remove all non-numeric characters
+    const cleanedValue = value.replace(/[^0-9]/g, '');
+
+    // Limit to 10 digits
+    const finalValue = cleanedValue.substring(0, 10);
+
+    // Update the input value if it was changed
+    if (value !== finalValue) {
+      input.value = finalValue;
+      // Update the form control
+      this.SignupForm.get('identity_number')?.setValue(finalValue);
+      // Trigger validation
+      this.SignupForm.get('identity_number')?.updateValueAndValidity();
+    }
+  }
+
+  // Handle paste events
+  onIdentityPaste(event: ClipboardEvent) {
+    event.preventDefault();
+
+    // Get the pasted data
+    const pastedData = event.clipboardData?.getData('text') || '';
+
+    // Clean the pasted data (remove non-numeric characters)
+    const cleanedData = pastedData.replace(/[^0-9]/g, '').substring(0, 10);
+
+    // Update the form control
+    this.SignupForm.get('identity_number')?.setValue(cleanedData);
+
+    // Update the input element
+    const input = event.target as HTMLInputElement;
+    input.value = cleanedData;
+  }
   signup() {
     this.submitted = true;
 
@@ -255,9 +300,8 @@ export class SignupComponent {
       error: (error) => {
         this.isLoading = false;
         console.error('❌ Signup failed:', error);
-
-        // Handle different error scenarios
         this.handleSignupError(error);
+        console.log('fne : ', error.error.first_name[0])
       }
     });
   }
@@ -265,146 +309,86 @@ export class SignupComponent {
   private handleSignupError(error: any) {
     this.isLoading = false;
 
-    // Handle specific password error messages from server
-    if (error.error && error.error.detail) {
-      if (error.error.detail.includes('Password must contain at least one digit')) {
-        this.SignupForm.get('password')?.setErrors({ serverError: 'Password must contain at least one digit' });
+    // Clear all previous server errors first
+    this.clearServerErrors();
+
+    console.error('Signup error details:', error);
+
+    let errorsObject = null;
+
+    // Determine the structure of the error response
+    if (error.error) {
+      // Case 1: {errors: {birth_date: "User must be at least 3 years old."}}
+      if (error.error.errors && typeof error.error.errors === 'object') {
+        errorsObject = error.error.errors;
+        console.log('Server validation errors (nested):', errorsObject);
       }
-      if (error.error.detail.includes("Password must contain at least one special character.")) {
-        this.SignupForm.get('password')?.setErrors({ serverError: "Password must contain at least one special character." });
+      // Case 2: {first_name: ["Must be at least 2 characters long."], last_name: [...]}
+      else if (this.hasFieldErrors(error.error)) {
+        errorsObject = error.error;
+        console.log('Server validation errors (direct):', errorsObject);
       }
-      if (error.error.detail.includes("Password must contain at least one letter.")) {
-        this.SignupForm.get('password')?.setErrors({ serverError: "Password must contain at least one letter." });
+      // Case 3: General error with detail message
+      else if (error.error.detail) {
+        console.error('General error:', error.error.detail);
+        // You can show a toast or general error message here
+        return;
       }
     }
 
-    console.error('Signup error:', error);
-
-    // Handle field-specific validation errors from server
-    if (error.error && error.error.errors) {
-
-      // Clear all previous server errors first
-      this.clearServerErrors();
-
-      // Handle each field error with improved logic
-      Object.keys(error.error.errors).forEach(field => {
-        const fieldErrors = error.error.errors[field];
-        let errorMessage = '';
-
-        // Handle different error formats
-        if (Array.isArray(fieldErrors)) {
-          // If it's an array of error objects
-          if (fieldErrors.length > 0) {
-            errorMessage = fieldErrors[0].detail || fieldErrors[0];
-          }
-        } else if (typeof fieldErrors === 'string') {
-          // If it's a direct string
-          errorMessage = fieldErrors;
-        } else if (fieldErrors && typeof fieldErrors === 'object') {
-          // If it's an object with detail property
-          errorMessage = fieldErrors.detail || fieldErrors.message || 'Invalid value';
-        }
+    // Process field-specific errors if found
+    if (errorsObject) {
+      Object.keys(errorsObject).forEach(field => {
+        const fieldErrors = errorsObject[field];
+        const errorMessage = this.extractErrorMessage(fieldErrors);
 
         if (errorMessage) {
           this.setFieldServerError(field, errorMessage);
         }
       });
-
-      // Specific field error handling (keeping existing logic but with improved error extraction)
-      if (error.error.errors.email) {
-        const emailError = this.extractErrorMessage(error.error.errors.email);
-        this.SignupForm.get('email')?.setErrors({ serverError: emailError });
-      }
-
-      if (error.error.errors.phone) {
-        const phoneError = this.extractErrorMessage(error.error.errors.phone);
-        this.SignupForm.get('phone')?.setErrors({ serverError: phoneError });
-      }
-
-      if (error.error.errors.first_name) {
-        const firstNameError = this.extractErrorMessage(error.error.errors.first_name);
-        this.SignupForm.get('first_name')?.setErrors({ serverError: firstNameError });
-      }
-
-      if (error.error.errors.second_name) {
-        const secondNameError = this.extractErrorMessage(error.error.errors.second_name);
-        this.SignupForm.get('second_name')?.setErrors({ serverError: secondNameError });
-      }
-
-      if (error.error.errors.last_name) {
-        const lastNameError = this.extractErrorMessage(error.error.errors.last_name);
-        this.SignupForm.get('last_name')?.setErrors({ serverError: lastNameError });
-      }
-
-      if (error.error.errors.password) {
-        const passwordError = this.extractErrorMessage(error.error.errors.password);
-        this.SignupForm.get('password')?.setErrors({ serverError: passwordError });
-      }
-
-      if (error.error.errors.identity_number) {
-        const identityError = this.extractErrorMessage(error.error.errors.identity_number);
-        this.SignupForm.get('identity_number')?.setErrors({ serverError: identityError });
-      }
-
-      // Updated birth_date error handling
-      if (error.error.errors.birth_date) {
-        const birthDateError = this.extractErrorMessage(error.errors.birth_date);
-        this.SignupForm.get('birth_date')?.setErrors({ serverError: birthDateError });
-      }
-
-      if (error.error.errors.nationality) {
-        const nationalityError = this.extractErrorMessage(error.error.errors.nationality);
-        this.SignupForm.get('nationality')?.setErrors({ serverError: nationalityError });
-      }
-
-      if (error.error.errors.profile_pic || error.error.errors.profile_picture) {
-        const profileError = error.error.errors.profile_pic || error.error.errors.profile_picture;
-        const profileErrorMessage = this.extractErrorMessage(profileError);
-        this.SignupForm.get('profile_pic')?.setErrors({ serverError: profileErrorMessage });
-      }
-
     } else {
-      // Generic error handling
-      let errorMessage = 'An error occurred during signup. Please try again.';
-
-      if (error.error) {
-        if (typeof error.error === 'string') {
-          errorMessage = error.error;
-        } else if (error.error.message) {
-          errorMessage = error.error.message;
-        }
-      } else if (error.message) {
-        errorMessage = error.message;
-      }
-
-      // Handle specific HTTP status codes
-      switch (error.status) {
-        case 400:
-          errorMessage = 'Invalid data provided. Please check your information.';
-          break;
-        case 422:
-          errorMessage = 'Validation error. Please check your input.';
-          break;
-        case 500:
-          errorMessage = 'Server error. Please try again later.';
-          break;
-        default:
-          console.error('Unhandled error status:', error.status);
-      }
+      // Generic error handling for unexpected formats
+      console.error('Unexpected error format:', error);
+      // You can show a general error message here
     }
   }
 
-  // Helper method to extract error message from different formats
+  // Helper method to check if error object contains field errors
+  private hasFieldErrors(errorObj: any): boolean {
+    if (!errorObj || typeof errorObj !== 'object') return false;
+
+    // Check if the object has keys that look like form field names
+    const keys = Object.keys(errorObj);
+    const formFields = [
+      'email', 'first_name', 'second_name', 'last_name', 'phone',
+      'password', 'identity_number', 'birth_date', 'nationality',
+      'profile_pic', 'profile_picture'
+    ];
+
+    // If any key matches our form fields, it's likely field errors
+    return keys.some(key => formFields.includes(key));
+  }
+
+  // Enhanced helper method to extract error message from different formats
   private extractErrorMessage(fieldError: any): string {
     if (Array.isArray(fieldError)) {
+      // Handle arrays: ["Must be at least 2 characters long."] or [{detail: "error"}]
       if (fieldError.length > 0) {
-        return fieldError[0].detail || fieldError[0];
+        const firstError = fieldError[0];
+        if (typeof firstError === 'string') {
+          return firstError;
+        } else if (firstError && typeof firstError === 'object') {
+          return firstError.detail || firstError.message || 'Invalid value';
+        }
       }
     } else if (typeof fieldError === 'string') {
+      // Handle direct strings: "User must be at least 3 years old."
       return fieldError;
     } else if (fieldError && typeof fieldError === 'object') {
+      // Handle objects: {detail: "error message"}
       return fieldError.detail || fieldError.message || 'Invalid value';
     }
+
     return 'Invalid value';
   }
 
@@ -429,7 +413,6 @@ export class SignupComponent {
       control.setErrors({ ...currentErrors, serverError: errorMessage });
     }
   }
-  
   private markFormGroupTouched(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(key => {
       const control = formGroup.get(key);

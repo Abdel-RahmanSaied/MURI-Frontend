@@ -100,116 +100,112 @@
                     <!-- Form -->
                     <form class="signup-form animated fadeInDown" [formGroup]="SignupForm" (ngSubmit)="signup()">
                         <!-- Profile Image Upload -->
-                        <div class="profile-upload ">
+                        <div class="profile-upload">
                             <div class="profile-image-container">
                                 <div class="avatar-placeholder" (click)="triggerFileInput()">
-                                    <img [src]="profileImageUrl || '/assets/image/upload_photo.png'"
-                                        alt="Avatar" class="avatar-img">
+                                    <img [src]="profileImageUrl || '/assets/image/upload_photo.png'" alt="Avatar"
+                                        class="avatar-img">
                                     <div class="upload-icon">
-                                        <img src="/assets/icons/upload.png"
-                                            alt="Upload">
+                                        <img src="/assets/icons/upload.png" alt="Upload">
                                     </div>
                                 </div>
                                 <input type="file" #fileInput (change)="onFileSelected($event)" accept="image/*"
                                     style="display: none;">
                                 <label class="upload-label" (click)="triggerFileInput()">رفع الصورة الشخصية</label>
                             </div>
-                            @if (SignupForm.get('profile_pic')?.errors?.['required'] && submitted) {
+
+                            <!-- Profile picture errors -->
+                            @if (SignupForm.get('profile_pic')?.errors?.['required'] &&
+                            (SignupForm.get('profile_pic')?.touched || submitted)) {
                             <div class="error">الصورة الشخصية مطلوبة</div>
                             }
-                            @if (SignupForm.get('profile_pic')?.errors?.['invalidFileType'] && submitted) {
+                            @if (SignupForm.get('profile_pic')?.errors?.['invalidFileType'] &&
+                            (SignupForm.get('profile_pic')?.touched || submitted)) {
                             <div class="error">نوع الملف غير مدعوم. يرجى اختيار صورة صالحة</div>
                             }
-                            @if (SignupForm.get('profile_pic')?.errors?.['maxSize'] && submitted) {
+                            @if (SignupForm.get('profile_pic')?.errors?.['maxSize'] &&
+                            (SignupForm.get('profile_pic')?.touched || submitted)) {
                             <div class="error">حجم الصورة يجب أن يكون أقل من 5 ميجابايت</div>
                             }
-                            @if (SignupForm.get('profile_pic')?.errors?.['serverError'] && submitted) {
+                            @if (SignupForm.get('profile_pic')?.errors?.['serverError'] &&
+                            (SignupForm.get('profile_pic')?.touched || submitted)) {
                             <div class="error">{{ SignupForm.get('profile_pic')?.errors?.['serverError'] }}</div>
                             }
                         </div>
-                        <!-- username -->
 
-                        <!-- <div class="form-field">
-                            <label class="field-label">
-                                <span class="required">*</span>
-                                اسم المستخدم
-                            </label>
-                            <input placeholder="الاسم المستخدم"
-                                type="text"
-                                class="form-input"
-                                maxlength="30"
-                                required
-                                formControlName="username"
-                                [class.invalid]="SignupForm.get('username')?.invalid && submitted">
-                            @if (SignupForm.get('username')?.errors?.['required'] && submitted) {
-                            <div class="error">اسم المستخدم مطلوب</div>
-                            }
-                            @if (SignupForm.get('username')?.errors?.['pattern'] && submitted) {
-                            <div class="error">الاسم يجب أن يحتوي على أحرف </div>
-                            }
-                            @if (SignupForm.get('username')?.errors?.['serverError'] && submitted) {
-                            <div class="error">{{ SignupForm.get('username')?.errors?.['serverError'] }}</div>
-                            }
-                        </div> -->
                         <!-- Name Fields -->
                         <div class="form-row">
+                            <!-- First Name -->
                             <div class="form-field">
                                 <label class="field-label">
-                                    <span class="required">*</span>
                                     الاسم الأول
+                                    <span class="required">*</span>
+
                                 </label>
-                                <input placeholder="الاسم الأول"
-                                    type="text" class="form-input"
-                                    maxlength="30" required formControlName="first_name"
-                                    [class.invalid]="SignupForm.get('first_name')?.invalid && submitted">
-                                @if (SignupForm.get('first_name')?.errors?.['required'] && submitted) {
+                                <input placeholder="الاسم الأول" type="text" class="form-input" maxlength="30" required
+                                    formControlName="first_name"
+                                    [class.invalid]="SignupForm.get('first_name')?.invalid && (SignupForm.get('first_name')?.touched || submitted)">
+
+                                @if (SignupForm.get('first_name')?.errors?.['required'] &&
+                                (SignupForm.get('first_name')?.touched || submitted)) {
                                 <div class="error">الاسم الأول مطلوب</div>
                                 }
-                                @if (SignupForm.get('first_name')?.errors?.['pattern'] && submitted) {
+                                @if (SignupForm.get('first_name')?.errors?.['pattern'] &&
+                                (SignupForm.get('first_name')?.touched || submitted)) {
                                 <div class="error">الاسم يجب أن يحتوي على أحرف فقط</div>
                                 }
-                                @if (SignupForm.get('first_name')?.errors?.['serverError'] && submitted) {
+                                @if (SignupForm.get('first_name')?.errors?.['serverError'] &&
+                                (SignupForm.get('first_name')?.touched || submitted)) {
                                 <div class="error">{{ SignupForm.get('first_name')?.errors?.['serverError'] }}</div>
                                 }
-
                             </div>
+
+                            <!-- Second Name -->
                             <div class="form-field">
                                 <label class="field-label">
-                                    <span class="required">*</span>
                                     الاسم الثاني
+                                    <span class="required">*</span>
+
                                 </label>
-                                <input placeholder="الاسم الثاني"
-                                    type="text" class="form-input"
-                                    maxlength="30" required formControlName="second_name"
-                                    [class.invalid]="SignupForm.get('second_name')?.invalid && submitted">
-                                @if (SignupForm.get('second_name')?.errors?.['required'] && submitted) {
+                                <input placeholder="الاسم الثاني" type="text" class="form-input" maxlength="30" required
+                                    formControlName="second_name"
+                                    [class.invalid]="SignupForm.get('second_name')?.invalid && (SignupForm.get('second_name')?.touched || submitted)">
+
+                                @if (SignupForm.get('second_name')?.errors?.['required'] &&
+                                (SignupForm.get('second_name')?.touched || submitted)) {
                                 <div class="error">الاسم الثاني مطلوب</div>
                                 }
-                                @if (SignupForm.get('second_name')?.errors?.['pattern'] && submitted) {
+                                @if (SignupForm.get('second_name')?.errors?.['pattern'] &&
+                                (SignupForm.get('second_name')?.touched || submitted)) {
                                 <div class="error">الاسم يجب أن يحتوي على أحرف فقط</div>
                                 }
-                                @if (SignupForm.get('second_name')?.errors?.['serverError'] && submitted) {
+                                @if (SignupForm.get('second_name')?.errors?.['serverError'] &&
+                                (SignupForm.get('second_name')?.touched || submitted)) {
                                 <div class="error">{{ SignupForm.get('second_name')?.errors?.['serverError'] }}</div>
                                 }
                             </div>
 
-
+                            <!-- Last Name -->
                             <div class="form-field">
                                 <label class="field-label">
-                                    <span class="required">*</span>
                                     اسم العائلة
+                                    <span class="required">*</span>
+
                                 </label>
-                                <input placeholder="الاسم الأخير"
-                                    type="text" class="form-input"
-                                    maxlength="30" required formControlName="last_name"
-                                    [class.invalid]="SignupForm.get('last_name')?.invalid && submitted">
-                                @if (SignupForm.get('last_name')?.errors?.['required'] && submitted) {
+                                <input placeholder="الاسم الأخير" type="text" class="form-input" maxlength="30" required
+                                    formControlName="last_name"
+                                    [class.invalid]="SignupForm.get('last_name')?.invalid && (SignupForm.get('last_name')?.touched || submitted)">
+
+                                @if (SignupForm.get('last_name')?.errors?.['required'] &&
+                                (SignupForm.get('last_name')?.touched || submitted)) {
                                 <div class="error">اسم العائلة مطلوب</div>
                                 }
-                                @if (SignupForm.get('last_name')?.errors?.['pattern'] && submitted) {
+                                @if (SignupForm.get('last_name')?.errors?.['pattern'] &&
+                                (SignupForm.get('last_name')?.touched || submitted)) {
                                 <div class="error">الاسم يجب أن يحتوي على أحرف فقط</div>
                                 }
-                                @if (SignupForm.get('last_name')?.errors?.['serverError'] && submitted) {
+                                @if (SignupForm.get('last_name')?.errors?.['serverError'] &&
+                                (SignupForm.get('last_name')?.touched || submitted)) {
                                 <div class="error">{{ SignupForm.get('last_name')?.errors?.['serverError'] }}</div>
                                 }
                             </div>
@@ -217,106 +213,161 @@
 
                         <!-- Email and Phone -->
                         <div class="form-row">
-
+                            <!-- Email -->
+                            <!-- More robust email validation with better error handling -->
                             <div class="form-field">
                                 <label class="field-label">
-                                    <span class="required">*</span>
                                     البريد الالكتروني
+                                    <span class="required">*</span>
                                 </label>
-                                <input type="email" class="form-input"
-                                    placeholder="example@example.com"
-                                    maxlength="50" required formControlName="email"
-                                    [class.invalid]="SignupForm.get('email')?.invalid && submitted">
-                                @if (SignupForm.get('email')?.errors?.['required'] && submitted) {
+                                <input type="email" class="form-input" placeholder="example@example.com" maxlength="50"
+                                    required
+                                    formControlName="email"
+                                    [class.invalid]="SignupForm.get('email')?.invalid && (SignupForm.get('email')?.dirty || SignupForm.get('email')?.touched || submitted)">
+
+                                <!-- Show required error first -->
+                                @if (SignupForm.get('email')?.errors?.['required'] && (SignupForm.get('email')?.dirty ||
+                                SignupForm.get('email')?.touched || submitted)) {
                                 <div class="error">البريد الإلكتروني مطلوب</div>
                                 }
-                                @if (SignupForm.get('email')?.errors?.['email'] && submitted) {
-                                <div class="error">البريد الإلكتروني غير صحيح</div>
-                                }
-                                @if (SignupForm.get('email')?.errors?.['emailWithDot'] && submitted) {
+                                <!-- Show other errors only when field has value and is not required error -->
+                                @else {
+                                <!-- Custom validator errors -->
+                                @if (SignupForm.get('email')?.errors?.['emailWithDot'] &&
+                                (SignupForm.get('email')?.dirty || SignupForm.get('email')?.touched || submitted)) {
                                 <div class="error">البريد الإلكتروني يجب أن يحتوي على نقطة</div>
                                 }
-                                @if (SignupForm.get('email')?.errors?.['emailNoArabic'] && submitted) {
+                                @else if (SignupForm.get('email')?.errors?.['emailNoArabic'] &&
+                                (SignupForm.get('email')?.dirty || SignupForm.get('email')?.touched || submitted)) {
                                 <div class="error">البريد الإلكتروني لا يجب أن يحتوي على أحرف عربية</div>
                                 }
-                                @if (SignupForm.get('email')?.errors?.['serverError'] && submitted) {
+                                @else if (SignupForm.get('email')?.errors?.['serverError'] &&
+                                (SignupForm.get('email')?.dirty || SignupForm.get('email')?.touched || submitted)) {
                                 <div class="error">{{ SignupForm.get('email')?.errors?.['serverError'] }}</div>
                                 }
+                                <!-- Catch any invalid email (including Angular's built-in email validator) -->
+                                @else if (SignupForm.get('email')?.invalid && SignupForm.get('email')?.value &&
+                                (SignupForm.get('email')?.dirty || SignupForm.get('email')?.touched || submitted)) {
+                                <div class="error">البريد الإلكتروني غير صحيح</div>
+                                }
+                                }
                             </div>
+
+                            <!-- Phone -->
                             <div class="form-field">
                                 <label class="field-label">
-                                    <span class="required">*</span>
                                     رقم الجوال
+                                    <span class="required">*</span>
+
                                 </label>
                                 <div class="phone-input">
-                                    <ngx-intl-tel-input [preferredCountries]="[CountryISO.SaudiArabia]"
+                                    <ngx-intl-tel-input
+                                        [preferredCountries]="[CountryISO.SaudiArabia]"
                                         [enableAutoCountrySelect]="true"
-                                        [enablePlaceholder]="false" [preferredCountries]="[CountryISO.SaudiArabia]"
-                                        [searchCountryFlag]="true" [searchCountryField]="[
-                                        SearchCountryField.Iso2,
-                                        SearchCountryField.Name
-                                    ]" [selectFirstCountry]="false"
+                                        [enablePlaceholder]="false"
+                                        [searchCountryFlag]="true"
+                                        [searchCountryField]="[SearchCountryField.Iso2, SearchCountryField.Name]"
+                                        [selectFirstCountry]="false"
                                         [selectedCountryISO]="CountryISO.SaudiArabia"
                                         [maxLength]="15"
-                                        [phoneValidation]="true" [separateDialCode]="separateDialCode"
-                                        [numberFormat]="PhoneNumberFormat.National" style=" width:100%;"
-                                        formControlName="phone" required
-                                        [class.invalid]="SignupForm.get('phone')?.invalid && submitted">
+                                        [phoneValidation]="true"
+                                        [separateDialCode]="separateDialCode"
+                                        [numberFormat]="PhoneNumberFormat.National"
+                                        style="width:100%;"
+                                        formControlName="phone"
+                                        searchCountryPlaceholder="البحث عن الدولة"
+                                        required
+                                        [class.invalid]="SignupForm.get('phone')?.invalid && (SignupForm.get('phone')?.touched || submitted)">
                                     </ngx-intl-tel-input>
                                 </div>
-                                @if (SignupForm.get('phone')?.errors?.['required'] && submitted) {
+
+                                @if (SignupForm.get('phone')?.errors?.['required'] && (SignupForm.get('phone')?.touched
+                                || submitted)) {
                                 <div class="error">رقم الجوال مطلوب</div>
                                 }
-                                @if (SignupForm.get('phone')?.errors?.['validatePhoneNumber'] && submitted) {
+                                @if (SignupForm.get('phone')?.errors?.['validatePhoneNumber'] &&
+                                SignupForm.get('phone')?.value &&
+                                (SignupForm.get('phone')?.touched || submitted)) {
                                 <div class="error">رقم الجوال غير صحيح</div>
                                 }
-                                @if (SignupForm.get('phone')?.errors?.['serverError'] && submitted) {
+                                @if (SignupForm.get('phone')?.errors?.['serverError'] &&
+                                (SignupForm.get('phone')?.touched || submitted)) {
                                 <div class="error">{{ SignupForm.get('phone')?.errors?.['serverError'] }}</div>
                                 }
                             </div>
                         </div>
 
                         <!-- Birth Date -->
+                        <!-- Updated date input with proper validation -->
                         <div class="form-field">
                             <label class="field-label">
-                                <span class="required">*</span>
                                 تاريخ الميلاد
+                                <span class="required">*</span>
                             </label>
                             <input
                                 type="date"
                                 class="form-input"
                                 required
                                 formControlName="birth_date"
-                                [class.invalid]="SignupForm.get('birth_date')?.invalid && submitted">
+                                min="1900-01-01"
+                                max="2024-12-31"
+                                pattern="\d{4}-\d{2}-\d{2}"
+                                [class.invalid]="SignupForm.get('birth_date')?.invalid && (SignupForm.get('birth_date')?.dirty || SignupForm.get('birth_date')?.touched || submitted)">
 
-                            @if (SignupForm.get('birth_date')?.errors?.['required'] && submitted) {
+                            @if (SignupForm.get('birth_date')?.errors?.['required'] &&
+                            (SignupForm.get('birth_date')?.dirty || SignupForm.get('birth_date')?.touched || submitted))
+                            {
                             <div class="error">تاريخ الميلاد مطلوب</div>
                             }
-
-                            @if (SignupForm.get('birth_date')?.errors?.['minimumAge'] && submitted) {
+                            @if (SignupForm.get('birth_date')?.errors?.['minimumAge'] &&
+                            (SignupForm.get('birth_date')?.dirty || SignupForm.get('birth_date')?.touched || submitted))
+                            {
                             <div class="error">يجب أن يكون العمر أكثر من 3 سنوات</div>
                             }
-
-                            @if (SignupForm.get('birth_date')?.errors?.['serverError'] && submitted) {
+                            @if (SignupForm.get('birth_date')?.errors?.['min'] &&
+                            (SignupForm.get('birth_date')?.dirty || SignupForm.get('birth_date')?.touched || submitted))
+                            {
+                            <div class="error">تاريخ الميلاد غير صحيح</div>
+                            }
+                            @if (SignupForm.get('birth_date')?.errors?.['max'] &&
+                            (SignupForm.get('birth_date')?.dirty || SignupForm.get('birth_date')?.touched || submitted))
+                            {
+                            <div class="error">تاريخ الميلاد لا يمكن أن يكون في المستقبل</div>
+                            }
+                            @if (SignupForm.get('birth_date')?.errors?.['pattern'] &&
+                            (SignupForm.get('birth_date')?.dirty || SignupForm.get('birth_date')?.touched || submitted))
+                            {
+                            <div class="error">تنسيق التاريخ غير صحيح</div>
+                            }
+                            @if (SignupForm.get('birth_date')?.errors?.['serverError'] &&
+                            (SignupForm.get('birth_date')?.dirty || SignupForm.get('birth_date')?.touched || submitted))
+                            {
                             <div class="error">{{ SignupForm.get('birth_date')?.errors?.['serverError'] }}</div>
                             }
-
-                            <!-- Alternative server error condition (without submitted check) -->
-                            @if (SignupForm.get('birth_date')?.errors?.['serverError']) {
-                            <div class="error">{{ SignupForm.get('birth_date')?.errors?.['serverError'] }}</div>
+                            <!-- Catch-all for invalid dates -->
+                            @if (SignupForm.get('birth_date')?.invalid &&
+                            SignupForm.get('birth_date')?.value &&
+                            (SignupForm.get('birth_date')?.dirty || SignupForm.get('birth_date')?.touched || submitted)
+                            &&
+                            !SignupForm.get('birth_date')?.errors?.['required'] &&
+                            !SignupForm.get('birth_date')?.errors?.['minimumAge'] &&
+                            !SignupForm.get('birth_date')?.errors?.['min'] &&
+                            !SignupForm.get('birth_date')?.errors?.['max'] &&
+                            !SignupForm.get('birth_date')?.errors?.['pattern'] &&
+                            !SignupForm.get('birth_date')?.errors?.['serverError']) {
+                            <div class="error">تاريخ الميلاد غير صحيح</div>
                             }
                         </div>
+
+                        <!-- ID Number and Nationality -->
                         <div class="form-row">
-
-
                             <!-- ID Number -->
                             <div class="form-field">
                                 <label class="field-label">
-                                    <span class="required">*</span>
                                     رقم الهوية
+                                    <span class="required">*</span>
                                 </label>
-                                <input
-                                    class="form-input"
+                                <input class="form-input"
                                     type="text"
                                     inputmode="numeric"
                                     placeholder="رقم الهوية"
@@ -324,103 +375,144 @@
                                     required
                                     formControlName="identity_number"
                                     (keypress)="allowOnlyNumbers($event)"
-                                    [class.invalid]="SignupForm.get('identity_number')?.invalid && submitted">
+                                    (input)="sanitizeIdentityNumber($event)"
+                                    (paste)="onIdentityPaste($event)"
+                                    autocomplete="off"
+                                    [class.invalid]="SignupForm.get('identity_number')?.invalid && (SignupForm.get('identity_number')?.dirty || SignupForm.get('identity_number')?.touched || submitted)">
+
                                 <div class="supporting-text">
                                     <span class="support-label">يجب أن يتكون من 10 أرقام</span>
                                 </div>
-                                @if (SignupForm.get('identity_number')?.errors?.['required'] && submitted) {
+
+                                @if (SignupForm.get('identity_number')?.errors?.['required'] &&
+                                (SignupForm.get('identity_number')?.dirty || SignupForm.get('identity_number')?.touched
+                                || submitted)) {
                                 <div class="error">رقم الهوية مطلوب</div>
                                 }
-                                @if (SignupForm.get('identity_number')?.errors?.['pattern'] && submitted) {
+                                @if (SignupForm.get('identity_number')?.errors?.['pattern'] &&
+                                (SignupForm.get('identity_number')?.dirty || SignupForm.get('identity_number')?.touched
+                                || submitted)) {
                                 <div class="error">يجب إدخال أرقام فقط</div>
                                 }
-                                @if (SignupForm.get('identity_number')?.errors?.['minlength'] && submitted) {
+                                @if (SignupForm.get('identity_number')?.errors?.['minlength'] &&
+                                (SignupForm.get('identity_number')?.dirty || SignupForm.get('identity_number')?.touched
+                                || submitted)) {
                                 <div class="error">رقم الهوية يجب أن يتكون من 10 أرقام</div>
                                 }
-                                @if (SignupForm.get('identity_number')?.errors?.['maxlength'] && submitted) {
+                                @if (SignupForm.get('identity_number')?.errors?.['maxlength'] &&
+                                (SignupForm.get('identity_number')?.dirty || SignupForm.get('identity_number')?.touched
+                                || submitted)) {
                                 <div class="error">رقم الهوية يجب أن يتكون من 10 أرقام</div>
                                 }
-                                @if (SignupForm.get('identity_number')?.errors?.['noSpacesAllowed'] && submitted) {
+                                @if (SignupForm.get('identity_number')?.errors?.['noSpacesAllowed'] &&
+                                (SignupForm.get('identity_number')?.dirty || SignupForm.get('identity_number')?.touched
+                                || submitted)) {
                                 <div class="error">المسافات غير مسموحة</div>
                                 }
-                                @if (SignupForm.get('identity_number')?.errors?.['serverError'] && submitted) {
+                                @if (SignupForm.get('identity_number')?.errors?.['serverError'] &&
+                                (SignupForm.get('identity_number')?.dirty || SignupForm.get('identity_number')?.touched
+                                || submitted)) {
                                 <div class="error">{{ SignupForm.get('identity_number')?.errors?.['serverError'] }}
                                 </div>
                                 }
-
                             </div>
-                            <!-- nationality -->
+
+                            <!-- Nationality -->
                             <div class="form-field">
                                 <label class="field-label">
-                                    <span class="required">*</span>
-                                    الجنسية
+                                    الجنسية <span class="required">*</span>
+
                                 </label>
-                                <select
-                                    class="form-input"
-                                    name=""
-                                    id=""
-                                    dir="rtl"
-                                    formControlName="nationality"
-                                    [class.invalid]="SignupForm.get('nationality')?.invalid && submitted">
+                                <select class="form-select" dir="rtl" formControlName="nationality"
+                                    [class.invalid]="SignupForm.get('nationality')?.invalid && (SignupForm.get('nationality')?.touched || submitted)">
                                     <option value="" disabled selected>اختر الجنسية</option>
-                                    @for ( nationality of nationalities; track $index) {
-                                    <option
-                                        [value]="nationality.nationalityEn">
-                                        {{ nationality.nationalityAr }}
-                                    </option>
+                                    @for (nationality of nationalities; track $index) {
+                                    <option [value]="nationality.nationalityEn">{{ nationality.nationalityAr }}</option>
                                     }
                                 </select>
-                                @if (SignupForm.get('nationality')?.errors?.['required'] && submitted) {
-                                <div class="error"> اختيار الجنسية مطلوب</div>
+
+                                @if (SignupForm.get('nationality')?.errors?.['required'] &&
+                                (SignupForm.get('nationality')?.touched || submitted)) {
+                                <div class="error">اختيار الجنسية مطلوب</div>
                                 }
-                                @if (SignupForm.get('nationality')?.errors?.['serverError'] && submitted) {
+                                @if (SignupForm.get('nationality')?.errors?.['serverError'] &&
+                                (SignupForm.get('nationality')?.touched || submitted)) {
                                 <div class="error">{{ SignupForm.get('nationality')?.errors?.['serverError'] }}</div>
                                 }
                             </div>
-
                         </div>
-
 
                         <!-- Password -->
                         <div class="form-field">
                             <label class="field-label">
-                                <span class="required">*</span>
                                 كلمة المرور
+                                <span class="required">*</span>
+
                             </label>
                             <div class="password-input">
-                                <input
-                                    [type]="showPassword ? 'text' : 'password'"
-                                    class="form-input"
-                                    maxlength="30"
+                                <input [type]="showPassword ? 'text' : 'password'" class="form-input" maxlength="30"
                                     required
-                                    formControlName="password"
-                                    placeholder="ادخل كلمه المرور"
+                                    formControlName="password" placeholder="ادخل كلمه المرور"
                                     onkeypress='return /[A-Za-z0-9!@_#$%^&*(),.?":{}|<>]/.test(String.fromCharCode(event.charCode))'
-                                    [class.invalid]="SignupForm.get('password')?.invalid && submitted">
+                                    [class.invalid]="SignupForm.get('password')?.invalid && (SignupForm.get('password')?.touched || submitted)">
                                 <div class="eye-icon">
-                                    <img src="assets/icons/eye.svg"
-                                        (click)="togglePasswordVisibility()" alt="Eye">
+                                      @if (!showPassword) {
+                                    <svg (click)="togglePasswordVisibility()" xmlns="http://www.w3.org/2000/svg"
+                                        width="20px" height="20px" viewBox="0 0 24 24" fill="none">
+                                        <path d="M2 2L22 22" stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path
+                                            d="M6.71277 6.7226C3.66479 8.79527 2 12 2 12C2 12 5.63636 19 12 19C14.0503 19 15.8174 18.2734 17.2711 17.2884M11 5.05822C11.3254 5.02013 11.6588 5 12 5C18.3636 5 22 12 22 12C22 12 21.3082 13.3317 20 14.8335"
+                                            stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path
+                                            d="M14 14.2362C13.4692 14.7112 12.7684 15.0001 12 15.0001C10.3431 15.0001 9 13.657 9 12.0001C9 11.1764 9.33193 10.4303 9.86932 9.88818"
+                                            stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                    } @else {
+                                    <svg (click)="togglePasswordVisibility()" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
+                                        viewBox="0 0 24 24" fill="none">
+                                        <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12" stroke="#000000" stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path d="M1 12C1 12 5 20 12 20C19 20 23 12 23 12" stroke="#000000"
+                                            stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                        <circle cx="12" cy="12" r="3" stroke="#000000" stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                    }
                                 </div>
                             </div>
-                            @if (SignupForm.get('password')?.errors?.['required'] && submitted) {
+
+                            @if (SignupForm.get('password')?.errors?.['required'] &&
+                            (SignupForm.get('password')?.touched || submitted)) {
                             <div class="error">كلمة المرور مطلوبة</div>
                             }
-                            @if (SignupForm.get('password')?.errors?.['minlength'] && submitted) {
+                            @if (SignupForm.get('password')?.errors?.['minlength'] &&
+                            (SignupForm.get('password')?.touched || submitted)) {
                             <div class="error">كلمة المرور يجب أن تتكون من 8 أحرف على الأقل</div>
                             }
-                            @if (SignupForm.get('password')?.errors?.['specialCharacter'] && submitted) {
+                            @if (SignupForm.get('password')?.errors?.['specialCharacter'] &&
+                            (SignupForm.get('password')?.touched || submitted)) {
                             <div class="error">كلمة المرور يجب أن تحتوي على رمز خاص</div>
                             }
-                            @if (SignupForm.get('password')?.errors?.['containsNumber'] && submitted) {
+                            @if (SignupForm.get('password')?.errors?.['containsNumber'] &&
+                            (SignupForm.get('password')?.touched || submitted)) {
                             <div class="error">كلمة المرور يجب أن تحتوي على رقم</div>
                             }
-                            @if (SignupForm.get('password')?.errors?.['noSpaceAllowed'] && submitted) {
+                            @if (SignupForm.get('password')?.errors?.['noSpaceAllowed'] &&
+                            (SignupForm.get('password')?.touched || submitted)) {
                             <div class="error">كلمة المرور لا يجب أن تحتوي على مسافات</div>
                             }
-                            @if (SignupForm.get('password')?.errors?.['containsLetter'] && submitted) {
+                            @if (SignupForm.get('password')?.errors?.['containsLetter'] &&
+                            (SignupForm.get('password')?.touched || submitted)) {
                             <div class="error">كلمة المرور يجب أن تحتوي على أحرف</div>
                             }
-                            @if (SignupForm.get('password')?.errors?.['serverError'] && submitted) {
+                            @if (SignupForm.get('password')?.errors?.['serverError'] &&
+                            (SignupForm.get('password')?.touched || submitted)) {
                             <div class="error">{{ SignupForm.get('password')?.errors?.['serverError'] }}</div>
                             }
                         </div>
@@ -428,31 +520,58 @@
                         <!-- Confirm Password -->
                         <div class="form-field">
                             <label class="field-label">
-                                <span class="required">*</span>
-                                تأكيد كلمة المرور
+                                تأكيد كلمة المرور <span class="required">*</span>
+
                             </label>
                             <div class="password-input">
-                                <input
-                                    [type]="showConfirmPassword ? 'text' : 'password'"
-                                    class="form-input"
-                                    maxlength="30"
-                                    required
-                                    formControlName="confirm_password"
-                                    placeholder="ادخل كلمه المرور"
+                                <input [type]="showConfirmPassword ? 'text' : 'password'" class="form-input"
+                                    maxlength="30" required
+                                    formControlName="confirm_password" placeholder="ادخل كلمه المرور"
                                     onkeypress='return /[A-Za-z0-9!@_#$%^&*(),.?":{}|<>]/.test(String.fromCharCode(event.charCode))'
-                                    [class.invalid]="SignupForm.get('confirm_password')?.invalid && submitted">
+                                    [class.invalid]="SignupForm.get('confirm_password')?.invalid && (SignupForm.get('confirm_password')?.touched || submitted)">
                                 <div class="eye-icon">
-                                    <img src="assets/icons/eye.svg"
-                                        (click)="toggleConfirmPasswordVisibility()" alt="Eye">
+
+                                    @if (!showConfirmPassword) {
+                                    <svg (click)="toggleConfirmPasswordVisibility()" xmlns="http://www.w3.org/2000/svg"
+                                        width="20px" height="20px" viewBox="0 0 24 24" fill="none">
+                                        <path d="M2 2L22 22" stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path
+                                            d="M6.71277 6.7226C3.66479 8.79527 2 12 2 12C2 12 5.63636 19 12 19C14.0503 19 15.8174 18.2734 17.2711 17.2884M11 5.05822C11.3254 5.02013 11.6588 5 12 5C18.3636 5 22 12 22 12C22 12 21.3082 13.3317 20 14.8335"
+                                            stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path
+                                            d="M14 14.2362C13.4692 14.7112 12.7684 15.0001 12 15.0001C10.3431 15.0001 9 13.657 9 12.0001C9 11.1764 9.33193 10.4303 9.86932 9.88818"
+                                            stroke="#000000" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                    } @else {
+                                    <svg (click)="toggleConfirmPasswordVisibility()" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
+                                        viewBox="0 0 24 24" fill="none">
+                                        <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12" stroke="#000000" stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                        <path d="M1 12C1 12 5 20 12 20C19 20 23 12 23 12" stroke="#000000"
+                                            stroke-width="2"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                        <circle cx="12" cy="12" r="3" stroke="#000000" stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round" />
+                                    </svg>
+                                    }
                                 </div>
                             </div>
-                            @if (SignupForm.get('confirm_password')?.errors?.['required'] && submitted) {
+
+                            @if (SignupForm.get('confirm_password')?.errors?.['required'] &&
+                            (SignupForm.get('confirm_password')?.touched || submitted)) {
                             <div class="error">تأكيد كلمة المرور مطلوب</div>
                             }
-                            @if (SignupForm.get('confirm_password')?.errors?.['minlength'] && submitted) {
+                            @if (SignupForm.get('confirm_password')?.errors?.['minlength'] &&
+                            (SignupForm.get('confirm_password')?.touched || submitted)) {
                             <div class="error">تأكيد كلمة المرور يجب أن يتكون من 8 أحرف على الأقل</div>
                             }
-                            @if (SignupForm.get('confirm_password')?.errors?.['passwordMismatch'] && submitted) {
+                            @if (SignupForm.get('confirm_password')?.errors?.['passwordMismatch'] &&
+                            (SignupForm.get('confirm_password')?.touched || submitted)) {
                             <div class="error">كلمة المرور غير متطابقة</div>
                             }
                         </div>
@@ -464,29 +583,21 @@
                                 <label for="terms" class="checkbox-label"></label>
                             </div>
                             <label for="terms" class="terms-text">
-
                                 أوافق على جميع
-
-                                <span class="link"> الشروط</span>
-
+                                <a class="link" href="/terms"> الشروط</a>
                                 و
-
-                                <span class="link"> سياسات الخصوصية </span>
-
+                                <a class="link" href="/privacy"> سياسات الخصوصية </a>
                             </label>
-                            @if (SignupForm.get('terms')?.errors?.['required'] && submitted) {
+
+                            @if (SignupForm.get('terms')?.errors?.['required'] && (SignupForm.get('terms')?.touched ||
+                            submitted)) {
                             <div class="error">يجب الموافقة على الشروط وسياسات الخصوصية</div>
                             }
                         </div>
 
                         <!-- Submit Button -->
                         <button type="submit" class="submit-btn">إنشاء حساب</button>
-
-                        <!-- Login Link -->
-                        <div class="login-link">
-                            لديك حساب بالفعل؟ <span class="link">سجل الدخول</span>
-                        </div>
-
+                        
                         <!-- Divider -->
                         <div class="divider">
                             <div class="divider-line"></div>

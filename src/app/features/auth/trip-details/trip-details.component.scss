@@ -322,6 +322,7 @@ $cairo-font: 'Cairo', sans-serif;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
+    height: 1124px;
 }
 
 .background-overlay {
@@ -335,6 +336,7 @@ $cairo-font: 'Cairo', sans-serif;
     background-position: top left;
     background-repeat: no-repeat;
     opacity: 0.2;
+    height: 1124px;
 
 }
 
@@ -342,11 +344,12 @@ $cairo-font: 'Cairo', sans-serif;
     position: relative;
     z-index: 1;
     padding: 64px;
-    height: 924px;
+    height: 1124px;
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-evenly;
+    height: 1124px;
 }
 
 .content-top {
@@ -569,5 +572,210 @@ $cairo-font: 'Cairo', sans-serif;
 }
 
 .invalid {
-  border-color: rgba(178, 34, 34, 1);
+    border-color: rgba(178, 34, 34, 1);
+}
+
+// Custom Time Input Styles - Matching Design System
+.custom-time-input {
+    position: relative;
+    background: $white;
+    border-radius: 4px;
+    border: 2px solid $slate-200;
+    transition: border-color 0.2s;
+    padding: 12px 36px 12px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    min-height: 48px;
+    direction: rtl;
+
+    &:focus-within {
+        border-color: #3b82f6;
+    }
+
+    &.invalid {
+        border-color: $error-color;
+    }
+}
+
+.time-segment {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    position: relative;
+}
+
+.time-field {
+    width: 90px;
+    padding: 6px 4px;
+    border: 1px solid $slate-200;
+    border-radius: 4px;
+    text-align: center;
+    font-family: $arabic-font;
+    font-size: 14px;
+    font-weight: 500;
+    color: $slate-700;
+    background-color: $white;
+    outline: none;
+    transition: border-color 0.2s;
+
+    &:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+    }
+
+    &::placeholder {
+        color: #94a3b8;
+        font-size: 12px;
+    }
+
+    // Remove number input arrows
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    &[type=number] {
+        -moz-appearance: textfield;
+    }
+}
+
+.hour-field {
+    width: 45px;
+}
+
+.minute-field {
+    width: 45px;
+}
+
+.ampm-field {
+    width: 65px;
+    cursor: pointer;
+    font-family: $arabic-font;
+
+    option {
+        font-family: $arabic-font;
+        text-align: center;
+        direction: rtl;
+    }
+}
+
+.time-separator {
+    font-size: 18px;
+    font-weight: bold;
+    color: $slate-700;
+    margin: 0 2px;
+    align-self: flex-start;
+    margin-top: 5px; // Align with input fields
+    font-family: $arabic-font;
+}
+
+.time-label {
+    font-size: 10px;
+    color: #94a3b8;
+    font-family: $arabic-font;
+    text-align: center;
+    line-height: 1;
+    margin-top: 2px;
+}
+
+// Input icon positioning to match existing form style
+.custom-time-input .input-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+
+    img {
+        width: 100%;
+        height: 100%;
+        opacity: 0.7;
+    }
+}
+
+// Error styling to match existing error styles
+.form-field .error {
+    font-family: $arabic-font;
+    font-size: 12px;
+    color: $error-color;
+    margin-top: 4px;
+    text-align: right;
+}
+
+// Mobile responsive adjustments
+@media (max-width: 768px) {
+    .custom-time-input {
+        gap: 6px;
+        padding: 10px 32px 10px 12px;
+        min-height: 44px;
+    }
+
+    .time-field {
+        width: 42px;
+        font-size: 13px;
+        padding: 5px 3px;
+    }
+
+    .hour-field,
+    .minute-field {
+        width: 40px;
+    }
+
+    .ampm-field {
+        width: 60px;
+        font-size: 13px;
+    }
+
+    .time-separator {
+        font-size: 16px;
+        margin-top: 8px;
+    }
+
+    .time-label {
+        font-size: 9px;
+    }
+
+    .custom-time-input .input-icon {
+        width: 18px;
+        height: 18px;
+        right: 10px;
+    }
+}
+
+// Focus states for accessibility
+.time-field:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+// Hover states
+.time-field:hover:not(:focus) {
+    border-color: #cbd5e1;
+}
+
+.ampm-field:hover:not(:focus) {
+    border-color: #cbd5e1;
+}
+
+// Disabled states (if needed)
+.time-field:disabled {
+    background-color: #f1f5f9;
+    color: #94a3b8;
+    cursor: not-allowed;
+    border-color: #e2e8f0;
+}
+
+
+
+
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none !important;
+    -webkit-appearance: none !important;
 }

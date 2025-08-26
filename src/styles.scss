@@ -9173,3 +9173,10 @@ blockquote cite {
     border-color: rgba(178, 34, 34, 1) !important;
     outline: none;
 }
+
+.iti__dropdown-content  {
+    height: 400px;
+    .iti__country-list{
+        height: 350px;
+    }
+}
