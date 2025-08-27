@@ -26,7 +26,7 @@ export class TripDetailsComponent implements OnInit {
   tripForm!: FormGroup;
   submitted: boolean = false;
   isSubmitting: boolean = false;
-
+  today = new Date().toISOString().split('T')[0];
   // Time values for custom time inputs
   private timeValues: { [key: string]: { hour: string; minute: string; ampm: string } } = {
     arrivalTime: { hour: '', minute: '', ampm: '' },
