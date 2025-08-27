@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
-import { environment as env } from '../../../../../environments/environment.prod';
+import { environment as env } from '../../../../../environments/enviroment';
 import { CookieService } from 'ngx-cookie-service';
 
 interface TokenPayload {
