@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  APIURL: "https://dev.muri.sa",
+  APIURL: "https://api.muri.sa",
   my_Space : false
 };
