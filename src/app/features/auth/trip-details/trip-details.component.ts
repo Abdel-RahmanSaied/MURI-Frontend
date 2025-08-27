@@ -46,7 +46,7 @@ export class TripDetailsComponent implements OnInit {
       startDate: ['', [Validators.required, this.futureDateValidator]],
       departureTime: [''],
       endDate: [''],
-      numberOfSeats: [1, [Validators.required, Validators.min(1), Validators.max(8)]]
+      numberOfSeats: [1, [Validators.required, Validators.min(1), Validators.max(3)]]
     }, { validators: [this.dateSequenceValidator, this.timeLogicValidator] });
   }
 
@@ -760,116 +760,153 @@ export class TripDetailsComponent implements OnInit {
       }
     });
   }
+
   onSeatsInputChange(event: Event): void {
-  const input = event.target as HTMLInputElement;
-  let value = input.value;
-  
-  // Remove any non-digit characters
-  const numericValue = value.replace(/[^0-9]/g, '');
-  
-  // Convert to number and apply constraints
-  let numberValue = parseInt(numericValue, 10);
-  
-  // Handle empty or invalid input
-  if (isNaN(numberValue) || numericValue === '') {
-    input.value = '';
-    this.tripForm.get('numberOfSeats')?.setValue(null);
-    return;
-  }
-  
-  // Apply min/max constraints
-  if (numberValue < 1) {
-    numberValue = 1;
-  } else if (numberValue > 8) {
-    numberValue = 8;
-  }
-  
-  // Update the input value and form control
-  input.value = numberValue.toString();
-  this.tripForm.get('numberOfSeats')?.setValue(numberValue);
-  
-  // Clear API errors if any
-  this.onFormFieldChange('numberOfSeats');
-}
+    const input = event.target as HTMLInputElement;
+    let value = input.value;
 
-// Prevent non-numeric key presses
-onSeatsKeyDown(event: KeyboardEvent): void {
-  const allowedKeys = [
-    'Backspace', 'Delete', 'Tab', 'Enter', 'Escape',
-    'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown',
-    'Home', 'End'
-  ];
-  
-  // Allow control keys
-  if (allowedKeys.includes(event.key)) {
-    return;
+    // Remove any non-digit characters
+    const numericValue = value.replace(/[^0-9]/g, '');
+
+    // Convert to number and apply constraints
+    let numberValue = parseInt(numericValue, 10);
+
+    // Handle empty or invalid input
+    if (isNaN(numberValue) || numericValue === '') {
+      input.value = '';
+      this.tripForm.get('numberOfSeats')?.setValue(null);
+      return;
+    }
+
+    // Apply min/max constraints - CHANGE FROM 8 TO 3
+    if (numberValue < 1) {
+      numberValue = 1;
+    } else if (numberValue > 3) { // ← CHANGE FROM > 8 TO > 3
+      numberValue = 3;
+    }
+
+    // Update the input value and form control
+    input.value = numberValue.toString();
+    this.tripForm.get('numberOfSeats')?.setValue(numberValue);
+
+    // Clear API errors if any
+    this.onFormFieldChange('numberOfSeats');
   }
-  
-  // Allow Ctrl/Cmd combinations (copy, paste, etc.)
-  if (event.ctrlKey || event.metaKey) {
-    return;
+
+  // 3. Update onSeatsKeyDown method (around line 592)
+  onSeatsKeyDown(event: KeyboardEvent): void {
+    const allowedKeys = [
+      'Backspace', 'Delete', 'Tab', 'Enter', 'Escape',
+      'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown',
+      'Home', 'End'
+    ];
+
+    // Allow control keys
+    if (allowedKeys.includes(event.key)) {
+      return;
+    }
+
+    // Allow Ctrl/Cmd combinations (copy, paste, etc.)
+    if (event.ctrlKey || event.metaKey) {
+      return;
+    }
+
+    // Only allow digits
+    if (!/^[0-9]$/.test(event.key)) {
+      event.preventDefault();
+      return;
+    }
+
+    // Check if the resulting value would exceed limits
+    const input = event.target as HTMLInputElement;
+    const currentValue = input.value;
+    const newValue = currentValue + event.key;
+    const numberValue = parseInt(newValue, 10);
+
+    // Prevent if it would exceed max value - CHANGE FROM 8 TO 3
+    if (numberValue > 3) { // ← CHANGE FROM > 8 TO > 3
+      event.preventDefault();
+    }
   }
-  
-  // Only allow digits
-  if (!/^[0-9]$/.test(event.key)) {
+
+  // 4. Update onSeatsPaste method (around line 619)
+  onSeatsPaste(event: ClipboardEvent): void {
     event.preventDefault();
-    return;
-  }
-  
-  // Check if the resulting value would exceed limits
-  const input = event.target as HTMLInputElement;
-  const currentValue = input.value;
-  const newValue = currentValue + event.key;
-  const numberValue = parseInt(newValue, 10);
-  
-  // Prevent if it would exceed max value
-  if (numberValue > 8) {
-    event.preventDefault();
-  }
-}
 
-// Handle paste events to filter non-numeric content
-onSeatsPaste(event: ClipboardEvent): void {
-  event.preventDefault();
-  
-  const clipboardData = event.clipboardData;
-  if (!clipboardData) return;
-  
-  const pastedText = clipboardData.getData('text');
-  
-  // Extract only digits from pasted content
-  const numericValue = pastedText.replace(/[^0-9]/g, '');
-  
-  if (numericValue === '') return;
-  
-  let numberValue = parseInt(numericValue, 10);
-  
-  // Apply constraints
-  if (numberValue < 1) {
-    numberValue = 1;
-  } else if (numberValue > 8) {
-    numberValue = 8;
-  }
-  
-  // Update the input and form control
-  const input = event.target as HTMLInputElement;
-  input.value = numberValue.toString();
-  this.tripForm.get('numberOfSeats')?.setValue(numberValue);
-  
-  // Clear API errors if any
-  this.onFormFieldChange('numberOfSeats');
-}
+    const clipboardData = event.clipboardData;
+    if (!clipboardData) return;
 
-// Optional: Add a method to increment/decrement seats with buttons
-adjustSeats(increment: number): void {
-  const currentValue = this.tripForm.get('numberOfSeats')?.value || 1;
-  let newValue = currentValue + increment;
-  
-  // Apply constraints
-  if (newValue < 1) newValue = 1;
-  if (newValue > 8) newValue = 8;
-  
-  this.tripForm.get('numberOfSeats')?.setValue(newValue);
-  this.onFormFieldChange('numberOfSeats');
-}
+    const pastedText = clipboardData.getData('text');
+
+    // Extract only digits from pasted content
+    const numericValue = pastedText.replace(/[^0-9]/g, '');
+
+    if (numericValue === '') return;
+
+    let numberValue = parseInt(numericValue, 10);
+
+    // Apply constraints - CHANGE FROM 8 TO 3
+    if (numberValue < 1) {
+      numberValue = 1;
+    } else if (numberValue > 3) { // ← CHANGE FROM > 8 TO > 3
+      numberValue = 3;
+    }
+
+    // Update the input and form control
+    const input = event.target as HTMLInputElement;
+    input.value = numberValue.toString();
+    this.tripForm.get('numberOfSeats')?.setValue(numberValue);
+
+    // Clear API errors if any
+    this.onFormFieldChange('numberOfSeats');
+  }
+
+  // 5. Update adjustSeats method (around line 649)
+  adjustSeats(increment: number): void {
+    const currentValue = this.tripForm.get('numberOfSeats')?.value || 1;
+    let newValue = currentValue + increment;
+
+    // Apply constraints - CHANGE FROM 8 TO 3
+    if (newValue < 1) newValue = 1;
+    if (newValue > 3) newValue = 3; // ← CHANGE FROM > 8 TO > 3
+
+    this.tripForm.get('numberOfSeats')?.setValue(newValue);
+    this.onFormFieldChange('numberOfSeats');
+  }
+
+  // 6. Update error message in getFieldError method (around line 396)
+  private readonly errorMessages: { [key: string]: { [key: string]: string } } = {
+    destination: {
+      required: 'الوجهة مطلوبة',
+      minlength: 'يجب أن تحتوي الوجهة على حرفين على الأقل',
+      onlySpaces: 'الوجهة لا يمكن أن تحتوي على مسافات فقط'
+    },
+    origin: {
+      required: 'نقطة الانطلاق مطلوبة',
+      minlength: 'يجب أن تحتوي نقطة الانطلاق على حرفين على الأقل',
+      onlySpaces: 'نقطة الانطلاق لا يمكن أن تحتوي على مسافات فقط'
+    },
+    arrivalTime: {
+      required: 'وقت الوصول المطلوب مطلوب',
+      incompleteTime: 'يرجى إدخال الساعة والدقيقة والفترة كاملة'
+    },
+    startDate: {
+      required: 'تاريخ بدء الرحلات مطلوب',
+      pastDate: 'تاريخ البدء لا يمكن أن يكون في الماضي'
+    },
+    departureTime: {
+      required: 'وقت المغادرة مطلوب',
+      incompleteTime: 'يرجى إدخال الساعة والدقيقة والفترة كاملة'
+    },
+    endDate: {
+      required: 'تاريخ العودة مطلوب',
+      pastDate: 'تاريخ العودة لا يمكن أن يكون في الماضي'
+    },
+    numberOfSeats: {
+      required: 'عدد المقاعد مطلوب',
+      min: 'عدد المقاعد يجب أن يكون 1 على الأقل',
+      max: 'عدد المقاعد لا يمكن أن يتجاوز 3'
+    }
+  };
+
 }
