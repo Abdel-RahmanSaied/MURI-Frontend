@@ -95,19 +95,29 @@ export class SignupComponent {
   }
 
   // Custom validator for password confirmation
-  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
-    const password = control.get('password');
-    const confirmPassword = control.get('confirm_password');
+passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+  const password = control.get('password');
+  const confirmPassword = control.get('confirm_password');
 
-    if (password && confirmPassword && password.value !== confirmPassword.value) {
-      confirmPassword.setErrors({ passwordMismatch: true });
-      return { passwordMismatch: true };
-    }
-
-
-
+  if (!password || !confirmPassword) {
     return null;
   }
+
+  if (password.value !== confirmPassword.value) {
+    // Passwords don't match - set error
+    confirmPassword.setErrors({ passwordMismatch: true });
+    return { passwordMismatch: true };
+  } else {
+    // Passwords match - clear the mismatch error but preserve other errors
+    const errors = confirmPassword.errors;
+    if (errors) {
+      delete errors['passwordMismatch'];
+      // If no other errors remain, set errors to null
+      confirmPassword.setErrors(Object.keys(errors).length === 0 ? null : errors);
+    }
+    return null;
+  }
+}
 
 
 
