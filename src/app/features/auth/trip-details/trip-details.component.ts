@@ -38,22 +38,24 @@ export class TripDetailsComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private tripDetailService: TripDetailService,
-    private CookieService:CookieService
+    private CookieService: CookieService
   ) {
     this.tripForm = this.fb.group({
       tripType: ['one-way', [Validators.required]],
       destination: ['', [Validators.required, Validators.minLength(2), this.noOnlySpacesValidator]],
       origin: ['', [Validators.required, Validators.minLength(2), this.noOnlySpacesValidator]],
       arrivalTime: ['', [Validators.required, this.completeTimeValidator]],
-      startDate: ['', [Validators.required, this.futureDateValidator]],
+      // Apply combined date validator to startDate
+      startDate: ['', [Validators.required, this.dateValidator.bind(this)]],
       departureTime: [''],
+      // Apply combined date validator to endDate (will be updated in trip type change)
       endDate: [''],
       numberOfSeats: [null, [Validators.required, Validators.min(1), Validators.max(3)]]
     }, { validators: [this.dateSequenceValidator, this.timeLogicValidator] });
   }
 
   ngOnInit(): void {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0)
     this.initializeForm();
     this.setupFormSubscriptions();
     this.initializeTimeValues();
@@ -69,18 +71,6 @@ export class TripDetailsComponent implements OnInit {
     return null;
   }
 
-  private futureDateValidator(control: AbstractControl): ValidationErrors | null {
-    if (control.value) {
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      const selectedDate = new Date(control.value);
-
-      if (selectedDate < today) {
-        return { pastDate: true };
-      }
-    }
-    return null;
-  }
 
 
   // Form-level validators
@@ -197,7 +187,8 @@ export class TripDetailsComponent implements OnInit {
     if (type === 'round-trip') {
       // Set validators for round-trip
       departureTimeControl?.setValidators([Validators.required, this.completeTimeValidator]);
-      endDateControl?.setValidators([Validators.required, this.futureDateValidator]);
+      // Apply the combined date validator to endDate
+      endDateControl?.setValidators([Validators.required, this.dateValidator.bind(this)]);
 
       // Ensure endDate has a valid value if empty
       if (!endDateControl?.value) {
@@ -227,6 +218,7 @@ export class TripDetailsComponent implements OnInit {
       this.tripForm.updateValueAndValidity();
     }, 0);
   }
+
 
   private handleStartDateChange(startDate: string): void {
     const endDateControl = this.tripForm.get('endDate');
@@ -684,16 +676,16 @@ export class TripDetailsComponent implements OnInit {
         error: (error) => {
           console.error('Error submitting trip details:', error);
           this.isSubmitting = false;
-          console.log('code:',error.error.code)
-          if ( error.status === 401){
+          console.log('code:', error.error.code)
+          if (error.status === 401) {
             this.server500Error = 'يرجى التسجيل اولا ';
-           setTimeout(()=>{
-            this.router.navigate(['/signup'])
-           },3000)
-          }else if ( error.status === 500 ) {
+            setTimeout(() => {
+              this.router.navigate(['/signup'])
+            }, 3000)
+          } else if (error.status === 500) {
             this.server500Error = 'حدث خطأ في الخادم. يرجى المحاولة مرة أخرى لاحقًا.';
-          } else if (error.status == 403){
-               this.server500Error = 'ليس لديك صلاحيه استخدام هذه الخدمة';
+          } else if (error.status == 403) {
+            this.server500Error = 'ليس لديك صلاحيه استخدام هذه الخدمة';
           }
           // Handle API errors and display them under specific fields
           this.handleApiError(error);
@@ -756,13 +748,13 @@ export class TripDetailsComponent implements OnInit {
     // alert('حدث خطأ أثناء إرسال البيانات. يرجى المحاولة مرة أخرى.');
   }
   isInvalidHour(hourValue: string): boolean {
-  if (!hourValue) return false; // Don't show error when empty
-  
-  const hourNum = parseInt(hourValue, 10);
-  
-  // Show error for 00, 0, or any invalid hour (less than 1 or greater than 12)
-  return hourNum === 0 || hourNum < 1 || hourNum > 12 || isNaN(hourNum);
-}
+    if (!hourValue) return false; // Don't show error when empty
+
+    const hourNum = parseInt(hourValue, 10);
+
+    // Show error for 00, 0, or any invalid hour (less than 1 or greater than 12)
+    return hourNum === 0 || hourNum < 1 || hourNum > 12 || isNaN(hourNum);
+  }
   // Helper method to scroll to error field
   private scrollToError(fieldName: string): void {
     setTimeout(() => {
@@ -921,6 +913,7 @@ export class TripDetailsComponent implements OnInit {
   }
   // 6. Update error message in getFieldError method (around line 396)
   private readonly errorMessages: { [key: string]: { [key: string]: string } } = {
+
     destination: {
       required: 'الوجهة مطلوبة',
       minlength: 'يجب أن تحتوي الوجهة على حرفين على الأقل',
@@ -937,21 +930,177 @@ export class TripDetailsComponent implements OnInit {
     },
     startDate: {
       required: 'تاريخ بدء الرحلات مطلوب',
-      pastDate: 'تاريخ البدء لا يمكن أن يكون في الماضي'
+      pastDate: 'تاريخ البدء لا يمكن أن يكون في الماضي',
+      invalidDateFormat: 'تنسيق التاريخ غير صحيح. يجب أن يكون بصيغة YYYY-MM-DD',
+      invalidYearFormat: 'السنة يجب أن تكون 4 أرقام فقط (مثل: 2024)',
+      invalidDate: 'التاريخ المدخل غير صحيح'
+    },
+    endDate: {
+      required: 'تاريخ العودة مطلوب',
+      pastDate: 'تاريخ العودة لا يمكن أن يكون في الماضي',
+      invalidDateFormat: 'تنسيق التاريخ غير صحيح. يجب أن يكون بصيغة YYYY-MM-DD',
+      invalidYearFormat: 'السنة يجب أن تكون 4 أرقام فقط (مثل: 2024)',
+      invalidDate: 'التاريخ المدخل غير صحيح'
     },
     departureTime: {
       required: 'وقت المغادرة مطلوب',
       incompleteTime: 'يرجى إدخال الساعة والدقيقة والفترة كاملة'
     },
-    endDate: {
-      required: 'تاريخ العودة مطلوب',
-      pastDate: 'تاريخ العودة لا يمكن أن يكون في الماضي'
-    },
+
     numberOfSeats: {
       required: 'عدد المقاعد مطلوب',
       min: 'عدد المقاعد يجب أن يكون 1 على الأقل',
       max: 'عدد المقاعد لا يمكن أن يتجاوز 3'
     }
   };
+  onDateInputChange(event: Event, fieldName: string): void {
+    const input = event.target as HTMLInputElement;
+    let value = input.value;
 
+    // Remove any non-allowed characters (keep only digits and hyphens)
+    value = value.replace(/[^\d-]/g, '');
+
+    // Ensure proper format as user types
+    if (value.length <= 10) {
+      // Format as YYYY-MM-DD while typing
+      if (value.length === 4 && !value.includes('-')) {
+        value = value + '-';
+      } else if (value.length === 7 && value.split('-').length === 2) {
+        value = value + '-';
+      }
+    }
+
+    // Limit to 10 characters (YYYY-MM-DD)
+    if (value.length > 10) {
+      value = value.substring(0, 10);
+    }
+
+    // Update input value
+    input.value = value;
+
+    // Update form control
+    this.tripForm.get(fieldName)?.setValue(value);
+
+    // Clear API errors if any
+    this.onFormFieldChange(fieldName);
+  }
+  onDateKeyDown(event: KeyboardEvent): void {
+    const allowedKeys = [
+      'Backspace', 'Delete', 'Tab', 'Enter', 'Escape',
+      'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown',
+      'Home', 'End'
+    ];
+
+    // Allow control keys
+    if (allowedKeys.includes(event.key)) {
+      return;
+    }
+
+    // Allow Ctrl/Cmd combinations
+    if (event.ctrlKey || event.metaKey) {
+      return;
+    }
+
+    // Only allow digits and hyphens
+    if (!/^[0-9-]$/.test(event.key)) {
+      event.preventDefault();
+      return;
+    }
+
+    const input = event.target as HTMLInputElement;
+    const currentValue = input.value;
+
+    // Don't allow more than 2 hyphens
+    if (event.key === '-' && currentValue.split('-').length > 2) {
+      event.preventDefault();
+      return;
+    }
+
+    // Don't allow input beyond 10 characters
+    if (currentValue.length >= 10 && !allowedKeys.includes(event.key)) {
+      event.preventDefault();
+    }
+  }
+
+
+  // 1. Year format validator - ensures year is exactly 4 digits
+  private yearFormatValidator(control: AbstractControl): ValidationErrors | null {
+    if (!control.value) {
+      return null; // Don't validate empty values
+    }
+
+    const dateValue = control.value;
+
+    // Check if the date string follows YYYY-MM-DD format
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!dateRegex.test(dateValue)) {
+      return { invalidDateFormat: true };
+    }
+
+    // Extract year and validate it's exactly 4 digits
+    const year = dateValue.split('-')[0];
+    const yearNum = parseInt(year, 10);
+
+    // Check if year is exactly 4 digits and within reasonable range
+    if (year.length !== 4 || yearNum < 1900 || yearNum > 2100) {
+      return { invalidYearFormat: true };
+    }
+
+    // Validate that it's a real date
+    const dateObj = new Date(dateValue);
+    if (dateObj.toString() === 'Invalid Date') {
+      return { invalidDate: true };
+    }
+
+    return null;
+  }
+
+  // 2. Enhanced future date validator - must be after current date/time
+  private futureDateValidator(control: AbstractControl): ValidationErrors | null {
+    if (!control.value) {
+      return null; // Don't validate empty values
+    }
+
+    const selectedDateStr = control.value;
+    const selectedDate = new Date(selectedDateStr);
+
+    // Validate that it's a real date first
+    if (selectedDate.toString() === 'Invalid Date') {
+      return { invalidDate: true };
+    }
+
+    const now = new Date();
+
+    // Set both dates to start of day for comparison (00:00:00)
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const selectedDateStart = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate());
+
+    // Date must be today or in the future
+    if (selectedDateStart < todayStart) {
+      return { pastDate: true };
+    }
+
+    return null;
+  }
+
+  // 3. Combined date validator that checks both format and future date
+  private dateValidator(control: AbstractControl): ValidationErrors | null {
+    if (!control.value) {
+      return null;
+    }
+
+    // First check year format
+    const yearFormatError = this.yearFormatValidator(control);
+    if (yearFormatError) {
+      return yearFormatError;
+    }
+
+    // Then check if it's not in the past
+    const futureDateError = this.futureDateValidator(control);
+    if (futureDateError) {
+      return futureDateError;
+    }
+
+    return null;
+  }
 }
