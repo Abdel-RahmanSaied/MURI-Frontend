@@ -43,6 +43,8 @@ body {
     font-family: $font-arabic;
     direction: rtl;
     overflow: hidden;
+    height: 100% !important;
+    flex: 1;
 
 }
 
@@ -51,13 +53,18 @@ body {
 // ========================================
 
 .sign-up-container {
-    position: relative;
+    min-height: 100vh;
     width: 100vw;
-    height: 100vh;
+    height: 100%;
+    flex: 1;
     background: $slate-50;
     background-image: url(../../../../assets/image/done\ regist\ -\ \(\ demo\).png);
     background-position: cover;
     background-size: cover;
+    direction: rtl;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -67,13 +74,7 @@ body {
 // ========================================
 
 .modal-container {
-    top: 49px;
-    left: 358px;
-    width: 672px;
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    width: fit-content;
 
     .modal-content {
         background: $white;
