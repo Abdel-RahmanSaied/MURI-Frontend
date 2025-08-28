@@ -165,13 +165,10 @@
 
                                         <div class="time-segment">
                                             <input
-                                                type="number"
+                                                type="text"
                                                 class="time-field minute-field"
                                                 placeholder="00"
                                                 maxlength="2"
-                                                [maxLength]="2"
-                                                min="0"
-                                                max="59"
                                                 pattern="[0-9]*"
                                                 inputmode="numeric"
                                                 (keydown)="onTimeKeyDown($event)"
@@ -184,13 +181,10 @@
                                         <div class="time-separator">:</div>
                                         <div class="time-segment">
                                             <input
-                                                type="number"
+                                                type="text"
                                                 class="time-field hour-field"
                                                 placeholder="00"
                                                 maxlength="2"
-                                                [maxLength]="2"
-                                                min="0"
-                                                max="59"
                                                 pattern="[0-9]*"
                                                 inputmode="numeric"
                                                 (keydown)="onTimeKeyDown($event)"
@@ -234,13 +228,10 @@
                                         <div class="time-segment">
 
                                             <input
-                                                type="number"
+                                                type="text"
                                                 class="time-field minute-field"
                                                 placeholder="00"
                                                 maxlength="2"
-                                                [maxLength]="2"
-                                                min="0"
-                                                max="59"
                                                 pattern="[0-9]*"
                                                 inputmode="numeric"
                                                 (keydown)="onTimeKeyDown($event)"
@@ -256,13 +247,10 @@
                                         <div class="time-segment">
 
                                             <input
-                                                type="number"
+                                                type="text"
                                                 class="time-field hour-field"
                                                 placeholder="00"
                                                 maxlength="2"
-                                                [maxLength]="2"
-                                                min="0"
-                                                max="59"
                                                 pattern="[0-9]*"
                                                 inputmode="numeric"
                                                 (keydown)="onTimeKeyDown($event)"
@@ -326,6 +314,9 @@
                     </div>
                     <!-- Submit Button -->
                     <div class="submit-section">
+                        @if (server500Error){
+                        <span class="error">{{server500Error}}</span>
+                        }
                         <button type="submit" class="submit-button" [disabled]="!isFormValid()">
                             تأكيد
                         </button>

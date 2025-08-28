@@ -659,8 +659,7 @@ export class TripDetailsComponent implements OnInit {
 
     return formData;
   }
-  errr = ''
-  token = localStorage.getItem('admin_access_token')
+  server500Error = ''
   private async submitTripDetails(data: TripFormData): Promise<void> {
     if (this.isSubmitting) {
       return;
@@ -685,9 +684,13 @@ export class TripDetailsComponent implements OnInit {
           console.error('Error submitting trip details:', error);
           this.isSubmitting = false;
           console.log('code:',error.error.code)
-          this.errr = error.error
           if ( error.status === 401){
+            this.server500Error = 'يرجى التسجيل اولا ';
+           setTimeout(()=>{
             this.router.navigate(['/signup'])
+           },3000)
+          }else if ( error.status === 500 ) {
+            this.server500Error = 'حدث خطأ في الخادم. يرجى المحاولة مرة أخرى لاحقًا.';
           }
           // Handle API errors and display them under specific fields
           this.handleApiError(error);
