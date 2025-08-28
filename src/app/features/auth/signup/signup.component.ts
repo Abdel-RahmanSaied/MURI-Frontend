@@ -4,8 +4,7 @@ import { SignupService } from '../services/signup-services/signup.service'
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
 import { Router } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http'; // Add this import
-
+import { HttpClientModule } from '@angular/common/http';
 import {
   SearchCountryField,
   CountryISO,
@@ -56,21 +55,22 @@ export class SignupComponent {
     private signupService: SignupService,
     private router: Router
   ) {
+    window.scrollTo(0,0)
     this.SignupForm = this.fb.group({
 
       email: ['', [Validators.required, Validators.email, emailWithDotValidator(), emailNoArabicValidator()]],
 
       first_name: [
         '',
-        [Validators.required, Validators.pattern(/^\p{L}[\p{L}\s]*$/u),Validators.minLength(2)] 
+        [Validators.required, Validators.pattern(/^\p{L}[\p{L}\s]*$/u), Validators.minLength(2)]
       ],
       second_name: [
         '',
-        [Validators.required, Validators.pattern(/^\p{L}[\p{L}\s]*$/u),Validators.minLength(2)] 
+        [Validators.required, Validators.pattern(/^\p{L}[\p{L}\s]*$/u), Validators.minLength(2)]
       ],
       last_name: [
         '',
-        [Validators.required, Validators.pattern(/^\p{L}[\p{L}\s]*$/u),Validators.minLength(2)] 
+        [Validators.required, Validators.pattern(/^\p{L}[\p{L}\s]*$/u), Validators.minLength(2)]
       ],
       phone: ['', [Validators.required, validatePhoneNumber]],
       password: ['', [Validators.required, Validators.minLength(8),
@@ -95,29 +95,29 @@ export class SignupComponent {
   }
 
   // Custom validator for password confirmation
-passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
-  const password = control.get('password');
-  const confirmPassword = control.get('confirm_password');
+  passwordMatchValidator(control: AbstractControl): ValidationErrors | null {
+    const password = control.get('password');
+    const confirmPassword = control.get('confirm_password');
 
-  if (!password || !confirmPassword) {
-    return null;
-  }
-
-  if (password.value !== confirmPassword.value) {
-    // Passwords don't match - set error
-    confirmPassword.setErrors({ passwordMismatch: true });
-    return { passwordMismatch: true };
-  } else {
-    // Passwords match - clear the mismatch error but preserve other errors
-    const errors = confirmPassword.errors;
-    if (errors) {
-      delete errors['passwordMismatch'];
-      // If no other errors remain, set errors to null
-      confirmPassword.setErrors(Object.keys(errors).length === 0 ? null : errors);
+    if (!password || !confirmPassword) {
+      return null;
     }
-    return null;
+
+    if (password.value !== confirmPassword.value) {
+      // Passwords don't match - set error
+      confirmPassword.setErrors({ passwordMismatch: true });
+      return { passwordMismatch: true };
+    } else {
+      // Passwords match - clear the mismatch error but preserve other errors
+      const errors = confirmPassword.errors;
+      if (errors) {
+        delete errors['passwordMismatch'];
+        // If no other errors remain, set errors to null
+        confirmPassword.setErrors(Object.keys(errors).length === 0 ? null : errors);
+      }
+      return null;
+    }
   }
-}
 
 
 

@@ -8,7 +8,7 @@
                         <div class="back-icon">
                             <img src="assets/icons/chevron-back.svg" alt="رجوع">
                         </div>
-                        <span class="back-text">العودة إلى تسجيل الدخول</span>
+                        <span class="back-text">العودة إلى التسجيل </span>
 
                     </div>
 
@@ -175,6 +175,7 @@
                                                 [value]="getTimeValue('arrivalTime', 'minute')"
                                                 (input)="onTimeSegmentChange('minute', $any($event.target).value, 'arrivalTime')"
                                                 dir="ltr">
+
                                         </div>
 
                                         <!-- Separator -->
@@ -191,6 +192,10 @@
                                                 [value]="getTimeValue('arrivalTime', 'hour')"
                                                 (input)="onTimeSegmentChange('hour', $any($event.target).value, 'arrivalTime')"
                                                 dir="ltr">
+
+                                            @if (isInvalidHour(getTimeValue('arrivalTime', 'hour'))) {
+                                            <span class="error">التوقيت غير صالح</span>
+                                            }
                                         </div>
 
                                         <!-- Clock Icon -->
@@ -257,6 +262,9 @@
                                                 [value]="getTimeValue('departureTime', 'hour')"
                                                 (input)="onTimeSegmentChange('hour', $any($event.target).value, 'departureTime')"
                                                 dir="ltr">
+                                            @if (getTimeValue('departureTime', 'hour') == '00') {
+                                            <span class="error">التوقيت غير صالح</span>
+                                            }
                                         </div>
 
                                         <!-- Clock Icon -->
@@ -317,7 +325,7 @@
                         @if (server500Error){
                         <span class="error">{{server500Error}}</span>
                         }
-                        <button type="submit" class="submit-button" [disabled]="!isFormValid()">
+                        <button type="submit" class="submit-button">
                             تأكيد
                         </button>
                     </div>

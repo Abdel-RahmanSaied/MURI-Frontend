@@ -53,6 +53,7 @@ export class TripDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.scrollTo(0,0)
     this.initializeForm();
     this.setupFormSubscriptions();
     this.initializeTimeValues();
@@ -691,6 +692,8 @@ export class TripDetailsComponent implements OnInit {
            },3000)
           }else if ( error.status === 500 ) {
             this.server500Error = 'حدث خطأ في الخادم. يرجى المحاولة مرة أخرى لاحقًا.';
+          } else if (error.status == 403){
+               this.server500Error = 'ليس لديك صلاحيه استخدام هذه الخدمة';
           }
           // Handle API errors and display them under specific fields
           this.handleApiError(error);
@@ -752,6 +755,14 @@ export class TripDetailsComponent implements OnInit {
     // Fallback for unhandled errors
     // alert('حدث خطأ أثناء إرسال البيانات. يرجى المحاولة مرة أخرى.');
   }
+  isInvalidHour(hourValue: string): boolean {
+  if (!hourValue) return false; // Don't show error when empty
+  
+  const hourNum = parseInt(hourValue, 10);
+  
+  // Show error for 00, 0, or any invalid hour (less than 1 or greater than 12)
+  return hourNum === 0 || hourNum < 1 || hourNum > 12 || isNaN(hourNum);
+}
   // Helper method to scroll to error field
   private scrollToError(fieldName: string): void {
     setTimeout(() => {
@@ -921,7 +932,7 @@ export class TripDetailsComponent implements OnInit {
       onlySpaces: 'نقطة الانطلاق لا يمكن أن تحتوي على مسافات فقط'
     },
     arrivalTime: {
-      required: 'وقت الوصول المطلوب مطلوب',
+      required: 'وقت الوصول مطلوب',
       incompleteTime: 'يرجى إدخال الساعة والدقيقة والفترة كاملة'
     },
     startDate: {
