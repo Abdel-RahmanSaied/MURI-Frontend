@@ -683,7 +683,10 @@ export class TripDetailsComponent implements OnInit {
         error: (error) => {
           console.error('Error submitting trip details:', error);
           this.isSubmitting = false;
-
+          console.log('code:',error.error.code)
+          if ( error.status === 401){
+            this.router.navigate(['/signup'])
+          }
           // Handle API errors and display them under specific fields
           this.handleApiError(error);
         },
