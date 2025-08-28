@@ -659,7 +659,8 @@ export class TripDetailsComponent implements OnInit {
 
     return formData;
   }
-
+  errr = ''
+  token = localStorage.getItem('admin_access_token')
   private async submitTripDetails(data: TripFormData): Promise<void> {
     if (this.isSubmitting) {
       return;
@@ -684,6 +685,7 @@ export class TripDetailsComponent implements OnInit {
           console.error('Error submitting trip details:', error);
           this.isSubmitting = false;
           console.log('code:',error.error.code)
+          this.errr = error.error
           if ( error.status === 401){
             this.router.navigate(['/signup'])
           }
