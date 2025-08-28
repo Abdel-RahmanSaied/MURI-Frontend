@@ -772,3 +772,6 @@ body {
 .invalid {
     border-color: rgba(178, 34, 34, 1);
 }
+::ng-deep .error{
+    white-space: nowrap;
+}

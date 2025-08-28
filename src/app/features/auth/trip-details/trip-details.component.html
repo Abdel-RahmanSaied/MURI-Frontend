@@ -169,7 +169,12 @@
                                                 class="time-field minute-field"
                                                 placeholder="00"
                                                 maxlength="2"
-
+                                                [maxLength]="2"
+                                                min="0"
+                                                max="59"
+                                                pattern="[0-9]*"
+                                                inputmode="numeric"
+                                                (keydown)="onTimeKeyDown($event)"
                                                 [value]="getTimeValue('arrivalTime', 'minute')"
                                                 (input)="onTimeSegmentChange('minute', $any($event.target).value, 'arrivalTime')"
                                                 dir="ltr">
@@ -181,8 +186,14 @@
                                             <input
                                                 type="number"
                                                 class="time-field hour-field"
-                                                placeholder="12"
+                                                placeholder="00"
                                                 maxlength="2"
+                                                [maxLength]="2"
+                                                min="0"
+                                                max="59"
+                                                pattern="[0-9]*"
+                                                inputmode="numeric"
+                                                (keydown)="onTimeKeyDown($event)"
                                                 [value]="getTimeValue('arrivalTime', 'hour')"
                                                 (input)="onTimeSegmentChange('hour', $any($event.target).value, 'arrivalTime')"
                                                 dir="ltr">
@@ -227,6 +238,12 @@
                                                 class="time-field minute-field"
                                                 placeholder="00"
                                                 maxlength="2"
+                                                [maxLength]="2"
+                                                min="0"
+                                                max="59"
+                                                pattern="[0-9]*"
+                                                inputmode="numeric"
+                                                (keydown)="onTimeKeyDown($event)"
                                                 [value]="getTimeValue('departureTime', 'minute')"
                                                 (input)="onTimeSegmentChange('minute', $any($event.target).value, 'departureTime')"
                                                 dir="ltr">
@@ -241,8 +258,14 @@
                                             <input
                                                 type="number"
                                                 class="time-field hour-field"
-                                                placeholder="12"
+                                                placeholder="00"
                                                 maxlength="2"
+                                                [maxLength]="2"
+                                                min="0"
+                                                max="59"
+                                                pattern="[0-9]*"
+                                                inputmode="numeric"
+                                                (keydown)="onTimeKeyDown($event)"
                                                 [value]="getTimeValue('departureTime', 'hour')"
                                                 (input)="onTimeSegmentChange('hour', $any($event.target).value, 'departureTime')"
                                                 dir="ltr">

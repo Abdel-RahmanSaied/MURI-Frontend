@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TripDetailService, TripApiRequest } from '../services/trip-details-service/trip-detail.service';
+import { CookieService } from 'ngx-cookie-service';
 
 export interface TripFormData {
   tripType: 'one-way' | 'round-trip';
@@ -36,7 +37,8 @@ export class TripDetailsComponent implements OnInit {
   constructor(
     private router: Router,
     private fb: FormBuilder,
-    private tripDetailService: TripDetailService
+    private tripDetailService: TripDetailService,
+    private CookieService:CookieService
   ) {
     this.tripForm = this.fb.group({
       tripType: ['one-way', [Validators.required]],
@@ -46,7 +48,7 @@ export class TripDetailsComponent implements OnInit {
       startDate: ['', [Validators.required, this.futureDateValidator]],
       departureTime: [''],
       endDate: [''],
-      numberOfSeats: [1, [Validators.required, Validators.min(1), Validators.max(3)]]
+      numberOfSeats: [null, [Validators.required, Validators.min(1), Validators.max(3)]]
     }, { validators: [this.dateSequenceValidator, this.timeLogicValidator] });
   }
 
@@ -55,6 +57,8 @@ export class TripDetailsComponent implements OnInit {
     this.setupFormSubscriptions();
     this.initializeTimeValues();
   }
+
+
 
   // Custom Validators
   private noOnlySpacesValidator(control: AbstractControl): ValidationErrors | null {
@@ -873,7 +877,29 @@ export class TripDetailsComponent implements OnInit {
     this.tripForm.get('numberOfSeats')?.setValue(newValue);
     this.onFormFieldChange('numberOfSeats');
   }
+  onTimeKeyDown(event: KeyboardEvent): void {
+    const allowedKeys = [
+      'Backspace', 'Delete', 'Tab', 'Enter', 'Escape',
+      'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown',
+      'Home', 'End', 'Clear'
+    ];
 
+    // Allow control keys
+    if (allowedKeys.includes(event.key)) {
+      return;
+    }
+
+    // Allow Ctrl/Cmd combinations (copy, paste, etc.)
+    if (event.ctrlKey || event.metaKey) {
+      return;
+    }
+
+    // Block everything except digits
+    if (!/^[0-9]$/.test(event.key)) {
+      event.preventDefault();
+      return;
+    }
+  }
   // 6. Update error message in getFieldError method (around line 396)
   private readonly errorMessages: { [key: string]: { [key: string]: string } } = {
     destination: {

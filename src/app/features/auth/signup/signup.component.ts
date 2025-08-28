@@ -62,15 +62,15 @@ export class SignupComponent {
 
       first_name: [
         '',
-        [Validators.required, Validators.pattern(/^\p{L}[\p{L}\s]*$/u)] // Accepts letters and spaces from any language
+        [Validators.required, Validators.pattern(/^\p{L}[\p{L}\s]*$/u),Validators.minLength(2)] 
       ],
       second_name: [
         '',
-        [Validators.required, Validators.pattern(/^\p{L}[\p{L}\s]*$/u)] // Accepts letters and spaces from any language
+        [Validators.required, Validators.pattern(/^\p{L}[\p{L}\s]*$/u),Validators.minLength(2)] 
       ],
       last_name: [
         '',
-        [Validators.required, Validators.pattern(/^\p{L}[\p{L}\s]*$/u)] // Accepts letters and spaces from any language
+        [Validators.required, Validators.pattern(/^\p{L}[\p{L}\s]*$/u),Validators.minLength(2)] 
       ],
       phone: ['', [Validators.required, validatePhoneNumber]],
       password: ['', [Validators.required, Validators.minLength(8),
@@ -136,7 +136,7 @@ export class SignupComponent {
       }
 
       // Validate file size (5MB max)
-      if (file.size > 5 * 1024 * 1024) {
+      if (file.size > 3 * 1024 * 1024) {
         profilePicControl?.setErrors({ maxSize: true });
         // Clear the selected file
         this.selectedFile = null;

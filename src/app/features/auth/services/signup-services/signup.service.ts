@@ -30,7 +30,7 @@ export class SignupService {
   constructor(
     private http: HttpClient,
     private cookieService: CookieService
-  ) {}
+  ) { }
 
   /**
    * Handles user signup with form data
@@ -60,7 +60,7 @@ export class SignupService {
    */
   private normalizeFormData(formData: FormData): void {
     const textFields = ['email', 'first_name', 'second_name', 'last_name', 'nationality'];
-    
+
     textFields.forEach(field => {
       const value = formData.get(field);
       if (typeof value === 'string') {
@@ -90,7 +90,7 @@ export class SignupService {
    */
   private handleSignupSuccess(response: SignupResponse): void {
     if (response?.access_token) {
-      this.storeAuthData(response);
+      this.LocalstoreAuthData(response);
     }
   }
 
@@ -99,7 +99,7 @@ export class SignupService {
    */
   private handleSignupError(error: HttpErrorResponse): Observable<never> {
     console.error('Signup error:', error);
-      return throwError(() => error);
+    return throwError(() => error);
 
     const userMessage = error.error?.message || 'Signup failed. Please try again.';
     return throwError(() => new Error(userMessage));
@@ -111,7 +111,7 @@ export class SignupService {
   private storeAuthData(response: SignupResponse): void {
     try {
       const token = response.access_token;
-      
+
       this.cookieService.set(
         this.TOKEN_KEY,
         token,
@@ -121,6 +121,14 @@ export class SignupService {
         true,
         'Strict'
       );
+    } catch (error) {
+      console.error('Error storing auth data:', error);
+    }
+  }
+  private LocalstoreAuthData(response: SignupResponse): void {
+    try {
+      const token = response.access_token;
+      localStorage.setItem(this.TOKEN_KEY, token);
     } catch (error) {
       console.error('Error storing auth data:', error);
     }
@@ -144,7 +152,7 @@ export class SignupService {
    */
   getToken(): string | null {
     try {
-      return this.cookieService.get(this.TOKEN_KEY) || null;
+      return localStorage.getItem(this.TOKEN_KEY) || null;
     } catch (error) {
       console.error('Token retrieval error:', error);
       return null;

@@ -125,7 +125,7 @@
                             }
                             @if (SignupForm.get('profile_pic')?.errors?.['maxSize'] &&
                             (SignupForm.get('profile_pic')?.touched || submitted)) {
-                            <div class="error">حجم الصورة يجب أن يكون أقل من 5 ميجابايت</div>
+                            <div class="error">حجم الصورة يجب أن يكون أقل من 3 ميجابايت</div>
                             }
                             @if (SignupForm.get('profile_pic')?.errors?.['serverError'] &&
                             (SignupForm.get('profile_pic')?.touched || submitted)) {
@@ -150,6 +150,11 @@
                                 (SignupForm.get('first_name')?.touched || submitted)) {
                                 <div class="error">الاسم الأول مطلوب</div>
                                 }
+                                @if (SignupForm.get('first_name')?.errors?.['minlength'] &&
+                                (SignupForm.get('first_name')?.dirty || SignupForm.get('first_name')?.touched
+                                || submitted)) {
+                                <div class="error">يجب ان يكون حرفين على الأقل </div>
+                                }
                                 @if (SignupForm.get('first_name')?.errors?.['pattern'] &&
                                 (SignupForm.get('first_name')?.touched || submitted)) {
                                 <div class="error">الاسم يجب أن يحتوي على أحرف فقط</div>
@@ -158,6 +163,7 @@
                                 (SignupForm.get('first_name')?.touched || submitted)) {
                                 <div class="error">{{ SignupForm.get('first_name')?.errors?.['serverError'] }}</div>
                                 }
+
                             </div>
 
                             <!-- Second Name -->
@@ -178,6 +184,11 @@
                                 @if (SignupForm.get('second_name')?.errors?.['pattern'] &&
                                 (SignupForm.get('second_name')?.touched || submitted)) {
                                 <div class="error">الاسم يجب أن يحتوي على أحرف فقط</div>
+                                }
+                                @if (SignupForm.get('second_name')?.errors?.['minlength'] &&
+                                (SignupForm.get('second_name')?.dirty || SignupForm.get('second_name')?.touched
+                                || submitted)) {
+                                <div class="error">يجب ان يكون حرفين على الأقل </div>
                                 }
                                 @if (SignupForm.get('second_name')?.errors?.['serverError'] &&
                                 (SignupForm.get('second_name')?.touched || submitted)) {
@@ -203,6 +214,11 @@
                                 @if (SignupForm.get('last_name')?.errors?.['pattern'] &&
                                 (SignupForm.get('last_name')?.touched || submitted)) {
                                 <div class="error">الاسم يجب أن يحتوي على أحرف فقط</div>
+                                }
+                                @if (SignupForm.get('last_name')?.errors?.['minlength'] &&
+                                (SignupForm.get('last_name')?.dirty || SignupForm.get('last_name')?.touched
+                                || submitted)) {
+                                <div class="error">يجب ان يكون حرفين على الأقل </div>
                                 }
                                 @if (SignupForm.get('last_name')?.errors?.['serverError'] &&
                                 (SignupForm.get('last_name')?.touched || submitted)) {
@@ -455,7 +471,7 @@
                                     onkeypress='return /[A-Za-z0-9!@_#$%^&*(),.?":{}|<>]/.test(String.fromCharCode(event.charCode))'
                                     [class.invalid]="SignupForm.get('password')?.invalid && (SignupForm.get('password')?.touched || submitted)">
                                 <div class="eye-icon">
-                                      @if (!showPassword) {
+                                    @if (!showPassword) {
                                     <svg (click)="togglePasswordVisibility()" xmlns="http://www.w3.org/2000/svg"
                                         width="20px" height="20px" viewBox="0 0 24 24" fill="none">
                                         <path d="M2 2L22 22" stroke="#000000" stroke-width="2" stroke-linecap="round"
@@ -470,7 +486,8 @@
                                             stroke-linejoin="round" />
                                     </svg>
                                     } @else {
-                                    <svg (click)="togglePasswordVisibility()" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
+                                    <svg (click)="togglePasswordVisibility()" xmlns="http://www.w3.org/2000/svg"
+                                        width="20px" height="20px"
                                         viewBox="0 0 24 24" fill="none">
                                         <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12" stroke="#000000" stroke-width="2"
                                             stroke-linecap="round"
@@ -545,7 +562,8 @@
                                             stroke-linejoin="round" />
                                     </svg>
                                     } @else {
-                                    <svg (click)="toggleConfirmPasswordVisibility()" xmlns="http://www.w3.org/2000/svg" width="20px" height="20px"
+                                    <svg (click)="toggleConfirmPasswordVisibility()" xmlns="http://www.w3.org/2000/svg"
+                                        width="20px" height="20px"
                                         viewBox="0 0 24 24" fill="none">
                                         <path d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12" stroke="#000000" stroke-width="2"
                                             stroke-linecap="round"
@@ -596,7 +614,7 @@
 
                         <!-- Submit Button -->
                         <button type="submit" class="submit-btn">إنشاء حساب</button>
-                        
+
                         <!-- Divider -->
                         <div class="divider">
                             <div class="divider-line"></div>
