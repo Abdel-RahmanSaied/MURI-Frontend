@@ -17,6 +17,7 @@ $text-light: #cad5e2;
 $font-primary: 'IBM Plex Sans Arabic', sans-serif;
 $font-cairo: 'Cairo', sans-serif;
 $font-montserrat: 'Montserrat', sans-serif;
+
 /*-----------------------------------------------------------------------------------
 
     Template Name: Sample - Corporate Business Bootstrap4 HTML5 Template
@@ -8976,6 +8977,27 @@ blockquote cite {
     margin-top: 50px;
 }
 
+.buttonon {
+    font-weight: 500;
+    border: 1px solid #5C82EF;
+    padding: 0 30px;
+    font-size: 15px;
+    line-height: 45px;
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+    z-index: 5;
+    transition: all 0.4s ease-out 0s;
+    background-color: #5C82EF;
+    color: white !important;
+    cursor: pointer;
+    &:hover{
+        background-color: transparent;
+        border: 1px solid #5c82ef;
+        color: #5c82ef !important;
+    }
+}
+
 .buttonx:hover {
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
 }
@@ -9110,6 +9132,7 @@ blockquote cite {
 .iti__dial-code {
     font-size: 14px;
     margin: 0px 6px;
+
     @media (max-width:480px) {
         font-size: 14px;
 
@@ -9174,9 +9197,10 @@ blockquote cite {
     outline: none;
 }
 
-.iti__dropdown-content  {
+.iti__dropdown-content {
     height: 400px;
-    .iti__country-list{
+
+    .iti__country-list {
         height: 350px;
     }
 }
