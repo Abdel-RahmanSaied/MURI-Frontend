@@ -55,7 +55,7 @@ export class TripDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.CookieService.get('admin_access_token')){
+    if (localStorage.getItem('admin_access_token')){
       return
     } else {
       this.router.navigate(['/signup'])
