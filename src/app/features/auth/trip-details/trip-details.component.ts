@@ -684,6 +684,7 @@ export class TripDetailsComponent implements OnInit {
           this.isSubmitting = false;
           console.log('code:', error.error.code)
           if (error.status === 401) {
+            localStorage.clear()
             this.server500Error = 'يرجى التسجيل اولا ';
             setTimeout(() => {
               this.router.navigate(['/signup'])
