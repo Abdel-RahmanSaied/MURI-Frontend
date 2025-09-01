@@ -55,10 +55,16 @@ export class TripDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.CookieService.get('admin_access_token')){
+      return
+    } else {
+      this.router.navigate(['/signup'])
+    }
     window.scrollTo(0, 0)
     this.initializeForm();
     this.setupFormSubscriptions();
     this.initializeTimeValues();
+    
   }
 
 
